@@ -38,11 +38,11 @@
                                 <ul class="personal-info">
                                     <li>
                                         <span class="title">Phone:</span>
-                                        <span class="text"><a href="#">{{$doctordetails->phone}}</a></span>
+                                        <span class="text"><a href="tel:{{$doctordetails->phone}}">{{$doctordetails->phone}}</a></span>
                                     </li>
                                     <li>
                                         <span class="title">Email:</span>
-                                        <span class="text"><a href="#">{{$doctordetails->email}}</a></span>
+                                        <span class="text"><a href="mailto:{{$doctordetails->email}}">{{$doctordetails->email}}</a></span>
                                     </li>
                                     <li>
                                         <span class="title">Birthday:</span>
@@ -67,43 +67,13 @@
     <div class="profile-tabs">
         <ul class="nav nav-tabs nav-tabs-bottom">
             <li class="nav-item"><a class="nav-link active" href="#about-cont" data-toggle="tab">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#edu-cont" data-toggle="tab">Education</a></li>
         </ul>
 
         <div class="tab-content">
             <div class="tab-pane show active" id="about-cont">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card-box">
-                            <h3 class="card-title">Education Informations</h3>
-                            <div class="experience-box">
-                                <ul class="experience-list">
-                                    <li>
-                                        <div class="experience-user">
-                                            <div class="before-circle"></div>
-                                        </div>
-                                        <div class="experience-content">
-                                            <div class="timeline-content">
-                                                <a href="#/" class="name">{{$doctordetails->education_informations}}</a>
-                                                <div>{{$doctordetails->qualification}}</div>
-                                                <span class="time">2001 - 2003</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- <li>
-                                        <div class="experience-user">
-                                            <div class="before-circle"></div>
-                                        </div>
-                                        <div class="experience-content">
-                                            <div class="timeline-content">
-                                                <a href="#/" class="name">International College of Medical Science (PG)</a>
-                                                <div>MD - Obstetrics & Gynaecology</div>
-                                                <span class="time">1997 - 2001</span>
-                                            </div>
-                                        </div>
-                                    </li> -->
-                                </ul>
-                            </div>
-                        </div>
                         <div class="card-box mb-0">
                             <h3 class="card-title">Experience</h3>
                             <div class="experience-box">
@@ -160,8 +130,42 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="bottom-tab2">
-                Tab content 2
+            <div class="tab-pane" id="edu-cont">
+            <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <h3 class="card-title">Education Informations</h3>
+                            <div class="experience-box">
+                                <ul class="experience-list">
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a href="#/" class="name">{{$doctordetails->education_informations}}</a>
+                                                <div>{{$doctordetails->qualification}}</div>
+                                                <span class="time">2001 - 2003</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a href="#/" class="name">International College of Medical Science (PG)</a>
+                                                <div>MD - Obstetrics & Gynaecology</div>
+                                                <span class="time">1997 - 2001</span>
+                                            </div>
+                                        </div>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane" id="bottom-tab3">
                 Tab content 3
@@ -169,7 +173,7 @@
         </div>
     </div>
 </div>
-<div class="notification-box">
+<!-- <div class="notification-box">
     <div class="msg-sidebar notifications msg-noti">
         <div class="topnav-dropdown-header">
             <span>Messages</span>
@@ -377,7 +381,7 @@
             <a href="chat.html">See all messages</a>
         </div>
     </div>
-</div>
+</div> -->
 
 
 

@@ -7,7 +7,7 @@
     }
 
     .animation .p {
-        font-size: 3em;
+        font-size: 2em;
         color: limegreen;
         position: absolute;
         width: 100%;
@@ -65,8 +65,18 @@
     }
 </style>
 @section('content')
+<style>
+     label{
+        color: #003366;
+        font-weight: bold;
+    }
+    ::placeholder{
+        color: #003366;
+
+    }
+</style>
 <div class="content">
-<h4 class="page-title text-center">All Notices </h4>
+<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#fff; font-weight: 900;">Notice</h4>
     <div class="row">
         <div class="animation">
             @foreach($showNotices as $showNotice)
@@ -74,8 +84,8 @@
             @endforeach
 
         </div>
-        <div class="col-md-6 offset-md-3 shadow p-5">
-            <h4 class="page-title text-center">Add Notice Form</h4>
+        <div class="col-md-6 offset-md-3 shadow p-5 bg-primary">
+            <h4 class="page-title text-center" style="color:#fff; font-weight: bold;">Add Notice Form</h4>
             <form id="noticeForm">
                 @csrf
                 <div class="form-group">
@@ -85,15 +95,15 @@
                     <span class="text-danger" id="noticeError"></span>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#003366; color:#fff; font-weight: bold;">Add</button>
                 </div>
             </form>
         </div>
 
     </div>
     <!-- table -->
-
-    <div class="row">
+    <h4 class="page-title text-center mt-5 py-2 border-bottom border-primary" style="color:#007bff; font-weight: 900;">All Notices</h4>
+    <div class="row mt-5">
         <div class="col-md-12">
             <div class="table-responsive">
                 <table id="noticeTable" class="table table-border table-striped custom-table datatable mb-0">
@@ -146,9 +156,11 @@
             },
             {
                 data: 'notice',
+                
             },
             {
                 data: 'status',
+                class:'text-danger'
             },
             {
                 // data: 'id',
@@ -158,9 +170,9 @@
                     return `<div class="text-center ml-5">
 			            <div class="dropdown dropdown-action">
 									<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-									<div class="dropdown-menu dropdown-menu-right">
-										<button class="dropdown-item" id="deleteBtn"    data-statusId="` + data.id + `" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
-										<button class="dropdown-item" id="statusBtn" data-status="` + data.status + `"   data-statusId="` + data.id + `" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-hand-spock-o" aria-hidden="true"></i> ${data.status === 'Active' ? 'Deactivate' : 'Activate'}</button>
+									<div class="dropdown-menu dropdown-menu-right p-2">
+										<button class="btn-sm btn-block btn btn-danger" id="deleteBtn"    data-statusId="` + data.id + `" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
+										<button class="btn-sm btn-block btn btn-info" id="statusBtn" data-status="` + data.status + `"   data-statusId="` + data.id + `" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-hand-spock-o" aria-hidden="true"></i> ${data.status === 'Active' ? 'Deactivate' : 'Activate'}</button>
 									</div>
 								</div>
 								</div>`

@@ -1,8 +1,8 @@
 @extends('admin.master')
 @section('content')
 <div class="content">
-<h4 class="page-title text-center">All Patients Prescription</h4>
-    <div class="row">
+<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#fff; font-weight: 900;">All Patients Prescription</h4>
+    <div class="row mt-5">
         <div class="col-sm-4 col-3">
             <h4 class="page-title">Patients</h4>
         </div>
@@ -60,7 +60,7 @@
         <div class="modal-content">
 
 
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#007bff; color:#fff; font-weight: 900;">
                 <h4 class="modal-title">Update Patient</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
                 <button type="submit" class="btn btn-primary">Update</button>
             </div>
             </form>
@@ -130,10 +130,10 @@
             // 	}
             //  },
             {
-                data: 'drid',
+                data: 'p_id',
                 render: function(data, type, row) {
                     return `
-										<a class="dropdown-item" href="{{route('patient.precription',['id'=> ':data' ])}}"><i class="fa fa-eye m-r-5"></i> Show</a>
+										<a class="btn-sm btn-block btn btn-info" href="{{route('patient.precription',['id'=> ':data' ])}}"><i class="fa fa-eye m-r-5"></i> Show</a>
 									
 								`.replace(':data', data);
                 }
@@ -155,9 +155,9 @@
                     return `<div class="text-center ml-5">
 			            <div class="dropdown dropdown-action">
 									<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-									<div class="dropdown-menu dropdown-menu-right">
-										<button class="dropdown-item" id="editBtn" data-bs-toggle="modal" data-bs-target="#myModal" data-editId="` + data + `"><i class="fa fa-pencil m-r-5"></i> Edit</button>
-										<button class="dropdown-item" id="deleteBtn" delete-id="` + data + `" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
+									<div class="dropdown-menu dropdown-menu-right p-2">
+										<button class="btn-sm btn-block btn btn-primary" id="editBtn" data-bs-toggle="modal" data-bs-target="#myModal" data-editId="` + data + `"><i class="fa fa-pencil m-r-5"></i> Edit</button>
+										<button class="btn-sm btn-block btn btn-danger" id="deleteBtn" delete-id="` + data + `" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
 									</div>
 								</div>
 								</div>

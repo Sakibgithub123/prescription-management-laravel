@@ -107,10 +107,20 @@
             color: #4CAF50;
         }
 
+
         .doctor-details p {
             font-size: 16px;
             font-weight: 400;
             color: #173518;
+        }
+
+        .cti h3 {
+            font-size: 16px;
+        }
+
+        input,
+        tbody {
+            font-size: 14px;
         }
 
         form {
@@ -161,11 +171,23 @@
             appearance: none;
         }
 
+        #medicinetag {
+            display: none;
+        }
+
+        /* table td{
+            font-size: 4px;
+        } */
+        .aftbfr-select,.gender-select {
+            color: #6c757d;
+        }
+
+
 
 
         @media print {
             @page {
-                size: A4;
+                size: A4 landscape;
                 margin: 0;
                 padding: 0;
                 width: 100%;
@@ -240,6 +262,20 @@
                 background-color: transparent;
             }
 
+            table {
+                margin-top: -20px;
+            }
+
+            .cti {
+                margin-bottom: 0px;
+            }
+
+            #medicinetag {
+                display: block;
+            }
+
+            /* header {page-break-after: always;} */
+
         }
     </style>
 
@@ -257,19 +293,19 @@
                         <h3 class="Education Informations">{{$drId->education_informations}}</h3>
                         <p class="specialist text-danger">{{$drId->specialist}}</p>
                     </div>
-                    <div class=" doctor-details text-center">
-                        <h2>রোগী দেখার সময়</h1>
-                            <div class="text-center">
-                                <p class="seating-day">প্রতিদিন : {{$drId->seating_day}}</p>
-                                <p class="seating-time">সময় : {{$drId->whenyouseat}}</p>
-                            </div>
+                    <div class="doctor-details text-center">
+                        <h2>রোগী দেখার সময়</h2>
+                        <div class="text-center">
+                            <p class="seating-day">প্রতিদিন : {{$drId->seating_day}}</p>
+                            <p class="seating-time">সময় : {{$drId->whenyouseat}}</p>
+                        </div>
                     </div>
-                    <div class=" doctor-details" id="chember-details">
-                        <h2 class="clinic-name">{{$clinicDetails->clinic_name}} </h1>
-                            <p class="location">Address: {{$clinicDetails->location}}</p>
-                            <!-- <h3>location_details</h3> -->
-                            <p class="phone no">Phone: {{$drId->phone}}</p>
-                            <p>RegNo: <span class="ml-2">{{$reg_no}}</span></p>
+                    <div class="doctor-details" id="chember-details">
+                        <h2 class="clinic-name">{{$clinicDetails->clinic_name}} </h2>
+                        <p class="location">Address: {{$clinicDetails->location}}</p>
+                        <!-- <h3>location_details</h3> -->
+                        <p class="phone no">Phone: {{$drId->phone}}</p>
+                        <p>RegNo: <span class="ml-2">{{$reg_no}}</span></p>
                     </div>
                 </div>
             </div>
@@ -293,7 +329,21 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                <span class="input-group-text">Gender</span>
+                                <!-- <input type="text" name="patient_gender" aria-label="name" class="form-control"> -->
+                                <select name="patient_gender" id="" class="form-control gender-select">
+                                    <option selected disabled>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                @error('patient_gender')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
                             <div class="input-group">
                                 <span class="input-group-text">Age</span>
                                 <input type="text" name="patient_age" aria-label="name" class="form-control">
@@ -302,32 +352,32 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="input-group">
                                 <span class="input-group-text">Date</span>
                                 <input type="text" name="date" id="todayDate" aria-label="date" class="form-control">
                             </div>
                         </div>
                     </div>
-                    <div class="row my-3 ">
-                        <div class="col-sm-4">
+                    <div class="row cti my-3 ">
+                        <div class="col-sm-3">
                             <h3 class="text-center">Chief Complaints</h3>
-                            <div class="input-group ">
+                            <div class="input-group">
                                 <select class="form-select  tag1" name="complaints[]" multiple="multiple" aria-label="Default select example">
                                     <!-- <option selected>Chief Complaints</option> -->
                                     @foreach($complaints as $complaint)
                                     <option value="{{$complaint->complaints}}">{{$complaint->complaints}}</option>
                                     @endforeach
-                                    <option value="2">Two</option>
+                                    <!-- <option value="2">Two</option>
                                     <option value="3">Three</option>
                                     <option value="4">Four</option>
                                     <option value="5">Five</option>
                                     <option value="6">six</option>
-                                    <option value="7">seven</option>
+                                    <option value="7">seven</option> -->
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <h3 class="text-center">Test</h3>
                             <div class="input-group">
                                 <select class="form-select  tag2" name="tests[]" multiple="multiple" aria-label="Select Medicine" placeholder="Select Medicine">
@@ -335,13 +385,13 @@
                                     @foreach($tests as $test)
                                     <option value="{{$test->test}}">{{$test->test}}</option>
                                     @endforeach
-                                    <option value="RBC">RBC</option>
+                                    <!-- <option value="RBC">RBC</option>
                                     <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="3">Three</option> -->
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <h3 class="text-center">Investigations</h3>
                             <div class="input-group text-center">
                                 <select class="form-select  tag3" name="investigations[]" multiple="multiple" aria-label="Default select example">
@@ -349,9 +399,23 @@
                                     @foreach($investigations as $investigation)
                                     <option value="{{$investigation->investigation}}">{{$investigation->investigation}}</option>
                                     @endforeach
-                                    <option value="1">One</option>
+                                    <!-- <option value="1">One</option>
                                     <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="3">Three</option> -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <h3 class="text-center">Diagnose</h3>
+                            <div class="input-group text-center">
+                                <select class="form-select  tag4" name="diagnoses[]" multiple="multiple" aria-label="Default select example">
+                                    <!-- <option selected>Investigation</option> -->
+                                    @foreach($diagnoses as $diagnose)
+                                    <option value="{{$diagnose->diagnose}}">{{$diagnose->diagnose}}</option>
+                                    @endforeach
+                                    <!-- <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option> -->
                                 </select>
                             </div>
                         </div>
@@ -390,37 +454,36 @@
                             </div>
 
                         </div> -->
-                        <div class="p-2 flex-fill bd-highlight flex-grow-1">
-                            <div class="row my-1">
+                        <div class="flex-fill bd-highlight flex-grow-1">
+                            <div class="row cti my-1">
+                                <p id="medicinetag">Medicine:</p>
                                 <div class="col-sm">
                                     <input class="form-select medicine_input" type="text" id="medi" list="medicine" name="medicine" onfocus="this.value=''" placeholder="Select Medicine">
                                 </div>
                                 <div class="col-sm">
-                                    <input class="form-select medicine_input" type="text" id="medi2" name="whenTake" onfocus="this.value=''" placeholder="Select when take Medicine">
+                                    <input class="form-select medicine_input" type="text" id="medi2" list="when" name="whenTake" onfocus="this.value=''" placeholder="Select when take Medicine">
                                 </div>
                                 <div class="col-sm">
-                                    <!-- <select class="form-select medicine_input" id="medi3" name="aftBfrEat" aria-label="Default select example">
+                                    <select class="form-select medicine_input aftbfr-select" id="medi3" name="aftBfrEat"  aria-label="Default select example">
                                         <option selected disabled>Select After or Before Eat Food</option>
-                                        <option value="before eat">খাবারের আগে </option>
-                                        <option value="after eat">খাবারের পরে</option>
-                                    </select> -->
-                                    <input class="form-select medicine_input" type="text" id="medi3" name="aftBfrEat" list="food" onfocus="this.value=''" placeholder="Select After or Before Eat Food">
+                                        <option value="before">খাবারের আগে </option>
+                                        <option value="after">খাবারের পরে</option>
+                                    </select>
+                                    <!-- <input class="form-select medicine_input" type="text" id="medi3" name="aftBfrEat" list="food" onfocus="this.value=''" placeholder="Select After or Before Eat Food"> -->
                                 </div>
                                 <div class="col-sm">
-                                    <input class="form-select medicine_input" type="text" id="medi4" name="inputbtn" onfocus="this.value=''" placeholder="Select how much day take Medicine">
+                                    <input class="form-select medicine_input" type="text" id="medi4" list="days" name="inputbtn" onfocus="this.value=''" placeholder="Select how much day take Medicine">
                                 </div>
                             </div>
                             <button class="btn btn-success my-2" id="addMedicineBtn" type="button">Add Medicine</button>
                             <div class="table position-relative">
-                                <table id="table" class="mt-2">
+                                <table id="table" class="table table-bordered mt-2">
                                     <tbody id="tbody">
 
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
-
                     </div>
                     <!-- ---------- -->
                     <datalist id="medicine">
@@ -438,18 +501,35 @@
                     <datalist id="when">
                         <option value="1+0+0">
                         <option value="0+1+0">
-                        <option value="10+0+1">
+                        <option value="1+0+1">
                         <option value="1+0+1">
                         <option value="1+1+0">
                         <option value="0+1+1">
                         <option value="1+1+1">
                     </datalist>
-                    <datalist id="food">
-                        <option value="khabar age">খাবারের আগে </option>
-                        <option value="khabar"> খাবারের পরে </option>
+                    <datalist id="days">
+                        <option value="1d">
+                        <option value="2d">
+                        <option value="3d">
+                        <option value="4d">
+                        <option value="5d">
+                        <option value="6d">
+                        <option value="7d">
+                        <option value="8d">
+                        <option value="9d">
+                        <option value="10d">
+                        <option value="11d">
+                        <option value="12d">
+                        <option value="13d">
+                        <option value="14d">
+                        <option value="15d">
                     </datalist>
+                    <!-- <datalist id="food">
+                        <option value="before">খাবার আগে </option>
+                        <option value="after"> খাবার পরে </option>
+                    </datalist> -->
                     <!-- rules -->
-                    <div class="rules" style="font-size: 12px;">
+                    <!-- <div class="rules" style="font-size: 12px;">
                         <dl>
                             <dt>উপদেশঃ</dt>
                             <dd>* কানে তুলা দিয়ে গোসল করবেন / করাবেন।</dd>
@@ -463,22 +543,23 @@
                             <dd>* ঔষধঃ কোট্রইমক্সাজল, ডিসপিরিন, ইনডোমেথাসিন, ডক্সিসাইক্লিন, সিপ্রোফক্সাসিন, ডাইক্লোফেনাক, সোডিয়াম, <br> ইটোরিকক্সিব, ন্যাপ্রোক্সেম সোডিয়াম, টেট্রসাইক্লিন, আইবুপ্রফেন জাতীয় ঔষধ খাবেন না।</dd>
                         </dl>
                         <p>**রেজিস্ট্রার ডাক্তারের পরামর্শ অনুযায়ী ঔষধ খাবেন।</p>
-                    </div>
+                    </div> -->
                 </div>
-    </div>
-    <div class="d-grid gap-2 d-md-block">
-        <input type="submit" class="btn btn-danger" value="Save">
-        <button onclick="window.print()" class="btn btn-primary" type="button" id="print">Print</button>
-        <input class="btn btn-success" id="resetForm" type="reset" value="Reset">
-    </div>
+                <!-- </div> -->
+                <div class="d-grid gap-2 d-md-block mx-2">
+                    <!-- <input type="submit" class="btn btn-danger" value="Save"> -->
+                    <button onclick="window.print()" class="btn btn-primary" type="submit" id="print">Print</button>
+                    <input class="btn btn-success" id="resetForm" type="reset" value="Reset">
+                </div>
 
-    </form>
-    @else
-    <h1 class="text-center mt-5 mb-1 text-danger">Access Not Available</h1>
-    <h2 class="text-center my-2">You have not yet received permission to make a prescription. Please wait for permission...!</h2>
-    @endif
+            </form>
+            @else
+            <h1 class="text-center mt-5 mb-1 text-danger">Access Not Available</h1>
+            <h2 class="text-center my-2">You have not yet received permission to make a prescription. Please wait for permission...!</h2>
+            @endif
 
-    </main>
+        </main>
+        <p id="footer" class="text-center my-2">ধন্যবাদ! স্বাস্থ্যই সম্পদ। নিরাময় প্রতিরোধের চেয়ে ভাল।</p>
     </div>
 
     <!-- External scripts -->
@@ -540,6 +621,10 @@
             });
             $('.tag3').select2({
                 placeholder: 'Select Investigations',
+                allowClear: true,
+            });
+            $('.tag4').select2({
+                placeholder: 'Select Diagnose',
                 allowClear: true,
             });
 

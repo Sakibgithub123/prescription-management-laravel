@@ -5,20 +5,20 @@ Medilab-Profile
 @section('content')
 
 <div class="content">
-<h4 class="page-title text-center">About Me </h4>
-    <div class="row">
+    <h4 class="page-title text-center py-2" style="background-color:#007bff; color:#003366; font-weight: 900;">My Profile</h4>
+    <div class="row mt-5">
         <div class="col-sm-7 col-6">
-            <h4 class="page-title">My Profile</h4>
+            <h4 class="page-title">My Details</h4>
         </div>
 
         <div class="col-sm-5 col-6 text-right m-b-30">
-            <a href="{{route('profile-edit')}}" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Edit Profile</a>
+            <a href="{{route('profile-edit')}}" class="btn btn-primary btn-rounded font-weight-bold text-white"><i class="fa fa-plus"></i> Edit Profile</a>
         </div>
     </div>
     <div class="card-box profile-header">
         <div class="row">
             <div class="col-md-12">
-            <!-- class="profile-view -->
+                <!-- class="profile-view -->
                 <div class="profile-view justify-items-center">
                     <div class="profile-img-wrap">
                         <div class="profile-img">
@@ -44,11 +44,11 @@ Medilab-Profile
                                 <ul class="personal-info">
                                     <li>
                                         <span class="title">Phone:</span>
-                                        <span class="text"><a href="#">{{$profile->phone}}</a></span>
+                                        <span class="text">{{$profile->phone}}</span>
                                     </li>
                                     <li>
                                         <span class="title">Email:</span>
-                                        <span class="text"><a href="#">{{$profile->email}}</a></span>
+                                        <span class="text">{{$profile->email}}</span>
                                     </li>
                                     <li>
                                         <span class="title">Birthday:</span>
@@ -73,43 +73,13 @@ Medilab-Profile
     <div class="profile-tabs">
         <ul class="nav nav-tabs nav-tabs-bottom">
             <li class="nav-item"><a class="nav-link active" href="#about-cont" data-toggle="tab">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#edu-cont" data-toggle="tab">Education</a></li>
         </ul>
 
         <div class="tab-content">
             <div class="tab-pane show active" id="about-cont">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card-box">
-                            <h3 class="card-title">Education Informations</h3>
-                            <div class="experience-box">
-                                <ul class="experience-list">
-                                    <li>
-                                        <div class="experience-user">
-                                            <div class="before-circle"></div>
-                                        </div>
-                                        <div class="experience-content">
-                                            <div class="timeline-content">
-                                                <a href="#/" class="name">{{$profile->education_informations}}</a>
-                                                <div>{{$profile->qualification}}</div>
-                                                <span class="time">2001 - 2003</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- <li>
-                                        <div class="experience-user">
-                                            <div class="before-circle"></div>
-                                        </div>
-                                        <div class="experience-content">
-                                            <div class="timeline-content">
-                                                <a href="#/" class="name">International College of Medical Science (PG)</a>
-                                                <div>MD - Obstetrics & Gynaecology</div>
-                                                <span class="time">1997 - 2001</span>
-                                            </div>
-                                        </div>
-                                    </li> -->
-                                </ul>
-                            </div>
-                        </div>
                         <div class="card-box mb-0">
                             <h3 class="card-title">Experience</h3>
                             <div class="experience-box">
@@ -165,8 +135,31 @@ Medilab-Profile
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="bottom-tab2">
-                Tab content 2
+            <div class="tab-pane" id="edu-cont">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <h3 class="card-title">Education Informations</h3>
+                            <div class="experience-box">
+                                <ul class="experience-list">
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a href="#/" class="name">{{$profile->education_informations}}</a>
+                                                <div>{{$profile->qualification}}</div>
+                                                <span class="time">2001 - 2003</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="tab-pane" id="bottom-tab3">
                 Tab content 3

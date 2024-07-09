@@ -53,10 +53,10 @@
                             <a href="index-2.html"><img src="{{asset('superAdmin')}}/assets/img/logo-dark.png" alt=""></a>
                         </div>
                         <div class="form-group">
-                            <p id="errorMessage"></p>
+                            <p class="text-center text-danger" id="errorMessage"></p>
                         </div>
                         <div class="form-group">
-                            <label>Username or Email</label>
+                            <label>Email</label>
                             <input type="email" autofocus="" name="email" class="form-control">
                         </div>
                         <div class="form-group">
@@ -114,11 +114,11 @@
                     success: function(data) {
                         if (data.status === true) {
                             window.location=data.redirect;
-                            toastr.success('Login Success', 'Login');
+                            toastr.success('Login Success!', 'Login!');
 
                         } else {
                             toastr.error('Something wrong!', 'Try again!');
-                            $('#errorMessage').text("Email or Password don't match");
+                            $('#errorMessage').text("Email or Password don't match!");
                         }
                     },
                     error: function(response) {

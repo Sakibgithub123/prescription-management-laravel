@@ -7,7 +7,7 @@
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown d-none d-sm-block">
+                <!-- <li class="nav-item dropdown d-none d-sm-block">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -81,7 +81,7 @@
                 </li>
                 <li class="nav-item dropdown d-none d-sm-block">
                     <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
-                </li>
+                </li> -->
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         <span class="user-img">
@@ -91,23 +91,23 @@
 						
 						<span>{{Auth::guard('admin')->user()->name }}</span>
                     </a>
-					<div class="dropdown-menu">
+					<div class="dropdown-menu p-2">
 						<!-- <a class="dropdown-item" href="">My Profile</a>
 						<a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
 						<a class="dropdown-item" href="settings.html">Settings</a> -->
-						<a class="dropdown-item"  onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">Logout</a>
-                        <form method="post" action="{{route('logout')}}" id="logoutForm">@csrf</form>
+						<a class="btn-sm btn-block btn btn-secondary text-white"  onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">Logout</a>
+                        <form method="get" action="{{route('admin.logout')}}" id="logoutForm">@csrf</form>
 					</div>
                 </li>
             </ul>
             <div class="dropdown mobile-user-menu float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-menu dropdown-menu-right p-2">
                     <!-- <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
                     <a class="dropdown-item" href="settings.html">Settings</a> -->
-                    <a class="dropdown-item"  onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">Logout</a>
-                        <form method="post" action="{{route('logout')}}" id="logoutForm">@csrf</form>
+                    <a class="btn-sm btn-block btn btn-secondary text-white"  onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">Logout</a>
+                        <form method="get" action="{{route('admin.logout')}}" id="logoutForm">@csrf</form>
                 </div>
             </div>
         </div>

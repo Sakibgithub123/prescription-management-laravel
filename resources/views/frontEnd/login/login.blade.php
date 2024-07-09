@@ -50,13 +50,13 @@
                     <form id="loginForm" class="form-signin">
                         @csrf
                         <div class="account-logo">
-                            <a href="index-2.html"><img src="{{asset('superAdmin')}}/assets/img/logo-dark.png" alt=""></a>
+                            <a href="#"><img src="{{asset('superAdmin')}}/assets/img/logo-dark.png" alt=""></a>
                         </div>
                         <div class="form-group">
-                            <p id="errorMessage"></p>
+                            <p class="text-center text-danger" id="errorMessage"></p>
                         </div>
                         <div class="form-group">
-                            <label>Username or Email</label>
+                            <label>Email</label>
                             <input type="email" autofocus="" name="email" class="form-control">
                         </div>
                         <div class="form-group">
@@ -70,7 +70,7 @@
                             <p id="passwordError"></p>
                         </div>
                         <div class="form-group text-right">
-                            <a href="forgot-password.html">Forgot your password?</a>
+                            <a href="{{route('show.ForgetPassword.Form')}}">Forgot your password?</a>
                         </div>
                         <div class="form-group text-center">
                             <input type="submit" class="btn btn-primary" value="Login">
@@ -114,11 +114,11 @@
                     success: function(data) {
                         if (data.status === true) {
                             window.location=data.redirect;
-                            toastr.success('Login Success', 'Login');
+                            toastr.success('Login Success!', 'Login!');
 
                         } else {
                             toastr.error('Something wrong!', 'Try again!');
-                            $('#errorMessage').text("Email or Password don't match");
+                            $('#errorMessage').text("Email or Password don't match!");
                         }
                     },
                     error: function(response) {

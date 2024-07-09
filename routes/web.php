@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\ForgetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/test/page', [AdminController::class, 'addTestForm'])->name('test.Form');
     Route::post('/save-test', [AdminController::class, 'saveTestForm'])->name('save.test.form');
     Route::post('/delete-test', [AdminController::class, 'deleteTest'])->name('delete.test');
+    //---------test-------------
+    Route::get('/diagnose/page', [AdminController::class, 'addDiagnoseForm'])->name('diagnose.Form');
+    Route::post('/save-diagnose', [AdminController::class, 'saveDiagnoseForm'])->name('save.diagnose.form');
+    Route::post('/delete-diagnose', [AdminController::class, 'deleteDiagnose'])->name('delete.diagnose');
 
     //------------complaints-------
     Route::get('/complaints/page', [AdminController::class, 'addComplaintsForm'])->name('Complaints.Form');
@@ -87,8 +92,18 @@ Route::group(['middleware' => 'admin'], function () {
     //-------------logout admin-----------------
     Route::get('/admin/logout', [AdminController::class, 'Logout'])->name('admin.logout');
 });
+
+
 Route::get('/', [FrontEndController::class, 'getLoginPage'])->name('login-page');
 Route::post('/doctor-login-save', [FrontEndController::class, 'doctorLogin'])->name('doctorlogin');
+
+
+//forget passsword
+Route::get('/forget-password',[ForgetPasswordController::class,'showForgetPasswordForm'])->name('show.ForgetPassword.Form');
+Route::post('/forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+
+
 Route::middleware('auth')->group(function () {
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

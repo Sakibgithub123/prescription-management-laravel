@@ -7,13 +7,25 @@
         align-items: center;
         padding: 40px;
     }
+    .row1{
+        /* background-color:#003366 ; */
+        color: #fff;
+    }
+    label{
+        color: #003366;
+        font-weight: bold;
+    }
+    ::placeholder{
+        color: #003366;
+
+    }
 </style>
 
 <div class="content">
-<h4 class="page-title text-center">About Clinic</h4>
-    <div class="row">
-        <div class="col-md-6 offset-md-3 shadow p-5">
-            <h4 class="page-title text-center">Add Chember/Clinic Form</h4>
+<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#fff; font-weight: 900;">About Clinic</h4>
+    <div class="row pt-5">
+        <div class="col-md-6 offset-md-3 shadow p-5  bg-primary">
+            <h4 class="page-title text-center font-bold" style="color:#fff; font-weight: bold;">Add Chember/Clinic Form</h4>
             <form id="clinicForm">
                 @csrf
                 <input type="hidden" name="clinicId" value="{{$clinics->id}}">
@@ -29,7 +41,7 @@
                 </div>
 
                 <div class="text-right">
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#003366; color:#fff; font-weight: bold;">Add</button>
                 </div>
             </form>
         </div>
@@ -37,16 +49,17 @@
     </div>
 
     <!-- table -->
-    <div class="row">
+    <div class="row bg-info mt-5">
         <div class="col-md-12">
             <header style="width: 100%;">
                 <div class="my-5">
+                <!-- <h4 class="page-title text-center" style="color:#003366; font-weight: bold;">Clinic Details</h4> -->
                     <div class="row1 shadow  p-3">
                         <div class="doctor-details">
                             <h2 class="name">Md Sahidul haque </h2>
                             <p class="qualification Degree">MBBS Dhaka</p>
                             <h3 class="Education Informations">AFC,BCS,Dhaka </h3>
-                            <p class="specialist text-danger">Child specialist</p>
+                            <p class="specialist text-white">Child specialist</p>
                         </div>
                         <div class=" doctor-details text-center">
                             <h2>Time to see the patient </h1>
@@ -57,10 +70,10 @@
                         </div>
                         <div class="doctor-details" id="chember-details">
                             <h2 class="clinic-name">{{$clinics->clinic_name}} </h1>
-                                <p class="location">{{$clinics->location}}</p>
+                                <p class="location">Address: {{$clinics->location}}</p>
                                 <!-- <h3>location_details</h3> -->
-                                <p class="phone no">0172345678</p>
-                                <p>RegNo: <span class="ml-2">345678</span></p>
+                                <p class="phone no">Phone: 0172345678</p>
+                                <p>RegNo: <span class="ml-2 text-white">RG####</span></p>
                         </div>
                     </div>
 

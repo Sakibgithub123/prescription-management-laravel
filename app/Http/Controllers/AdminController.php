@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Clinic;
 use App\Models\Complaints;
+use App\Models\Diagnose;
 use App\Models\Investigation;
 use App\Models\Medicine;
 use App\Models\Notice;
@@ -85,13 +86,13 @@ class AdminController extends Controller
                 'backgroundColor' => $colurs
             ]
         ];
-        $patients = Prescription::select('patient_name', 'patient_age', 'complaints', 'prescriptions.created_at as date', 'users.name as name')
+        $patients = Prescription::select('patient_name', 'patient_age', 'complaints', 'prescriptions.created_at as date', 'users.name as name','investigations')
             ->join('users', 'users.id', 'prescriptions.dr_id')->latest('prescriptions.created_at')->get();
 
         // total income
 
         $appointments = Prescription::all();
-        $patients = Prescription::select('patient_name', 'patient_age', 'complaints', 'prescriptions.created_at as date', 'users.name as name')
+        $patients = Prescription::select('patient_name', 'patient_age', 'complaints', 'prescriptions.created_at as date', 'users.name as name','investigations')
             ->join('users', 'users.id', 'prescriptions.dr_id')->latest('prescriptions.created_at')->get();
 
 
@@ -526,7 +527,7 @@ class AdminController extends Controller
              ]);
          } else {
  
-             $create = Test::create($request->only('tests'));
+             $create = Test::create($request->only('test'));
              if ($create) {
                  return response()->json([
                      'status' => true,
@@ -552,12 +553,77 @@ class AdminController extends Controller
              ]);
          }
      }
+                    //---------admin diagnose credentials-----------
+
+     public function addDiagnoseForm()
+     {
+         $diagnoses = Diagnose::all();
+         if (request()->ajax()) {
+             if ($diagnoses) {
+                 return response()->json([
+                     'message' => 'diagnose found',
+                     'status' => 200,
+                     'data' => $diagnoses,
+                 ]);
+             } else {
+                 return response()->json([
+                     'message' => 'internel server error',
+                     'code' => 500,
+                 ]);
+             }
+         }
+         return view('admin.manage-prescription.add-diagnose', ['diagnoses' => $diagnoses]);
+     }
+     public function saveDiagnoseForm(Request $request)
+     {
+         $request->validate([
+             'diagnose' => 'required',
+         ]);
+         if (Diagnose::where('diagnose', $request->diagnose)->exists()) {
+             return response()->json([
+                 'status' => 'exit',
+                 'massage' => $request->diagnose,
+             ]);
+         } else {
+ 
+             $create = Diagnose::create($request->only('diagnose'));
+             if ($create) {
+                 return response()->json([
+                     'status' => true,
+                     'massage' => $request->diagnose,
+                 ]);
+             } else {
+                 return response()->json([
+                     'status' => false,
+                 ]);
+             }
+         }
+     }
+     public function deleteDiagnose(Request $request)
+     {
+         $diagnoseDlt = Diagnose::find($request->id)->delete();
+         if ($diagnoseDlt) {
+             return response()->json([
+                 'status' => true,
+             ]);
+         } else {
+             return response()->json([
+                 'status' => false,
+             ]);
+         }
+     }
 
                    //---------admin doctors list credentials-----------
 
     public function getDoctorList()
     {
-        $doctor = User::where('role', '=', 'user')->get();
+        if(request('search')){
+            $doctor = User::where('name', 'like', '%' . request('search') . '%')->get();
+        }else{
+            $doctor = User::where('role', '=', 'user')->get();
+
+        }
+        
 
         return view('admin.doctor.doctor-list', ['doctors' => $doctor]);
     }
@@ -714,7 +780,7 @@ class AdminController extends Controller
 
         $prescriptions = Prescription::select('*', 'users.name as name')
             ->join('users', 'prescriptions.dr_id', 'users.id')
-            ->where('users.id', $id)
+            ->where('prescriptions.id', $id)
             ->first();
         // return $prescriptions;
         $clinicDetails = Clinic::find(1);

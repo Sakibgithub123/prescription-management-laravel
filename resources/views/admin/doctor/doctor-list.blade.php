@@ -1,25 +1,48 @@
 @extends('admin.master')
 
 @section('content')
+<style>
+    label {
+        color: #003366;
+        font-weight: bold;
+    }
+
+    ::placeholder {
+        color: #003366;
+
+    }
+</style>
 <div class="content">
-<h4 class="page-title text-center">All Doctors</h4>
-    <div class="row">
+    <h4 class="page-title text-center py-2" style="background-color:#007bff; color:#fff; font-weight: 900;">All Doctors</h4>
+    <!-- search by name -->
+    <div class="search">
+        <form action="{{route('doctor.list')}}" method="get">
+            <div class="input-group mb-3">
+                <input type="text" name="search" class="form-control" placeholder="Search By Doctor Name" aria-label="Search By Doctor Name" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row mt-5">
         <div class="col-sm-4 col-3">
             <h4 class="page-title">Doctors</h4>
         </div>
         <div class="col-sm-8 col-9 text-right m-b-20">
-            <button class="btn btn-primary btn-rounded float-right" data-bs-toggle="modal" data-bs-target="#addDoctorModal"><i class="fa fa-plus"></i> Add Doctor</button>
+            <button class="btn btn-primary btn-rounded float-right font-weight-bold" data-bs-toggle="modal" data-bs-target="#addDoctorModal"><i class="fa fa-plus"></i> Add Doctor</button>
         </div>
 
     </div>
-    <div class="row doctor-grid">
-        @foreach($doctors as $doctor)
-        <div class="col-md-4 col-sm-4  col-lg-3 doctor-list">
-            <div class="profile-widget">
-                <div class="doctor-img">
-                    <a class="avatar" href="{{route('doctor.details',['id'=>$doctor->id])}}">
+    <div class="row doctor-grid ">
+    @forelse($doctors as $doctor)
+        <div class="col-md-4 col-sm-4  col-lg-3 doctor-list  ">
+            <div class="profile-widget my-4 border border-primary ">
+                <div class="doctor-img ">
+                    <a class="avatar border border-primary" href="{{route('doctor.details',['id'=>$doctor->id])}}">
                         @if(!$doctor->profile_image)
-                        <img alt="{{$doctor->name}}" src="{{asset('superAdmin')}}/assets/img/doctor-thumb-03.jpg">
+                        <img alt="{{ substr($doctor->name, 0, 1) }}" src="{{asset('superAdmin')}}/assets/img/doctor-thumb-03.jpg">
                         @else
                         <img alt="{{$doctor->name}}" src="{{asset('storage/images/'.$doctor->profile_image)}}">
                         @endif
@@ -28,10 +51,13 @@
                 </div>
                 <div class="dropdown profile-action">
                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" id="editBtn" data-editId="{{$doctor->id}}" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-pencil m-r-5"></i> Edit</button>
+                    <div class="dropdown-menu dropdown-menu-right p-1">
+                        <!-- <button class="dropdown-item" id="editBtn" data-editId="{{$doctor->id}}" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-pencil m-r-5"></i> Edit</button>
                         <button class="dropdown-item" id="deleteBtn" data-deleteId="{{$doctor->id}}" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
-                        <button class="dropdown-item"><i class="fa fa-eye"></i> <a class="text-black" href="{{route('doctor.details',['id'=>$doctor->id])}}">More</a></button>
+                        <button class="dropdown-item"><i class="fa fa-eye"></i> <a class="text-black" href="{{route('doctor.details',['id'=>$doctor->id])}}">More</a></button> -->
+                        <button class="btn-sm btn-block btn btn-primary" id="editBtn" data-editId="{{$doctor->id}}" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-pencil m-r-5"></i> Edit</button>
+                        <button class="btn-sm btn-block btn btn-danger" id="deleteBtn" data-deleteId="{{$doctor->id}}" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
+                        <button class="btn-sm btn-block btn btn-info"><i class="fa fa-eye"></i> <a class="text-white" href="{{route('doctor.details',['id'=>$doctor->id])}}">More</a></button>
                     </div>
                 </div>
                 <h4 class="doctor-name text-ellipsis"><a href="{{route('doctor.details',['id'=>$doctor->id])}}">{{$doctor->name}}</a></h4>
@@ -39,8 +65,8 @@
                 <div class="doc-prof">
                     <!-- <input data-statusId="{{$doctor->id}}" id="statusBtn" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $doctor->status ? 'checked' : '' }}> -->
 
-                    <span class="text-primary d-flex justify-content-center align-items-center  gap-1 bg-secondary p-2">
-                        <span class="h6"><input data-statusId="{{$doctor->id}}" id="statusBtn" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" {{ $doctor->status ? 'checked' : '' }}></span>
+                    <span class="{{$doctor->status==1 ? 'text-primary': 'text-danger'}} d-flex justify-content-center align-items-center  gap-1  p-2">
+                        <span class="h6"><input data-statusId="{{$doctor->id}}" id="statusBtn" class="toggle-class {{$doctor->status==1 ? 'text-primary': 'text-danger'}}" type="checkbox" data-onstyle="success" data-offstyle="danger" {{ $doctor->status ? 'checked' : '' }}></span>
                         <span class="h6 fw-bold">{{$doctor->status==1 ? "Active": "Deactive"}}</span>
                     </span>
                 </div>
@@ -49,7 +75,9 @@
                 </div>
             </div>
         </div>
-        @endforeach
+        @empty
+            <li class="list-group-item list-group-item-danger text-center h1">Doctor Not Found.</li>
+        @endforelse
 
 
         <!-- ---------- -->
@@ -71,7 +99,7 @@
 <div class="modal" id="myModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#007bff; color:#fff; font-weight: 900;">
                 <h4 class="modal-title">Update <span id="drName"></span> details</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -176,8 +204,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary font-weight-bold">Update</button>
             </div>
             </form>
         </div>
@@ -194,7 +222,7 @@
 <div class="modal" id="addDoctorModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#007bff; color:#fff; font-weight: 900;">
                 <h4 class="modal-title text-center">Add Doctor</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -315,8 +343,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary font-weight-bold">Save</button>
             </div>
             </form>
         </div>
@@ -580,17 +608,19 @@
             loadedPosts += postsPerPage;
             $('.doctor-list:lt(' + loadedPosts + ')').show();
 
-            // if (loadedPosts >= totalPosts) {
-            //     $(this).hide();
-            // }
-            
+            if (loadedPosts >= totalPosts) {
+                $(this).hide();
+            }else {
+            $(this).show();
+        }
+
         });
-        if (loadedPosts >= totalPosts) {
-                $('#load-more').hide();
-            }else{
-                $('#load-more').show();
-            }
-            
+        // if (loadedPosts >= totalPosts) {
+        //     $('#load-more').hide();
+        // } else {
+        //     $('#load-more').show();
+        // }
+
     });
 </script>
 @endpush

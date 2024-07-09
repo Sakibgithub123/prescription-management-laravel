@@ -28,7 +28,7 @@
                     <form method="POST" action="{{ route('register') }}" class="form-signin">
                         @csrf
                         <div class="account-logo">
-                            <a href="index-2.html"><img src="{{asset('superAdmin')}}/assets/img/logo-dark.png" alt=""></a>
+                            <a><img src="{{asset('superAdmin')}}/assets/img/logo-dark.png" alt=""></a>
                         </div>
                         @if(session('message'))
                         <div class="alert alert-{{ session('alert-type') }}">

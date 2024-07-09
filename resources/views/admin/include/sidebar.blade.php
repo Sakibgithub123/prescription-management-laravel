@@ -1,13 +1,24 @@
+<style>
+     a{
+        font-weight: bold;
+    }
+    a i, span{
+        color: #003366;
+
+    }
+</style>
+
+
 <div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    <ul>
-                        <li class="menu-title">Main</li>
-                        <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+            <div class="sidebar-inner slimscroll bg-primary ">
+                <div id="sidebar-menu" class="sidebar-menu ">
+                    <ul class="text-white">
+                        <li class="menu-title font-weight-bold text-white h5 text-center border-bottom">Admin Dashboard</li>
+                        <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }} text-white">
                             <a  href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
                         <li class="submenu">
-							<a href="#"><i class="fa fa-hospital-o" aria-hidden="true"></i> <span> Clinic Details </span> <span class="menu-arrow"></span></a>
+							<a  href="#"><i class="fa fa-hospital-o" aria-hidden="true"></i> <span > Clinic Details </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a class="{{ request()->routeIs('clinic.form') ? 'active' : '' }}" href="{{route('clinic.form')}}"><i class="fa fa-location-arrow" aria-hidden="true"></i><span>Add Clinic Details</span> </a></li>
 							</ul>
@@ -36,7 +47,7 @@
                         <li class="submenu">
 							<a href="#"><i class="fa fa-cogs" aria-hidden="true"></i> <span> Settings </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
-								<li><a class="{{ Route::is('admin.change.password') ? 'active' : '' }}" href="{{route('admin.change.password')}}"><i class="fa fa-thermometer-full" aria-hidden="true"></i> <span>Change password</span> </a></li>
+								<li><a class="{{ Route::is('admin.change.password') ? 'active' : '' }}" href="{{route('admin.change.password')}}"><i class="fa fa-thermometer-full" aria-hidden="true"></i> <span>Change Password</span> </a></li>
                                 <li><a class="{{ Route::is('admin.logout') ? 'active' : '' }}" href="{{route('admin.logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Logout</span></a></li>
 							</ul>
 						</li>

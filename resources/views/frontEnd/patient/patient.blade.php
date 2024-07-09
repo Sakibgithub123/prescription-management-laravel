@@ -4,8 +4,8 @@ Medilab-Patient
 @endsection
 @section('content')
 <div class="content">
-<h4 class="page-title text-center">Your All Prescription of Patients </h4>
-	<div class="row">
+	<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#003366; font-weight: 900;"> All Prescription of Patients </h4>
+	<div class="row mt-5">
 		<div class="col-sm-4 col-3">
 			<h4 class="page-title">Patients</h4>
 		</div>
@@ -34,9 +34,11 @@ Medilab-Patient
 							<td> {{$patient->patient_name}}</td>
 							<td>{{$patient->patient_age}}</td>
 							<td>
+								@if (is_array($patient->investigations) || is_object($patient->investigations))
 								@foreach(json_decode($patient->investigations) as $investigation)
 								<span>{{$investigation}}</span>
 								@endforeach
+								@endif
 							</td>
 							<td>{{date('F ,jS Y g:i A',strtotime($patient->date))}}</td>
 						    <td>{{$patient->reg_no}}</td>
@@ -64,7 +66,7 @@ Medilab-Patient
 		<div class="modal-content">
 
 
-			<div class="modal-header">
+			<div class="modal-header" style="background-color:#007bff; color:#fff; font-weight: 900;">
 				<h4 class="modal-title">Patient Update Form</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 			</div>
@@ -93,7 +95,7 @@ Medilab-Patient
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
 				<button type="submit" class="btn btn-primary">Update</button>
 			</div>
 			</form>
@@ -183,10 +185,21 @@ Medilab-Patient
 			{
 				data: 'patient_age'
 			},
+			// {
+			// 	data: 'investigations',
+			// 	render: function(data) {
+			// 		return JSON.parse(data)
+			// 	}
+			// },
 			{
 				data: 'investigations',
 				render: function(data) {
-					return JSON.parse(data)
+					let parsedData = JSON.parse(data);
+					if (Array.isArray(parsedData) && parsedData.length > 0) {
+						return parsedData.join(', '); // Join array elements into a string
+					} else {
+						return 'No investigation'; // Static value if parsedData is empty
+					}
 				}
 			},
 			{
@@ -206,10 +219,10 @@ Medilab-Patient
 					return `<div class="text-center ml-5">
             <div class="dropdown dropdown-action">
                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="${showUrl}"><i class="fa fa-eye"></i> Show</a>
-                    <button class="dropdown-item" id="editBtn" data-bs-toggle="modal" data-bs-target="#myModal" data-editId="${data}"><i class="fa fa-pencil m-r-5"></i> Edit</button>
-                    <button class="dropdown-item" id="dltId" delete-id="${data}" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
+                <div class="dropdown-menu dropdown-menu-right p-2 ">
+                    <a class="btn-sm btn-block btn btn-success" href="${showUrl}"><i class="fa fa-eye"></i> Show</a>
+                    <button class="btn-sm btn-block btn btn-primary" id="editBtn" data-bs-toggle="modal" data-bs-target="#myModal" data-editId="${data}"><i class="fa fa-pencil m-r-5"></i> Edit</button>
+                    <button class="btn-sm btn-block btn btn-danger" id="dltId" delete-id="${data}" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
                 </div>
             </div>
         </div>`;

@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('dr_id');
             $table->string('patient_name');
+            $table->string('patient_gender');
             $table->string('patient_age');
             $table->string('visit_fee')->nullable();
             $table->string('reg_no')->nullable();
             $table->date('date')->nullable();
             $table->string('complaints')->nullable();
+            $table->string('diagnoses')->nullable();
             $table->string('tests')->nullable();
             $table->string('investigations')->nullable();
             $table->string('medicine')->nullable();

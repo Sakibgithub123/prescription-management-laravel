@@ -1,10 +1,20 @@
 @extends('admin.master');
 @section('content')
+<style>
+     label{
+        color: #003366;
+        font-weight: bold;
+    }
+    ::placeholder{
+        color: #003366;
+
+    }
+</style>
 <div class="content">
-<h4 class="page-title text-center">All Medicine</h4>
-    <div class="row">
-        <div class="col-md-6 offset-md-3 shadow p-5">
-            <h4 class="page-title text-center">Add Medicine Form</h4>
+<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#fff; font-weight: 900;">Medicine</h4>
+    <div class="row py-5 ">
+        <div class="col-md-6 offset-md-3 shadow p-5 bg-primary">
+            <h4 class="page-title text-center" style="color:#fff; font-weight: bold;">Add Medicine Form</h4>
             <form id="medicineForm">
                 @csrf
                 <div class="form-group">
@@ -13,7 +23,7 @@
                     <span class="text-danger" id="medicineErrorMsg"></span>
                 </div>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#003366; color:#fff; font-weight: bold;">Add</button>
                 </div>
             </form>
 
@@ -22,6 +32,7 @@
     </div>
     <!-- table -->
     <!-- table -->
+    <h4 class="page-title text-center py-2 border-bottom border-primary" style="color:#007bff; font-weight: 900;">All Medicine</h4>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -80,8 +91,8 @@
                     return `<div class="text-center ml-5">
 			            <div class="dropdown dropdown-action">
 									<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-									<div class="dropdown-menu dropdown-menu-right">
-										<button class="dropdown-item" id="deleteBtn"   delete-id="` + data + `" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
+									<div class="dropdown-menu dropdown-menu-right p-0">
+										<button class="btn-sm btn-block btn btn-danger" id="deleteBtn"   delete-id="` + data + `" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
 									</div>
 								</div>
 								</div>

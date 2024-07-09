@@ -162,6 +162,13 @@
             /* overflow: hidden; */
         }
 
+        #medicinetag {
+            display: none;
+        }
+        .aftbfr-select,.gender-select {
+            color: #6c757d;
+        }
+
 
 
         @media print {
@@ -292,6 +299,10 @@
 
             }
 
+            #medicinetag {
+                display: block;
+            }
+
         }
     </style>
 
@@ -315,7 +326,7 @@
                             <div class="text-center">
                                 <p class="seating-day">প্রতিদিন : {{$doctorDetails->seating_day}}</p>
                                 <p class="seating-time">সময় : {{$doctorDetails->whenyouseat}}</p>
-                                
+
                             </div>
                     </div>
                     <div class=" doctor-details" id="chember-details">
@@ -324,7 +335,7 @@
                             <!-- <h3>location_details</h3> -->
                             <p class="phone no">Phone: {{$doctorDetails->phone}}</p>
                             <p>RegNo: <span class="ml-2">{{$prescriptions->reg_no}}</span></p>
-                            
+
                     </div>
                 </div>
             </div>
@@ -332,7 +343,7 @@
 
         <main id="content">
             <!-- ------------------- -->
-            
+
             @if ($doctorDetails->status==1)
             <form id="medicineSubmitForm">
                 @csrf
@@ -351,7 +362,21 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                <span class="input-group-text">Gender</span>
+                                <!-- <input type="text" name="patient_gender" aria-label="name" class="form-control"> -->
+                                <select name="patient_gender" id="" class="form-control gender-select">
+                                    <option selected>{{$prescriptions->patient_gender}}</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                @error('patient_gender')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
                             <div class="input-group">
                                 <span class="input-group-text">Age</span>
                                 <input type="text" name="patient_age" aria-label="name" value="{{$prescriptions->patient_age}}" class="form-control">
@@ -361,7 +386,7 @@
                             </div>
                         </div>
                         <input type="hidden" name="reg_no" value="{{$prescriptions->reg_no}}">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="input-group">
                                 <span class="input-group-text">Date</span>
                                 <input type="text" name="date" aria-label="date" value="{{$prescriptions->date}}" class="form-control">
@@ -369,101 +394,156 @@
                         </div>
                     </div>
                     <div class="row my-3 conacani2">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <h3 class="text-center">Chief Complaints</h3>
-                            <!-- <div class="input-group ">
-                                <select class="form-select  tag1" name="complaints[]" multiple="multiple" aria-label="Default select example">
-                                   
-                                    @foreach(json_decode($prescriptions->complaints) as $member)
-                                    <option value="{{$member}}" selected>{{$member}}</option>
-                                    @endforeach
-                                    @foreach($complaints as $complaint)
-                                    <option value="{{$complaint->complaints}}">{{$complaint->complaints}}</option>
-                                    @endforeach
-                                    <option value="3">Three</option>
-                                    <option value="4">Four</option>
-                                    <option value="5">Five</option>
-                                </select>
-                            </div> -->
                             <div class="input-group">
                                 <select class="form-select tag1" name="complaints[]" multiple="multiple" aria-label="Default select example">
                                     @php
-                                    $allComplaints = json_decode($prescriptions->complaints);
+                                    $allComplaints = [];
+
+                                    // Check if $prescriptions->complaints is not null
+                                    if(!is_null($prescriptions->complaints)){
+                                    // Decode $prescriptions->complaints and ensure it's an array
+                                    $allComplaints = (array) json_decode($prescriptions->complaints);
+
+                                    // Iterate over $complaints to add new complaints
                                     foreach($complaints as $complaint) {
                                     if (!in_array($complaint->complaints, $allComplaints)) {
                                     $allComplaints[] = $complaint->complaints;
                                     }
                                     }
+                                    }
                                     @endphp
+
+                                    @if(is_null($prescriptions->complaints))
+                                    <option value="" selected></option>
+                                    @endif
+
                                     @foreach($allComplaints as $complaint)
-                                    <option value="{{ $complaint }}" @if(in_array($complaint, json_decode($prescriptions->complaints))) selected @endif>{{ $complaint }}</option>
+                                    <option value="{{ $complaint }}" @if(!is_null($prescriptions->complaints) && in_array($complaint, (array) json_decode($prescriptions->complaints))) selected @endif>{{ $complaint }}</option>
                                     @endforeach
+
+
+                                   
+
+
+
+
                                 </select>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-4">
-                            <h3 class="text-center">Test</h3>
-                            <div class="input-group">
-                                <select class="form-select  tag2" name="tests[]" multiple="multiple" aria-label="Default select example">
-                                    @foreach(json_decode($prescriptions->tests) as $member)
-                                    <option value="{{$member}}" selected>{{$member}}</option>
-                                    @endforeach
-                                    @foreach($tests as $test)
-                                    <option value="{{$test->test}}">{{$test->test}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> -->
-                        <div class="col-sm-4">
+
+                        <div class="col-sm-3">
                             <h3 class="text-center">Test</h3>
                             <div class="input-group">
                                 <select class="form-select tag2" name="tests[]" multiple="multiple" aria-label="Default select example">
+
+                             
                                     @php
-                                    $allTests = json_decode($prescriptions->tests);
+                                    $allTests = [];
+
+                                    // Check if $prescriptions->tests is not null
+                                    if(!is_null($prescriptions->tests)){
+                                    // Decode $prescriptions->tests and ensure it's an array
+                                    $allTests = (array) json_decode($prescriptions->tests);
+
+                                    // Iterate over $tests to add new tests
                                     foreach($tests as $test) {
                                     if (!in_array($test->test, $allTests)) {
                                     $allTests[] = $test->test;
                                     }
                                     }
+                                    }
                                     @endphp
+                                    @if(is_null($prescriptions->tests))
+                                    <option value="" selected></option>
+                                    @endif
+
                                     @foreach($allTests as $test)
-                                    <option value="{{ $test }}" @if(in_array($test, json_decode($prescriptions->tests))) selected @endif>{{ $test }}</option>
+                                    <option value="{{ $test }}" @if(!is_null($prescriptions->tests) && in_array($test, (array) json_decode($prescriptions->tests))) selected @endif>{{ $test }}</option>
                                     @endforeach
+
+                                    
+
+
+
                                 </select>
                             </div>
                         </div>
 
-                        <!-- <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <h3 class="text-center">Investigations</h3>
                             <div class="input-group text-center">
-                                <select class="form-select  tag3" name="investigations[]" multiple="multiple" aria-label="Default select example">
-                                    @foreach(json_decode($prescriptions->investigations) as $member)
-                                    <option value="{{$member}}" selected>{{$member}}</option>
-                                    @endforeach
-                                    @foreach($investigations as $investigation)
-                                    <option value="{{$investigation->investigation}}">{{$investigation->investigation}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> -->
-                        <div class="col-sm-4">
-                            <h3 class="text-center">Investigations</h3>
-                            <div class="input-group text-center">
-                                <select class="form-select tag3" name="investigations[]" multiple="multiple" aria-label="Default select example">
+                                <select class="form-select tag4" name="investigations[]" multiple="multiple" aria-label="Default select example">
+                             
                                     @php
-                                    $allInvestigations = json_decode($prescriptions->investigations);
+                                    $allInvestigations = [];
+
+                                    // Check if $prescriptions->investigations is not null
+                                    if(!is_null($prescriptions->investigations)){
+                                    // Decode $prescriptions->investigations and ensure it's an array
+                                    $allInvestigations = (array) json_decode($prescriptions->investigations);
+
+                                    // Iterate over $investigations to add new investigations
                                     foreach($investigations as $investigation) {
                                     if (!in_array($investigation->investigation, $allInvestigations)) {
                                     $allInvestigations[] = $investigation->investigation;
                                     }
                                     }
+                                    }
                                     @endphp
+                                    @if(is_null($prescriptions->investigations))
+                                    <option value="" selected></option>
+                                    @endif
+
                                     @foreach($allInvestigations as $investigation)
-                                    <option value="{{ $investigation }}" @if(in_array($investigation, json_decode($prescriptions->investigations))) selected @endif>{{ $investigation }}</option>
+                                    <option value="{{ $investigation }}" @if(!is_null($prescriptions->investigations) && in_array($investigation, (array) json_decode($prescriptions->investigations))) selected @endif>{{ $investigation }}</option>
                                     @endforeach
+
+                                   
+
+
+
                                 </select>
                             </div>
                         </div>
+                        <div class="col-sm-3">
+                            <h3 class="text-center">diagnose</h3>
+                            <div class="input-group text-center">
+                                <select class="form-select tag3" name="diagnoses[]" multiple="multiple" aria-label="Default select example">
+                             
+                                    @php
+                                    $allDiagnoses = [];
+
+                                    // Check if $prescriptions->diagnoses is not null
+                                    if(!is_null($prescriptions->diagnoses)){
+                                    // Decode $prescriptions->diagnoses and ensure it's an array
+                                    $allDiagnoses = (array) json_decode($prescriptions->diagnoses);
+
+                                    // Iterate over $diagnoses to add new diagnoses
+                                    foreach($diagnoses as $diagnose) {
+                                    if (!in_array($diagnose->diagnose, $allDiagnoses)) {
+                                    $allDiagnoses[] = $diagnose->diagnose;
+                                    }
+                                    }
+                                    }
+                                    @endphp
+                                    @if(is_null($prescriptions->diagnoses))
+                                    <option value="" selected></option>
+                                    @endif
+
+                                    @foreach($allDiagnoses as $diagnose)
+                                    <option value="{{ $diagnose }}" @if(!is_null($prescriptions->diagnoses) && in_array($diagnose, (array) json_decode($prescriptions->diagnoses))) selected @endif>{{ $diagnose }}</option>
+                                    @endforeach
+
+                                   
+
+
+
+                                </select>
+                            </div>
+                        </div>
+                      
 
                     </div>
                     <!-- ------------------------ -->
@@ -500,8 +580,9 @@
                             </div>
 
                         </div> -->
-                        <div class="p-2 flex-fill bd-highlight flex-grow-1">
+                        <div class="flex-fill bd-highlight flex-grow-1">
                             <div class="row my-1">
+                                <p id="medicinetag">Medicine:</p>
                                 <div class="col-sm">
                                     <input class="form-select medicine_input" type="text" id="medi" name="medicine" list="medicine" onfocus="this.value=''" placeholder="Select Medicine">
                                 </div>
@@ -514,7 +595,12 @@
                                         <option value="before eat">খাবারের আগে </option>
                                         <option value="after eat">খাবারের পরে</option>
                                     </select> -->
-                                    <input class="form-select medicine_input" type="text" id="medi3" name="aftBfrEat" list="food" onfocus="this.value=''" placeholder="Select After or Before Eat Food">
+                                    <!-- <input class="form-select medicine_input" type="text" id="medi3" name="aftBfrEat" list="food" onfocus="this.value=''" placeholder="Select After or Before Eat Food"> -->
+                                    <select class="form-select medicine_input aftbfr-select" id="medi3" name="aftBfrEat"  aria-label="Default select example">
+                                        <option selected disabled>Select After or Before Eat Food</option>
+                                        <option value="before">খাবারের আগে </option>
+                                        <option value="after">খাবারের পরে</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm">
                                     <input class="form-select medicine_input" type="text" id="medi4" name="inputbtn" onfocus="this.value=''" placeholder="Select how much day take Medicine">
@@ -522,7 +608,7 @@
                             </div>
                             <button class="btn btn-success my-2" id="addMedicineBtn" type="button">Add Medicine</button>
                             <div class="table position-relative ">
-                                <table id="table" class="mt-2 prevent-break">
+                                <table id="table" class="mt-2 prevent-break table table-bordered">
                                     <tbody id="tbody">
                                         <tr>
                                             <td>
@@ -537,7 +623,7 @@
                                             </td>
                                             <td>
                                                 @foreach(json_decode($prescriptions->afterbefore) as $members)
-                                                <input class="added_medicine_style" name="afterbefore[]" type="text" value="{{$members}}">
+                                                <input class="added_medicine_style" name="afterbefore[]" type="text" value="{{$members==='after'?'খাবারের পরে' :'খাবারের আগে'}}">
                                                 @endforeach
                                             </td>
                                             <td>
@@ -573,16 +659,16 @@
                     <datalist id="when">
                         <option value="1+0+0">
                         <option value="0+1+0">
-                        <option value="10+0+1">
+                        <option value="1+0+1">
                         <option value="1+0+1">
                         <option value="1+1+0">
                         <option value="0+1+1">
                         <option value="1+1+1">
                     </datalist>
-                    <datalist id="food">
+                    <!-- <datalist id="food">
                         <option value="খাবারের আগে">খাবারের আগে </option>
                         <option value="খাবারের পরে"> খাবারের পরে </option>
-                    </datalist>
+                    </datalist> -->
                     <!-- rules -->
                     <!-- <div class="rules center-content " style="font-size: 12px;">
                         <dl>
@@ -613,7 +699,7 @@
             <h2 class="text-center my-2">You have not yet received permission to make a prescription. Please wait for permission...!</h2>
             @endif
         </main>
-        <p id="footer" class="text-center my-2"> কাপড়ঃ টেট্রন,পলেস্টার, উলেন, লিলেন ও সিল্কের কাপড়। পারফিউম কাপড় কাঁচা সাবান।</p>
+        <p id="footer" class="text-center my-2">ধন্যবাদ! স্বাস্থ্যই সম্পদ। নিরাময় প্রতিরোধের চেয়ে ভাল।</p>
     </div>
     <!-- External scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -749,3 +835,4 @@
 </body>
 
 </html>
+

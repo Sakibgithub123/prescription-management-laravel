@@ -29,7 +29,8 @@
    
     <style>
         .form-control{
-            border-color: #28a745;
+            /* border-color: #28a745; */
+            border-color: #003366;
 
         }
         .form-control:focus {

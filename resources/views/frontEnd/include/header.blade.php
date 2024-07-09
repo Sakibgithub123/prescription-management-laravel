@@ -1,8 +1,9 @@
 <div class="header">
     <div class="header-left">
         <a href="index-2.html" class="logo">
-            <img src="{{asset('superAdmin')}}/assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
+            <img src="{{asset('superAdmin')}}/assets/img/logo.png" width="35" height="35" alt=""> <span>MediCareOPS</span>
         </a>
+        <!-- Preclinic -->
     </div>
     <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
     <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
@@ -85,17 +86,24 @@
         <li class="nav-item dropdown has-arrow">
             <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                 <span class="user-img">
-                    <img class="rounded-circle" src="{{asset('superAdmin')}}/assets/img/user.jpg" width="24" alt="Admin">
+                    <!-- <img class="rounded-circle" src="{{asset('superAdmin')}}/assets/img/user.jpg" width="24" alt="Doctor">
+                    <span class="status online"></span> -->
+                    @if(!Auth::user()->profile_image)
+                    <img class="rounded-circle" src="{{asset('superAdmin')}}/assets/img/user.jpg" width="24" alt="Doctor">
+                    <span class="status offline"></span>
+                    @else
+                    <img class="rounded-circle" src="{{asset('storage/images/'.Auth::user()->profile_image)}}" width="24" alt="Doctor">
                     <span class="status online"></span>
+                    @endif
                 </span>
                 <span>{{Auth::user()->name}}</span>
             </a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{route('profile')}}">My Profile</a>
                 <a class="dropdown-item" href="{{route('profile-edit')}}">Edit Profile</a>
-                <a class="dropdown-item" href="settings.html">Settings</a>
+                <!-- <a class="dropdown-item" href="settings.html">Settings</a> -->
                 <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('logoutFormUser').submit()">Logout</a>
-                <form method="post" action="{{route('logout')}}" id="logoutFormUser">@csrf</form>
+                <form method="get" action="{{route('logout')}}" id="logoutFormUser">@csrf</form>
             </div>
         </li>
     </ul>
@@ -104,9 +112,9 @@
         <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="{{route('profile')}}">My Profile</a>
             <a class="dropdown-item" href="{{route('profile-edit')}}">Edit Profile</a>
-            <a class="dropdown-item" href="settings.html">Settings</a>
+            <!-- <a class="dropdown-item" href="settings.html">Settings</a> -->
             <a class="dropdown-item" href="" onclick="event.preventDefault; document.getElementById('logoutFormUser').submit()">Logout</a>
-            <form action="{{route('logout')}}" id="logoutFormUser" method="post">@csrf</form>
+            <form action="{{route('logout')}}" id="logoutFormUser" method="get">@csrf</form>
         </div>
     </div>
 </div>

@@ -11,16 +11,16 @@
     }
 </style>
 <div class="content">
-<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#fff; font-weight: 900;">Test</h4>
+<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#fff; font-weight: 900;">Diagnose</h4>
     <div class="row my-5">
         <div class="col-md-6 offset-md-3 shadow p-5 bg-primary">
-            <h4 class="page-title text-center" style="color:#fff; font-weight: bold;">Add Test Form</h4>
-            <form id="testForm">
+            <h4 class="page-title text-center" style="color:#fff; font-weight: bold;">Add Diagnose Form</h4>
+            <form id="diagnoseForm">
                 @csrf
                 <div class="form-group">
-                    <label>Test Name :</label>
-                    <input type="text" name="test" placeholder="write test" class="form-control">
-                    <span class="text-danger" id="testErrorMsg"></span>
+                    <label>Diagnose Name :</label>
+                    <input type="text" name="diagnose" placeholder="write diagnose" class="form-control">
+                    <span class="text-danger" id="diagnoseErrorMsg"></span>
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn btn-primary" style="background-color:#003366; color:#fff; font-weight: bold;">Add</button>
@@ -36,11 +36,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table id="testTable" class="table table-border table-striped custom-table datatable mb-0">
+                <table id="diagnoseTable" class="table table-border table-striped custom-table datatable mb-0">
                     <thead>
                         <tr>
                             <th>Serial</th>
-                            <th>Test Name</th>
+                            <th>Diagnose Name</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
@@ -58,8 +58,8 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
-    let table = new DataTable('#testTable', {
-        ajax: "{{url('/test/page')}}",
+    let table = new DataTable('#diagnoseTable', {
+        ajax: "{{url('/diagnose/page')}}",
         processing: true,
         columns: [{
             render: function (data, type, row, meta) {
@@ -68,7 +68,7 @@
 
             },
             {
-                data: 'test'
+                data: 'diagnose'
             },
             
             {
@@ -92,22 +92,22 @@
 
 
     $(document).ready(function() {
-    $('#testForm').on('submit', function(e) {
+    $('#diagnoseForm').on('submit', function(e) {
         e.preventDefault();
         let formData = $(this).serialize();
         $.ajax({
             method: 'post',
-            url: "{{route('save.test.form')}}",
+            url: "{{route('save.diagnose.form')}}",
             data: formData,
             success: function(data) {
                 if (data.status === "exit") {
 
-                    $('testErrorMsg').text(data.massage + " " + 'already exists.');
+                    $('diagnoseErrorMsg').text(data.massage + " " + 'already exists.');
                     return;
                 }
 
                 if (data.status === true) {
-                    toastr.success( data.massage +" "+'Test Added Success', 'Add Test');
+                    toastr.success( data.massage +" "+'Diagnose Added Success.', 'Add Diagnose!');
                     table.ajax.reload();
                 } else {
                     toastr.error('Something wrong!', 'Try again!');
@@ -115,7 +115,7 @@
                 }
             },
             error: function(response) {
-                $('#testErrorMsg').text(response.responseJSON.errors.test);
+                $('#diagnoseErrorMsg').text(response.responseJSON.errors.diagnose);
             }
         })
     })
@@ -125,7 +125,7 @@
         let id = $(this).attr('delete-id')
         Swal.fire({
             title: 'Are you sure?',
-            text: "You want to delete this test!",
+            text: "You want to delete this diagnose!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -135,7 +135,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     method: 'post',
-                    url: '{{route("delete.test")}}',
+                    url: '{{route("delete.diagnose")}}',
                     data: {
                         'id': id,
                         '_token': '{{ csrf_token() }}'
@@ -145,7 +145,7 @@
                         if (data.status === true) {
                             Swal.fire(
                                 'Deleted!',
-                                ' Test has been deleted.',
+                                'Diagnose has been deleted.',
                                 'success'
                             )
                             table.ajax.reload();

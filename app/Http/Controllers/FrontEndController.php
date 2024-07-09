@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Clinic;
 use App\Models\Complaints;
+use App\Models\Diagnose;
 use App\Models\Investigation;
 use App\Models\Medicine;
 use App\Models\Notice;
@@ -25,13 +26,14 @@ class FrontEndController extends Controller
     //     return view('frontEnd.login');
     // }
 
-                //----------------- Doctor login Credentials----------
+    //----------------- Doctor login Credentials----------
 
     public function getLoginPage()
     {
         return view('frontEnd.login.login');
     }
-    public function doctorLogin(Request $request){
+    public function doctorLogin(Request $request)
+    {
         $request->validate(([
             'email' => 'required',
             'password' => 'required',
@@ -62,15 +64,15 @@ class FrontEndController extends Controller
     //     return view('frontEnd.index');
     // }
 
-                     //----------------- Home page------------
+    //----------------- Home page------------
 
     public function getHome()
     {
-        $notices=Notice::where('status','Active')->get();
-        return view('frontEnd.home.home',compact('notices'));
+        $notices = Notice::where('status', 'Active')->get();
+        return view('frontEnd.home.home', compact('notices'));
     }
 
-                  //----------------Doctor Profile--------------
+    //----------------Doctor Profile--------------
 
     public function getProfile()
     {
@@ -109,29 +111,28 @@ class FrontEndController extends Controller
         }
     }
 
-                  //------------- Patient Credentials---------------
+    //------------- Patient Credentials---------------
 
     public function getPatient()
     {
         $patient = Prescription::where('dr_id', Auth::user()->id)->get();
-        
-        if(request()->ajax()){
-            
-        if($patient){
-            return response()->json([
-                'message'=>'data found',
-                'code'=>200,
-                'data'=>$patient,
-            ]);
-        }else{
-            return response()->json([
-                'message'=>'internel server error',
-                'code'=>500,
-               
-            ]);
 
+        if (request()->ajax()) {
+
+            if ($patient) {
+                return response()->json([
+                    'message' => 'data found',
+                    'code' => 200,
+                    'data' => $patient,
+                ]);
+            } else {
+                return response()->json([
+                    'message' => 'internel server error',
+                    'code' => 500,
+
+                ]);
+            }
         }
-    }
         return view('frontEnd.patient.patient', ['patients' => $patient]);
     }
 
@@ -186,17 +187,19 @@ class FrontEndController extends Controller
             ->first();
         $prescriptions = Prescription::find($id);
         $clinicDetails = Clinic::find(1);
-        $complaints=Complaints::all();
-        $tests=Test::all();
-        $investigations=Investigation::all();
-        $medicines=Medicine::all();
+        $complaints = Complaints::all();
+        $diagnoses = Diagnose::all();
+        $tests = Test::all();
+        $investigations = Investigation::all();
+        $medicines = Medicine::all();
         // ['prescriptions' => $prescription, 'doctorDetails' => $doctorDetails]
-        return view('frontEnd.patient.show-prescription',compact('prescriptions','doctorDetails','clinicDetails','complaints','tests','investigations','medicines'));
+        return view('frontEnd.patient.show-prescription', compact('prescriptions', 'doctorDetails', 'clinicDetails', 'complaints','diagnoses', 'tests', 'investigations', 'medicines'));
     }
     public function editPrescription(Request $request)
     {
         $request->validate(([
             'patient_name' => 'required',
+            'patient_gender' => 'required',
             'patient_age' => 'required',
         ]));
 
@@ -219,11 +222,13 @@ class FrontEndController extends Controller
         $prescriptionEdit = Prescription::find($request->prescription_id)->update([
             'dr_id' => $request->dr_id,
             'patient_name' => $request->patient_name,
+            'patient_gender' => $request->patient_gender,
             'patient_age' => $request->patient_age,
             'visit_fee' => $request->visit_fee,
             'reg_no' => $request->reg_no,
             'date' => $request->date,
             'complaints' => json_encode($request->complaints),
+            'diagnoses' => json_encode($request->diagnoses),
             'tests' => json_encode($request->tests),
             'investigations' => json_encode($request->investigations),
             'medicine' => implode(",", $m),
@@ -238,11 +243,10 @@ class FrontEndController extends Controller
             return response()->json([
                 'status' => 'success',
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => 'server error',
             ]);
-
         }
     }
 
@@ -256,27 +260,36 @@ class FrontEndController extends Controller
         }
     }
 
-                    //------------- Prescription credentials-------------
+    //------------- Prescription credentials-------------
 
     public function getPrescription()
     {
         $drId = Auth::user();
-        $reg_no = rand(10, 9999) . rand(9, 1000);
+        // $reg_no = rand(10, 9999) . rand(9, 1000);
+        $faker = \Faker\Factory::create();
+        $reg_no = $faker->unique()->numerify('REG#####');
         $clinicDetails = Clinic::find(1);
-        $complaints=Complaints::all();
-        $tests=Test::all();
-        $investigations=Investigation::all();
-        $medicines=Medicine::all();
-        return view('frontEnd.prescription.prescription', compact('drId', 'reg_no','clinicDetails','complaints','tests','investigations','medicines'));
+        $complaints = Complaints::all();
+        $diagnoses = Diagnose::all();
+        $tests = Test::all();
+        $investigations = Investigation::all();
+        $medicines = Medicine::all();
+        return view('frontEnd.prescription.prescription', compact('drId', 'reg_no', 'clinicDetails', 'complaints','diagnoses', 'tests', 'investigations', 'medicines'));
     }
 
     public function savePrescription(Request $request)
     {
         $request->validate(([
             'patient_name' => 'required',
+            'patient_gender' => 'required',
             'patient_age' => 'required',
         ]));
+        $complaint = json_encode($request->complaints ?? []);
+        $diagnose = json_encode($request->diagnoses ?? []);
+        $test = json_encode($request->tests ?? []);
+        $investigation = json_encode($request->investigations ?? []);
         $medicine = json_encode($request->medicine);
+
         $m = [];
         $m['medicine'] = $medicine;
 
@@ -295,13 +308,15 @@ class FrontEndController extends Controller
         $prescription = new Prescription;
         $prescription->dr_id = $request->dr_id;
         $prescription->patient_name = $request->patient_name;
+        $prescription->patient_gender = $request->patient_gender;
         $prescription->patient_age = $request->patient_age;
         $prescription->visit_fee = $request->visit_fee;
         $prescription->reg_no = $request->reg_no;
         $prescription->date = $request->date;
-        $prescription->complaints = json_encode($request->complaints);
-        $prescription->tests = json_encode($request->tests);
-        $prescription->investigations = json_encode($request->investigations);
+        $prescription->complaints = $complaint;
+        $prescription->diagnoses = $diagnose;
+        $prescription->tests = $test;
+        $prescription->investigations = $investigation;
         $prescription->medicine = implode(",", $m);
         $prescription->howmanytimes = implode(",", $h);
         $prescription->afterbefore = implode(",", $a);
@@ -311,15 +326,14 @@ class FrontEndController extends Controller
             return response()->json([
                 'status' => 'success',
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => false,
             ]);
-
         }
     }
 
-    
+
     // public function adminDashboard()
     // {
     //     if (Auth::id()) {
@@ -396,19 +410,22 @@ class FrontEndController extends Controller
     //     }
     // }
 
-                //---------------- Doctor Statistics--------------
+    //---------------- Doctor Statistics--------------
 
     public function doctorStatistics()
     {
         $patientCount = Prescription::count();
+        
         $authenticatedDoctorId = Auth::id();
+        // return $authenticatedDoctorId;
         $userCharts = Prescription::selectRaw('MONTH(created_at) as month , COUNT(*) as count')
-            ->whereYear('created_at', date('Y-m'))
+            ->whereYear('created_at', date('Y'))
             ->where('dr_id', $authenticatedDoctorId)
             ->groupBy('month')
             ->orderBy('month')
             ->get();
         $labels = [];
+        
         $data = [];
         $colurs = ['#ff0000', '#ff8000', '#ffff00', '#80ff00 ', '#00ff00', '#00ff80', '#00ffff ', '#0080ff', '#0000ff', '#8000ff', '#ff00ff', '#ff0080'];
 
@@ -424,6 +441,7 @@ class FrontEndController extends Controller
             array_push($labels, $month);
             array_push($data, $count);
         }
+        
         $datasets = [
             [
                 'label' => 'Patients',
@@ -431,27 +449,28 @@ class FrontEndController extends Controller
                 'backgroundColor' => $colurs
             ]
         ];
-        $authenticatedDoctorId = Auth::id();
+        
+        // $authenticatedDoctorId = Auth::id();
         $appointments = Prescription::where('dr_id', $authenticatedDoctorId)->get();
-        $patients = Prescription::select('patient_name', 'patient_age', 'complaints','investigations', 'prescriptions.created_at as date', 'users.name as name')
+        $patients = Prescription::select('patient_name', 'patient_age', 'complaints', 'investigations', 'prescriptions.created_at as date', 'users.name as name')
             ->join('users', 'users.id', 'prescriptions.dr_id')->where('dr_id', Auth::user()->id)->latest('prescriptions.created_at')->get();
 
 
-            $authenticatedDoctorId = Auth::id();
-            $appointments = Prescription::where('dr_id', $authenticatedDoctorId)->get();
-    
-            $monthlyFees = $appointments->groupBy(function ($appointment) {
-                return $appointment->created_at->format('Y');
-            })->map(function ($monthlyAppointments) {
-                return $monthlyAppointments->sum('visit_fee');
-            });
+        $authenticatedDoctorId = Auth::id();
+        $appointments = Prescription::where('dr_id', $authenticatedDoctorId)->get();
+
+        $monthlyFees = $appointments->groupBy(function ($appointment) {
+            return $appointment->created_at->format('Y');
+        })->map(function ($monthlyAppointments) {
+            return $monthlyAppointments->sum('visit_fee');
+        });
         //     $monthlyFees = Prescription::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, SUM(visit_fee) as total')
         // ->groupBy('month')
         // ->orderBy('month')
         // ->get();
 
         $userCharts1 = Prescription::selectRaw('MONTH(created_at) as month , SUM(visit_fee) as sum')
-            ->whereYear('created_at', date('Y-m'))
+            ->whereYear('created_at', date('Y'))
             ->where('dr_id', $authenticatedDoctorId)
             ->groupBy('month')
             ->orderBy('month')
@@ -479,19 +498,21 @@ class FrontEndController extends Controller
                 'backgroundColor' => $colurs
             ]
         ];
-           
+        // return $datasets;
 
-        return view('frontEnd.my-statistics.my-statistics', compact('patientCount', 'patients', 'datasets', 'labels','datasets1', 'labels1','monthlyFees'));
+   
+   
+        return view('frontEnd.my-statistics.my-statistics', compact('patientCount', 'patients', 'datasets', 'labels', 'datasets1', 'labels1', 'monthlyFees'));
 
-        
+
 
         // Process data as needed for the chart
 
         // return view('frontEnd.my-statistics.my-statistics', compact('appointments'));
     }
 
-    
-               //---------- Password Change credentials------------------
+
+    //---------- Password Change credentials------------------
 
     public function getchangePassword()
     {
@@ -524,7 +545,7 @@ class FrontEndController extends Controller
         }
     }
 
-                   //---------- Logout-----------------
+    //---------- Logout-----------------
 
     public function Logout(Request $request)
     {

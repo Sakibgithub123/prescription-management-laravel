@@ -33,7 +33,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js" integrity="sha512-F636MAkMAhtTplahL9F6KmTfxTmYcAcjcCkyu0f0voT3N/6vzAuJ4Num55a0gEJ+hRLHhdz3vDvZpf6kqgEa5w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         .form-control{
-            border-color: #28a745;
+            /* border-color: #28a745; */
+            border-color: #003366;
 
         }
         .form-control:focus {

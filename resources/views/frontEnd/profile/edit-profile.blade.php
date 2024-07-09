@@ -1,5 +1,18 @@
 @extends('frontEnd.master');
 @section('content')
+<style>
+     label{
+        color: #003366;
+        font-weight: bold;
+    }
+    ::placeholder{
+        color: #003366;
+
+    }
+    input{
+        border: 1px solid #007bff;
+    }
+</style>
 <div class="content">
     <div class="row">
         <div class="col-sm-12">
@@ -20,14 +33,14 @@
                         <img class="inline-block" id="output" src="{{asset('storage/images/'.$editProfile->profile_image)}}" alt="{{$editProfile->name}}">
                         @endif
                         <div class="fileupload btn">
-                            <span class="btn-text">edit</span>
+                            <span class="btn-text"><i class="fa fa-camera" aria-hidden="true"></i></span>
                             <input class="upload" type="file" name="profile_image" accept="image/*" onchange="loadFile(event)">
                         </div>
                     </div>
                     <div class="profile-basic">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group form-focus">
+                                <div class="form-group">
                                     <label class="focus-label">Name</label>
                                     <input type="text" name="name" class="form-control floating" value="{{$editProfile->name}}">
                                 </div>
@@ -39,15 +52,15 @@
                                             </div>
                                         </div> -->
                             <div class="col-md-6">
-                                <div class="form-group form-focus">
+                                <div class="form-group">
                                     <label class="focus-label">Birth Date</label>
-                                    <div class="cal-icon">
+                                    <!-- <div class="cal-icon"> -->
                                         <input name="birthday" class="form-control floating datetimepicker" type="text" value="{{$editProfile->birthday}}">
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group form-focus select-focus">
+                                <div class="form-group  select-focus">
                                     <label class="focus-label">Gendar</label>
                                     <select name="gender" class="select form-control floating">
                                         <option selected>{{$editProfile->gender}}</option>
@@ -65,20 +78,20 @@
             <h3 class="card-title">Contact Informations</h3>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group form-focus">
+                    <div class="form-group">
                         <label class="focus-label">Address</label>
                         <input type="text" name="address" class="form-control floating" value="{{$editProfile->address}}">
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group form-focus">
+                    <div class="form-group">
                         <label class="focus-label">Email</label>
                         <input type="text" name="email" class="form-control floating" value="{{$editProfile->email}}">
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <div class="form-group form-focus">
+                    <div class="form-group">
                         <label class="focus-label">Phone Number</label>
                         <input type="text" name="phone" class="form-control floating" value="{{$editProfile->phone}}">
                     </div>
@@ -89,19 +102,19 @@
             <h3 class="card-title">Education Informations</h3>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group form-focus">
+                    <div class="form-group">
                         <label class="focus-label">Education Informations</label>
                         <input type="text" name="education_informations" class="form-control floating" value="{{$editProfile->education_informations}}">
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group form-focus">
+                    <div class="form-group">
                         <label class="focus-label">Qualification</label>
                         <input type="text" name="qualification" class="form-control floating" value="{{$editProfile->qualification}}">
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group form-focus">
+                    <div class="form-group">
                         <label class="focus-label">Specialist/Department</label>
 
                         <input type="text" name="specialist" class="form-control floating datetimepicker" value="{{$editProfile->specialist}}">
@@ -109,7 +122,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group form-focus">
+                    <div class="form-group">
                         <label class="focus-label">When You Seat</label>
 
                         <input type="text" name="whenyouseat" class="form-control floating datetimepicker" value="{{$editProfile->whenyouseat}}">
@@ -120,7 +133,7 @@
             </div>
         </div>
         <div class="text-center m-t-20">
-            <button name="submit" class="btn btn-primary submit-btn" type="submit">Save</button>
+            <button name="submit" class="btn btn-primary submit-btn font-weight-bold" type="submit">Save</button>
         </div>
     </form>
 </div>
