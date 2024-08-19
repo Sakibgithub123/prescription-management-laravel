@@ -45,13 +45,14 @@
     <div class="main-wrapper account-wrapper">
         <div class="account-page">
             <div class="account-center">
-                <div class="account-box">
+                <div class="account-box" >
                     <!-- action="{{ route('login') }}" -->
                     <form id="loginForm" class="form-signin">
                         @csrf
                         <div class="account-logo">
-                            <a href="index-2.html"><img src="{{asset('superAdmin')}}/assets/img/logo-dark.png" alt=""></a>
+                            <a><img src="{{asset('superAdmin')}}/assets/img/logo-dark.png" alt=""></a>
                         </div>
+                        <h4 class="page-title text-center" style="color:#007bff; font-weight: 900;">MediCareOPS</h4>
                         <div class="form-group">
                             <p class="text-center text-danger" id="errorMessage"></p>
                         </div>
@@ -69,16 +70,16 @@
                         <div class="form-group">
                             <p id="passwordError"></p>
                         </div>
-                        <div class="form-group text-right">
+                        <!-- <div class="form-group text-right">
                             <a href="forgot-password.html">Forgot your password?</a>
-                        </div>
+                        </div> -->
                         <div class="form-group text-center">
                             <input type="submit" class="btn btn-primary" value="Login">
                             <!-- <button type="submit" class="btn btn-primary account-btn">Login</button> -->
                         </div>
-                        <div class="text-center register-link">
+                        <!-- <div class="text-center register-link">
                             Don’t have an account? <a href="{{route('register')}}">Register Now</a>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
             </div>

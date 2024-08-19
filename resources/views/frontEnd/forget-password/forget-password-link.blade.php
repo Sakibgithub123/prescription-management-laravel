@@ -42,8 +42,9 @@
         <div class="account-page">
 			<div class="account-center">
                 <div class="account-box">
-                    <form class="form-signin" action="#">
-                    <input type="hidden" name="token" value="{{ $token }}">
+                    <form class="setPasswordForm">
+                    @csrf
+                          <input type="hidden" name="token" value="{{ $token }}">
   
 						<div class="account-logo">
                             <a href="#"><img src="{{asset('superAdmin')}}/assets/img/logo-dark.png" alt=""></a>
@@ -51,17 +52,32 @@
                         <div class="form-group">
                             <label>Enter Your Email</label>
                             <input type="text" name="email" class="form-control" autofocus>
+                            <!-- @if ($errors->has('email')) -->
+                                      <!-- <span class="text-danger" id="emailError">{{ $errors->first('email') }}</span> -->
+                                      <span class="text-danger" id="emailError"></span>
+                                  <!-- @endif -->
                         </div>
                         <div class="form-group">
                             <label>New Password</label>
                             <input type="password" name="password" class="form-control" autofocus>
+                            <!-- @if ($errors->has('password')) -->
+                                      <span class="text-danger" id="passwordError"></span>
+                                  <!-- @endif -->
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" name="password_confirmation" class="form-control" autofocus>
+                            <!-- @if ($errors->has('password_confirmation')) -->
+                                      <span class="text-danger" id="password_confirmationError"></span>
+                                      <!-- <span class="text-danger" id="password_confirmationError">{{ $errors->first('password_confirmation') }}</span> -->
+                                  <!-- @endif -->
                         </div>
                         <div class="form-group text-center">
                             <button class="btn btn-primary account-btn" type="submit">Reset Password</button>
                         </div>
-                        <div class="text-center register-link">
+                        <!-- <div class="text-center register-link">
                             <a href="{{route('login-page')}}">Back to Login</a>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
 			</div>
@@ -71,6 +87,43 @@
     <script src="{{asset('superAdmin')}}/assets/js/popper.min.js"></script>
     <script src="{{asset('superAdmin')}}/assets/js/bootstrap.min.js"></script>
     <script src="{{asset('superAdmin')}}/assets/js/app.js"></script>
+
+
+    <script>
+         $(document).ready(function(){
+        $('#setPasswordForm').on('submit',function(e){
+            e.preventDefault();
+            let formData=$(this).serialize();
+            $.ajax({
+                method:'post',
+                url:"{{route('freset.password.post')}}",
+                data:formData,
+                success: function(data){
+                    if(data.status = true){
+                        toastr.success('message', 'Your password has been changed!');
+                        window.location.href='/'
+                    }else{
+                        toastr.error('Something wrong!', 'Try again!');
+                    }
+                },
+                error: function(response) {
+                        $('#emailError').text(response.responseJSON.errors.email);
+                        $('#passwordError').text(response.responseJSON.errors.email);
+                        $('#password_confirmationError').text(response.responseJSON.errors.password_confirmation);
+                        // $('#passwordError').text(response.responseJSON.errors.password);
+
+                    }
+            })
+        })
+        
+    })
+
+
+    </script>
+
+
+
+
 </body>
 
 

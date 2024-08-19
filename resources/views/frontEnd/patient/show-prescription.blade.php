@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Prescription</title>
+    <title>Update Prescription MediCareOPS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
@@ -82,7 +82,7 @@
             }
         }
     </style> -->
-    <style>
+    <!-- <style>
         * {
             padding: 0;
             margin: 0;
@@ -165,8 +165,27 @@
         #medicinetag {
             display: none;
         }
-        .aftbfr-select,.gender-select {
+
+        .aftbfr-select,
+        .gender-select {
             color: #6c757d;
+        }
+
+        @media screen and (max-width: 480px) {
+            .row1{
+                display: flex;
+                
+                gap: 6px;
+            }
+            .doctor-details h2 {
+                font-size: 10px;
+            }
+            .doctor-details h3 {
+                font-size: 11px;
+            }
+            .doctor-details p{
+                font-size: 8px;
+            }
         }
 
 
@@ -304,6 +323,226 @@
             }
 
         }
+    </style> -->
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+            /* font-family: 'Nunito', sans-serif;
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Work Sans', sans-serif; */
+            font-style: italic;
+        }
+
+        .doctor-details h2 {
+            font-size: 25px;
+            font-weight: 600;
+            /* color: #4CAF50; */
+            color: #4b4745;
+        }
+
+        .doctor-details .Education {
+            font-size: 20px;
+            font-weight: 500;
+            color: #4CAF50;
+        }
+
+
+        .doctor-details span {
+            font-size: 16px;
+            font-weight: 400;
+            color: #173518;
+        }
+
+        .cti h3 {
+            font-size: 16px;
+        }
+
+        input,
+        tbody {
+            font-size: 14px;
+        }
+
+        form {
+            color: #4b4745;
+        }
+
+        #tbody tr td {
+            margin-left: 10px;
+            padding-left: 30px;
+        }
+
+        .row1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* header{
+            background-image: url("/superAdmin/assets/img/wave\(2\).png");
+        } */
+        body {
+            background: radial-gradient(ellipse at center,
+                    #fffeea 0%,
+                    #fffeea 35%,
+                    #b7e8eb 100%);
+            /* overflow: hidden; */
+        }
+
+        /* add new */
+        .added_medicine_style {
+            /* background-color: #e9ecef; */
+            width: 100%;
+            padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+            -moz-padding-start: calc(0.75rem - 3px);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #e9ecef;
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        #medicinetag {
+            display: none;
+        }
+
+        /* table td{
+            font-size: 4px;
+        } */
+        .aftbfr-select,
+        .gender-select {
+            color: #6c757d;
+        }
+
+        @media screen and (max-width: 480px) {
+            .row1{
+                display: flex;
+                
+                gap: 6px;
+            }
+            .doctor-details h2 {
+                font-size: 10px;
+            }
+            .doctor-details .Education {
+                font-size: 11px;
+            }
+            .doctor-details span{
+                font-size: 8px;
+            }
+        }
+
+
+
+
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            button[name="bttn"] {
+                display: none;
+            }
+
+            .medicine_input {
+                display: none;
+            }
+
+            .browsers {
+                display: none;
+            }
+
+            .btn {
+                display: none;
+            }
+
+            .container a {
+                display: none;
+            }
+
+            .content {
+                background: radial-gradient(ellipse at center,
+                        #fffeea 0%,
+                        #fffeea 35%,
+                        #b7e8eb 100%);
+            }
+
+
+            /* header {
+                width: 100%;
+                background-image: url("/superAdmin/assets/img/wave.png");
+                 background: #000 !important;
+        } */
+
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+
+            }
+
+            .row1 {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 40px;
+            }
+
+            /* add new */
+            .select2-selection__clear {
+                display: none;
+            }
+
+            .select2-selection__choice__remove {
+                display: none;
+
+            }
+
+            .added_medicine_style {
+                border: none;
+                outline: none;
+            }
+
+            .select2-container--default .select2-selection--multiple {
+                border: none;
+                outline: none;
+                background-color: transparent;
+            }
+
+            table {
+                margin-top: -20px;
+            }
+
+            .cti {
+                margin-bottom: 0px;
+            }
+
+            #medicinetag {
+                display: block;
+            }
+
+            #backArrow {
+                display: none;
+            }
+
+            /* header {page-break-after: always;} */
+
+        }
+
+       
     </style>
 
 
@@ -311,30 +550,32 @@
 </head>
 
 <body>
+    <button style="outline: none; border:none; background: none;" id="backArrow" onclick="history.back()"><i class="fa fa-arrow-left px-2" aria-hidden="true"></i>Back</button>
     <div>
         <header id="header" style="width: 100%;">
             <div>
-                <div class="row1 shadow  p-3">
-                    <div class="doctor-details">
-                        <h2 class="name">{{$doctorDetails->name}} </h2>
-                        <p class="qualification Degree">{{$doctorDetails->qualification}}</p>
-                        <h3 class="Education Informations">{{$doctorDetails->education_informations}}</h3>
-                        <p class="specialist text-danger">{{$doctorDetails->specialist}}</p>
+                <div class="row1 shadow  p-2">
+                    <div class="doctor-details d-flex flex-column">
+                        <h2 class="name text-info">{{$doctorDetails->name}} </h2>
+                        <span class="qualification Degree">{{$doctorDetails->qualification}}</span>
+                        <span class="Education Informations">{{$doctorDetails->education_informations}}</span>
+                        <span class="institute">{{$doctorDetails->friday_seating_time}}</span>
+                        <span class="specialist text-danger">{{$doctorDetails->specialist}}</span>
                     </div>
                     <div class=" doctor-details text-center">
                         <h2>রোগী দেখার সময়</h1>
-                            <div class="text-center">
-                                <p class="seating-day">প্রতিদিন : {{$doctorDetails->seating_day}}</p>
-                                <p class="seating-time">সময় : {{$doctorDetails->whenyouseat}}</p>
+                            <div class="text-center d-flex flex-column">
+                                <span class="seating-day">প্রতিদিন : {{$doctorDetails->seating_day}}</span>
+                                <span class="seating-time">সময় : {{$doctorDetails->whenyouseat}}</span>
 
                             </div>
                     </div>
-                    <div class=" doctor-details" id="chember-details">
+                    <div class=" doctor-details d-flex flex-column" id="chember-details">
                         <h2 class="clinic-name">{{$clinicDetails->clinic_name}} </h1>
-                            <p class="location">Address: {{$clinicDetails->location}}</p>
+                            <span class="location">Address: {{$clinicDetails->location}}</span>
                             <!-- <h3>location_details</h3> -->
-                            <p class="phone no">Phone: {{$doctorDetails->phone}}</p>
-                            <p>RegNo: <span class="ml-2">{{$prescriptions->reg_no}}</span></p>
+                            <span class="phone no">Phone: {{$doctorDetails->phone}}</span>
+                            <span>RegNo: <span class="ml-2">{{$prescriptions->reg_no}}</span></span>
 
                     </div>
                 </div>
@@ -353,40 +594,43 @@
                 <!-- <input type="hidden" name="reg_no" value="{{$prescriptions->reg_no}}" id=""> -->
                 <div class="container-fluid my-4">
                     <div class="row conacani1">
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             <div class="input-group">
                                 <span class="input-group-text">Patient name</span>
                                 <input type="text" name="patient_name" aria-label="name" value="{{$prescriptions->patient_name}}" class="form-control">
-                                @error('patient_name')
+                                <!-- @error('patient_name')
                                 <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                @enderror -->
                             </div>
+                            <p class="text-danger" id="patient_nameErrorMsg"></p>
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
                                 <span class="input-group-text">Gender</span>
                                 <!-- <input type="text" name="patient_gender" aria-label="name" class="form-control"> -->
                                 <select name="patient_gender" id="" class="form-control gender-select">
-                                    <option selected>{{$prescriptions->patient_gender}}</option>
+                                    <option  selected>{{$prescriptions->patient_gender}}</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
-                                @error('patient_gender')
+                                <!-- @error('patient_gender')
                                 <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                @enderror -->
                             </div>
+                            <p class="text-danger" id="patient_genderErrorMsg"></p>
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
                                 <span class="input-group-text">Age</span>
                                 <input type="text" name="patient_age" aria-label="name" value="{{$prescriptions->patient_age}}" class="form-control">
-                                @error('patient_age')
+                                <!-- @error('patient_age')
                                 <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                @enderror -->
                             </div>
+                            <p class="text-danger" id="patient_ageErrorMsg"></p>
                         </div>
                         <input type="hidden" name="reg_no" value="{{$prescriptions->reg_no}}">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="input-group">
                                 <span class="input-group-text">Date</span>
                                 <input type="text" name="date" aria-label="date" value="{{$prescriptions->date}}" class="form-control">
@@ -424,7 +668,7 @@
                                     @endforeach
 
 
-                                   
+
 
 
 
@@ -438,7 +682,7 @@
                             <div class="input-group">
                                 <select class="form-select tag2" name="tests[]" multiple="multiple" aria-label="Default select example">
 
-                             
+
                                     @php
                                     $allTests = [];
 
@@ -463,7 +707,7 @@
                                     <option value="{{ $test }}" @if(!is_null($prescriptions->tests) && in_array($test, (array) json_decode($prescriptions->tests))) selected @endif>{{ $test }}</option>
                                     @endforeach
 
-                                    
+
 
 
 
@@ -474,8 +718,8 @@
                         <div class="col-sm-3">
                             <h3 class="text-center">Investigations</h3>
                             <div class="input-group text-center">
-                                <select class="form-select tag4" name="investigations[]" multiple="multiple" aria-label="Default select example">
-                             
+                                <select class="form-select tag3" name="investigations[]" multiple="multiple" aria-label="Default select example">
+
                                     @php
                                     $allInvestigations = [];
 
@@ -499,19 +743,15 @@
                                     @foreach($allInvestigations as $investigation)
                                     <option value="{{ $investigation }}" @if(!is_null($prescriptions->investigations) && in_array($investigation, (array) json_decode($prescriptions->investigations))) selected @endif>{{ $investigation }}</option>
                                     @endforeach
-
-                                   
-
-
-
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-sm-3">
                             <h3 class="text-center">diagnose</h3>
                             <div class="input-group text-center">
-                                <select class="form-select tag3" name="diagnoses[]" multiple="multiple" aria-label="Default select example">
-                             
+                                <select class="form-select tag4" name="diagnoses[]" multiple="multiple" aria-label="Default select example">
+
                                     @php
                                     $allDiagnoses = [];
 
@@ -535,15 +775,10 @@
                                     @foreach($allDiagnoses as $diagnose)
                                     <option value="{{ $diagnose }}" @if(!is_null($prescriptions->diagnoses) && in_array($diagnose, (array) json_decode($prescriptions->diagnoses))) selected @endif>{{ $diagnose }}</option>
                                     @endforeach
-
-                                   
-
-
-
                                 </select>
                             </div>
                         </div>
-                      
+
 
                     </div>
                     <!-- ------------------------ -->
@@ -587,7 +822,7 @@
                                     <input class="form-select medicine_input" type="text" id="medi" name="medicine" list="medicine" onfocus="this.value=''" placeholder="Select Medicine">
                                 </div>
                                 <div class="col-sm">
-                                    <input class="form-select medicine_input" type="text" id="medi2" name="whenTake" onfocus="this.value=''" placeholder="Select when take Medicine">
+                                    <input class="form-select medicine_input" type="text" id="medi2" list="when" name="whenTake" onfocus="this.value=''" placeholder="Select when take Medicine">
                                 </div>
                                 <div class="col-sm">
                                     <!-- <select class="form-select medicine_input" id="medi3" name="aftBfrEat" aria-label="Default select example">
@@ -596,14 +831,16 @@
                                         <option value="after eat">খাবারের পরে</option>
                                     </select> -->
                                     <!-- <input class="form-select medicine_input" type="text" id="medi3" name="aftBfrEat" list="food" onfocus="this.value=''" placeholder="Select After or Before Eat Food"> -->
-                                    <select class="form-select medicine_input aftbfr-select" id="medi3" name="aftBfrEat"  aria-label="Default select example">
+                                    <select class="form-select medicine_input aftbfr-select" id="medi3" name="aftBfrEat" aria-label="Default select example">
                                         <option selected disabled>Select After or Before Eat Food</option>
-                                        <option value="before">খাবারের আগে </option>
-                                        <option value="after">খাবারের পরে</option>
+                                        <!-- <option value="before">খাবারের আগে </option>
+                                        <option value="after">খাবারের পরে</option> -->
+                                        <option value="খাবারের আগে">খাবারের আগে </option>
+                                        <option value="খাবারের পরে">খাবারের পরে</option>
                                     </select>
                                 </div>
                                 <div class="col-sm">
-                                    <input class="form-select medicine_input" type="text" id="medi4" name="inputbtn" onfocus="this.value=''" placeholder="Select how much day take Medicine">
+                                    <input class="form-select medicine_input" type="text" id="medi4" name="inputbtn" list="days" onfocus="this.value=''" placeholder="Select how much day take Medicine">
                                 </div>
                             </div>
                             <button class="btn btn-success my-2" id="addMedicineBtn" type="button">Add Medicine</button>
@@ -612,24 +849,32 @@
                                     <tbody id="tbody">
                                         <tr>
                                             <td>
+                                                @if($prescriptions->medicine)
                                                 @foreach(json_decode($prescriptions->medicine) as $members)
                                                 <input class="added_medicine_style" name="medicine[]" type="text" value="{{$members}}">
                                                 @endforeach
+                                                @endif
                                             </td>
                                             <td>
+                                            @if($prescriptions->howmanytimes)
                                                 @foreach(json_decode($prescriptions->howmanytimes) as $members)
                                                 <input class="added_medicine_style" name="howmanytimes[]" type="text" value="{{$members}}">
                                                 @endforeach
+                                                @endif
                                             </td>
                                             <td>
+                                            @if($prescriptions->afterbefore)
                                                 @foreach(json_decode($prescriptions->afterbefore) as $members)
-                                                <input class="added_medicine_style" name="afterbefore[]" type="text" value="{{$members==='after'?'খাবারের পরে' :'খাবারের আগে'}}">
+                                                <input class="added_medicine_style" name="afterbefore[]" type="text" value="{{$members}}">
                                                 @endforeach
+                                                @endif
                                             </td>
                                             <td>
+                                            @if($prescriptions->nextdate)
                                                 @foreach(json_decode($prescriptions->nextdate) as $members)
                                                 <input class="added_medicine_style" name="nextdate[]" type="text" value="{{$members}}">
                                                 @endforeach
+                                                @endif
 
                                             </td>
                                             <td>
@@ -664,6 +909,23 @@
                         <option value="1+1+0">
                         <option value="0+1+1">
                         <option value="1+1+1">
+                    </datalist>
+                    <datalist id="days">
+                        <option value="1d">
+                        <option value="2d">
+                        <option value="3d">
+                        <option value="4d">
+                        <option value="5d">
+                        <option value="6d">
+                        <option value="7d">
+                        <option value="8d">
+                        <option value="9d">
+                        <option value="10d">
+                        <option value="11d">
+                        <option value="12d">
+                        <option value="13d">
+                        <option value="14d">
+                        <option value="15d">
                     </datalist>
                     <!-- <datalist id="food">
                         <option value="খাবারের আগে">খাবারের আগে </option>
@@ -762,6 +1024,10 @@
                 // placeholder: 'Select Investigations',
                 allowClear: true,
             });
+            $('.tag4').select2({
+                // placeholder: 'Select Investigations',
+                allowClear: true,
+            });
 
             $('#medicineSubmitForm').on('submit', function(e) {
                 e.preventDefault();
@@ -774,15 +1040,18 @@
                     dataType: 'json',
                     success: function(data) {
                         if (data.status == 'success') {
-                            toastr.success('Prescription Update!', 'Prescription updated successfully!')
+                            toastr.success('Prescription update!', 'Prescription updated successfully!')
                         } else {
                             toastr.error('Something wrong!', 'Try again!');
                         }
 
                     },
-                    error: function(xhr, status, error) {
+                    error: function(response,xhr, status, error) {
                         console.error(xhr.responseText);
-                        alert('An error occurred while update the prescription.');
+                        toastr.error('An error occurred while update the prescription.','Alert!');
+                        $('#patient_nameErrorMsg').text(response.responseJSON.errors.patient_name);
+                        $('#patient_genderErrorMsg').text(response.responseJSON.errors.patient_gender);
+                        $('#patient_ageErrorMsg').text(response.responseJSON.errors.patient_age);
                     }
                 })
             })
@@ -835,4 +1104,3 @@
 </body>
 
 </html>
-

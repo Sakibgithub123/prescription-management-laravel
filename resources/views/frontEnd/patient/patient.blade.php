@@ -1,6 +1,6 @@
 @extends('frontEnd.master');
 @section('title')
-Medilab-Patient
+MediCareOPS-Patient
 @endsection
 @section('content')
 <div class="content">
@@ -17,12 +17,12 @@ Medilab-Patient
 	<div class="row">
 		<div class="col-md-12">
 			<div class="table-responsive">
-				<table id="example" class="table table-border table-striped custom-table datatable mb-0">
+				<table id="myPatientTable" class="table table-border table-striped custom-table datatable mb-0">
 					<thead>
 						<tr>
 							<th>Name</th>
 							<th>Age</th>
-							<th>Investigation</th>
+							<th>Diagnose</th>
 							<th>Date</th>
 							<th>RegNo</th>
 							<th class="text-right">Action</th>
@@ -176,7 +176,7 @@ Medilab-Patient
 	// });
 
 
-	let table = new DataTable('#example', {
+	let table = new DataTable('#myPatientTable', {
 		ajax: "{{url('/patient-details')}}",
 		processing: true,
 		columns: [{
@@ -192,13 +192,13 @@ Medilab-Patient
 			// 	}
 			// },
 			{
-				data: 'investigations',
+				data: 'diagnoses',
 				render: function(data) {
 					let parsedData = JSON.parse(data);
 					if (Array.isArray(parsedData) && parsedData.length > 0) {
 						return parsedData.join(', '); // Join array elements into a string
 					} else {
-						return 'No investigation'; // Static value if parsedData is empty
+						return 'No diagnose'; // Static value if parsedData is empty
 					}
 				}
 			},

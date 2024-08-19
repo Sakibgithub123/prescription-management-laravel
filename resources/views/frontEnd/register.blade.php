@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <title>Medilab-Signup</title>
+    <title>MediCareOPS-Signup</title>
     <link rel="stylesheet" type="text/css" href="{{asset('superAdmin')}}/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset('superAdmin')}}/assets/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset('superAdmin')}}/assets/css/style.css">
@@ -30,6 +30,7 @@
                         <div class="account-logo">
                             <a><img src="{{asset('superAdmin')}}/assets/img/logo-dark.png" alt=""></a>
                         </div>
+                        <h4 class="page-title text-center" style="color:#007bff; font-weight: 900;">MediCareOPS</h4>
                         @if(session('message'))
                         <div class="alert alert-{{ session('alert-type') }}">
                             {{ session('message') }}
@@ -73,7 +74,7 @@
                         <div class="tab" id="tab-2">
                             <div class="form-group">
                                 <label>Department/Specialist</label>
-                                <input type="text" name="specialist"  value="{{old('specialist')}}" class="form-control border border-primary rounded" placeholder="Ex:Chormo,Alargy,Jouno o sex rog specialist">
+                                <input type="text" name="specialist" value="{{old('specialist')}}" class="form-control border border-primary rounded" placeholder="Ex:Chormo,Alargy,Jouno o sex rog specialist">
                             </div>
                             <div class="form-group">
                                 <label>Seating Time</label>
@@ -84,7 +85,7 @@
                                 <input type="text" name="seating_day" value="{{old('seating_day')}}" class="form-control border border-primary rounded">
                             </div>
                             <div class="form-group">
-                                <label>If (Friday Seating Time)</label>
+                                <label>Institute</label>
                                 <input type="text" name="friday_seating_time" value="{{old('friday_seating_time')}}" class=" border border-primary rounded">
                             </div>
                             <div class="form-group">
@@ -107,8 +108,8 @@
                                 </div>
                             </div>
                             <div class="text-center login-link">
-                                    Already have an account? <a href="{{route('login-page')}}">Login</a>
-                                </div>
+                                Already have an account? <a href="{{route('login-page')}}">Login</a>
+                            </div>
 
                         </div>
                         <div class="tab" id="tab-3">
@@ -122,7 +123,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Gender</label>
-                                <select name="gender"  id="gender" class="form-control border border-primary rounded">
+                                <select name="gender" id="gender" class="form-control border border-primary rounded">
                                     <option selected>Choose Gender</option>
                                     <option value="Male" {{"Male"===old('gender')? 'selected' : ''}}>Male</option>
                                     <option value="Female" {{"Female"===old('gender')? 'selected' : ''}}>Female</option>
@@ -138,8 +139,8 @@
                                 </div>
                             </div>
                             <div class="text-center login-link">
-                                    Already have an account? <a href="{{route('login-page')}}">Login</a>
-                                </div>
+                                Already have an account? <a href="{{route('login-page')}}">Login</a>
+                            </div>
 
                         </div>
 
@@ -150,7 +151,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" name="password" class="form-control border border-primary rounded" placeholder="Enter your password">
+                                <input type="password" name="password" id="password" class="form-control border border-primary rounded" placeholder="Enter your password">
+                                <input type="checkbox" onclick="showPass()"> <span class="showpass">Show Password</span>
                             </div>
                             @error('password')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -230,6 +232,16 @@
                 $('#signupBtn').css('opacity', '0.4')
                 $('#signupBtn').attr('disabled', 'disabled');
 
+            }
+        }
+
+         //show password
+        function showPass() {
+            var x = document.getElementById('password');
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
             }
         }
     </script>

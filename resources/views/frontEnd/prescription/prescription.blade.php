@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescription</title>
+    <title>MediCareOPS Prescription</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
@@ -101,14 +101,14 @@
             color: #4b4745;
         }
 
-        .doctor-details h3 {
-            font-size: 22px;
+        .doctor-details .Education {
+            font-size: 20px;
             font-weight: 500;
             color: #4CAF50;
         }
 
 
-        .doctor-details p {
+        .doctor-details span {
             font-size: 16px;
             font-weight: 400;
             color: #173518;
@@ -178,8 +178,26 @@
         /* table td{
             font-size: 4px;
         } */
-        .aftbfr-select,.gender-select {
+        .aftbfr-select,
+        .gender-select {
             color: #6c757d;
+        }
+
+        @media screen and (max-width: 480px) {
+            .row1{
+                display: flex;
+                
+                gap: 6px;
+            }
+            .doctor-details h2 {
+                font-size: 10px;
+            }
+            .doctor-details .Education {
+                font-size: 11px;
+            }
+            .doctor-details span{
+                font-size: 8px;
+            }
         }
 
 
@@ -274,38 +292,46 @@
                 display: block;
             }
 
+            #backArrow {
+                display: none;
+            }
+
             /* header {page-break-after: always;} */
 
         }
+
+       
     </style>
 
 
 </head>
 
 <body>
+    <button style="outline: none; border:none; background: none;" id="backArrow" onclick="history.back()"><i class="fa fa-arrow-left px-2" aria-hidden="true"></i>Back</button>
     <div>
-        <header style="width: 100%;">
+        <header style="width:100%;">
             <div>
-                <div class="row1 shadow  p-3">
-                    <div class="doctor-details">
-                        <h2 class="name">{{$drId->name}} </h2>
-                        <p class="qualification Degree">{{$drId->qualification}}</p>
-                        <h3 class="Education Informations">{{$drId->education_informations}}</h3>
-                        <p class="specialist text-danger">{{$drId->specialist}}</p>
+                <div class="row1 shadow  p-2">
+                    <div class="doctor-details d-flex flex-column">
+                        <h2 class="name text-info">{{$drId->name}} </h2>
+                        <span class="qualification Degree">{{$drId->qualification}}</span>
+                        <span class="Education Informations">{{$drId->education_informations}}</span>
+                        <span class="institute">{{$drId->friday_seating_time}}</span>
+                        <span class="specialist text-danger">{{$drId->specialist}}</span>
                     </div>
                     <div class="doctor-details text-center">
                         <h2>রোগী দেখার সময়</h2>
-                        <div class="text-center">
-                            <p class="seating-day">প্রতিদিন : {{$drId->seating_day}}</p>
-                            <p class="seating-time">সময় : {{$drId->whenyouseat}}</p>
+                        <div class="text-center d-flex flex-column">
+                            <span class="seating-day">প্রতিদিন : {{$drId->seating_day}}</span>
+                            <span class="seating-time">সময় : {{$drId->whenyouseat}}</span>
                         </div>
                     </div>
-                    <div class="doctor-details" id="chember-details">
+                    <div class="doctor-details  d-flex flex-column " id="chember-details">
                         <h2 class="clinic-name">{{$clinicDetails->clinic_name}} </h2>
-                        <p class="location">Address: {{$clinicDetails->location}}</p>
+                        <span class="location">Address: {{$clinicDetails->location}}</span>
                         <!-- <h3>location_details</h3> -->
-                        <p class="phone no">Phone: {{$drId->phone}}</p>
-                        <p>RegNo: <span class="ml-2">{{$reg_no}}</span></p>
+                        <span class="phone no">Phone: {{$drId->phone}}</span>
+                        <span>RegNo: <span class="ml-2">{{$reg_no}}</span></span>
                     </div>
                 </div>
             </div>
@@ -320,14 +346,15 @@
                 <input type="hidden" name="reg_no" value="{{$reg_no}}" id="">
                 <div class="container-fluid my-4">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             <div class="input-group">
                                 <span class="input-group-text">Patient name</span>
-                                <input type="text" name="patient_name" aria-label="name" class="form-control">
-                                @error('patient_name')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <input type="text" name="patient_name" aria-label="name" placeholder="Enter patient name" class="form-control">
+                                <!-- @error('patient_name')
+                                <div class="alert alert-danger" >{{ $message }}</div>
+                                @enderror -->
                             </div>
+                            <p class="text-danger" id="patient_nameErrorMsg"></p>
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
@@ -338,21 +365,23 @@
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
-                                @error('patient_gender')
+                                <!-- @error('patient_gender')
                                 <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                @enderror -->
                             </div>
+                            <p class="text-danger" id="patient_genderErrorMsg"></p>
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
                                 <span class="input-group-text">Age</span>
-                                <input type="text" name="patient_age" aria-label="name" class="form-control">
-                                @error('patient_age')
+                                <input type="text" name="patient_age" aria-label="name" placeholder="Enter patient age" class="form-control">
+                                <!-- @error('patient_age')
                                 <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                @enderror -->
                             </div>
+                            <p class="text-danger" id="patient_ageErrorMsg"></p>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="input-group">
                                 <span class="input-group-text">Date</span>
                                 <input type="text" name="date" id="todayDate" aria-label="date" class="form-control">
@@ -464,10 +493,10 @@
                                     <input class="form-select medicine_input" type="text" id="medi2" list="when" name="whenTake" onfocus="this.value=''" placeholder="Select when take Medicine">
                                 </div>
                                 <div class="col-sm">
-                                    <select class="form-select medicine_input aftbfr-select" id="medi3" name="aftBfrEat"  aria-label="Default select example">
+                                    <select class="form-select medicine_input aftbfr-select" id="medi3" name="aftBfrEat" aria-label="Default select example">
                                         <option selected disabled>Select After or Before Eat Food</option>
-                                        <option value="before">খাবারের আগে </option>
-                                        <option value="after">খাবারের পরে</option>
+                                        <option value="খাবারের আগে">খাবারের আগে </option>
+                                        <option value="খাবারের পরে">খাবারের পরে</option>
                                     </select>
                                     <!-- <input class="form-select medicine_input" type="text" id="medi3" name="aftBfrEat" list="food" onfocus="this.value=''" placeholder="Select After or Before Eat Food"> -->
                                 </div>
@@ -547,9 +576,10 @@
                 </div>
                 <!-- </div> -->
                 <div class="d-grid gap-2 d-md-block mx-2">
-                    <!-- <input type="submit" class="btn btn-danger" value="Save"> -->
-                    <button onclick="window.print()" class="btn btn-primary" type="submit" id="print">Print</button>
+                    <button class="btn btn-primary" type="submit" id="print">Print</button>
                     <input class="btn btn-success" id="resetForm" type="reset" value="Reset">
+                    <!-- <input type="submit" class="btn btn-danger" value="Save"> -->
+                    <!-- <button onclick="window.print()"  class="btn btn-primary" type="submit" id="print">Print</button> -->
                 </div>
 
             </form>
@@ -568,6 +598,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         var medi = document.getElementById('medi');
@@ -630,7 +661,7 @@
 
             $('#medicineSubmitForm').on('submit', function(e) {
                 e.preventDefault();
-                var formData = $(this).serialize();
+                let formData = $(this).serialize();
                 console.log(formData);
                 $.ajax({
                     url: "{{route('save.prescription')}}",
@@ -639,10 +670,19 @@
                     dataType: 'json',
                     success: function(data) {
                         if (data.status == 'success') {
+                            window.print();
                             toastr.success('Prescription Save!', 'Prescription save successfully!')
                         } else {
                             toastr.error('Something wrong!', 'Try again!');
                         }
+
+                    },
+                    error: function(response, xhr, error) {
+                        console.error(xhr.responseText);
+                        toastr.error('An error occurred while save the prescription.', 'Alert!');
+                        $('#patient_nameErrorMsg').text(response.responseJSON.errors.patient_name);
+                        $('#patient_genderErrorMsg').text(response.responseJSON.errors.patient_gender);
+                        $('#patient_ageErrorMsg').text(response.responseJSON.errors.patient_age);
 
                     }
                 })
@@ -667,6 +707,10 @@
         let today = new Date().toISOString().split('T')[0];
         let time = document.getElementById('todayDate');
         time.value = today;
+
+        // function goBack(){
+        //     history.back(-1);
+        // }
     </script>
 
 

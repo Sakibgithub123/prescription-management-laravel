@@ -32,7 +32,7 @@
     </div>
     <!-- table -->
     <!-- table -->
-    <h4 class="page-title text-center py-2 border-bottom border-primary" style="color:#007bff; font-weight: 900;">All Test</h4>
+    <h4 class="page-title text-center py-2 border-bottom border-primary" style="color:#007bff; font-weight: 900;">All Diagnose</h4>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">

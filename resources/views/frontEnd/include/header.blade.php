@@ -1,35 +1,40 @@
 <div class="header">
     <div class="header-left">
-        <a href="index-2.html" class="logo">
+        <a href="{{route('get.home')}}" class="logo">
             <img src="{{asset('superAdmin')}}/assets/img/logo.png" width="35" height="35" alt=""> <span>MediCareOPS</span>
         </a>
         <!-- Preclinic -->
     </div>
-    <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
-    <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
-    <ul class="nav user-menu float-right">
+    <a id="toggle_btn" class="pt-2" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+    <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars pt-2"></i></a>
+    <ul class="nav user-menu float-right sm:pt-2">
         <li class="nav-item dropdown d-none d-sm-block">
-            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+            <a onclick="event.preventDefault(); document.getElementById('bellForm').submit()" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">{{Auth::user()->unreadNotifications()->count()}}</span></a>
+            <form method="post" action="{{route('notifications.markAsRead')}}" id="bellForm">@csrf</form>
             <div class="dropdown-menu notifications">
                 <div class="topnav-dropdown-header">
                     <span>Notifications</span>
                 </div>
                 <div class="drop-scroll">
+                    @if(Auth::user()->notifications->isNotEmpty())
                     <ul class="notification-list">
+                        @foreach(Auth::user()->notifications as $notification)
                         <li class="notification-message">
-                            <a href="activities.html">
+                            <a>
                                 <div class="media">
                                     <span class="avatar">
-                                        <img alt="John Doe" src="{{asset('superAdmin')}}/assets/img/user.jpg" class="img-fluid">
+                                        <img alt="John Doe" src="{{asset('superAdmin')}}/assets/img/logo.png" class="img-fluid">
+                                        <!-- <img alt="John Doe" src="{{asset('superAdmin')}}/assets/img/user.jpg" class="img-fluid"> -->
                                     </span>
                                     <div class="media-body">
-                                        <p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
-                                        <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                                        <p class="noti-details"><span class="noti-title">{{Auth::user()->name}}</span> : <span class="noti-title">{{$notification->data['message']}}</span></p>
+                                        <p class="noti-time"><span class="notification-time">{{$notification->created_at->format('Y-m-d H:i:s')}}</span></p>
                                     </div>
                                 </div>
                             </a>
                         </li>
-                        <li class="notification-message">
+                        @endforeach
+                        <!-- <li class="notification-message">
                             <a href="activities.html">
                                 <div class="media">
                                     <span class="avatar">V</span>
@@ -72,17 +77,20 @@
                                     </div>
                                 </div>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
+                    @else
+                    <p class="text-center">No notification found.</p>
+                    @endif
                 </div>
                 <div class="topnav-dropdown-footer">
-                    <a href="activities.html">View all Notifications</a>
+                    <a> All Notifications</a>
                 </div>
             </div>
         </li>
-        <li class="nav-item dropdown d-none d-sm-block">
+        <!-- <li class="nav-item dropdown d-none d-sm-block">
             <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
-        </li>
+        </li> -->
         <li class="nav-item dropdown has-arrow">
             <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                 <span class="user-img">
@@ -107,7 +115,7 @@
             </div>
         </li>
     </ul>
-    <div class="dropdown mobile-user-menu float-right">
+    <div class="dropdown mobile-user-menu float-right pt-2">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="{{route('profile')}}">My Profile</a>

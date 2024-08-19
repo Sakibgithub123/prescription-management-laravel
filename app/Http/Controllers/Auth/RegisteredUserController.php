@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\User;
+use App\Notifications\UserRegistered;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -67,10 +70,22 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        //registered notification
+        // $users=User::all();
+        // foreach($users as $notifiableUser){
+        //     if($notifiableUser->id !== $user->id){ //avoid notifying the newly registered user
+        //         $notifiableUser->notify(new UserRegistered($user));
+
+        //     }
+        // }
+
+        Notification::send(Admin::all(), new UserRegistered($user));
+
         // Auth::login($user);
         $notification = array(
             'message' => 'Registration Completed!',
-            'alert-type' => 'success'
+            'alert-type' => 'success',
+            'notificationMessage'=>'user registered and notification sent',
         );
         return Redirect()->route('login')->with($notification);
 

@@ -1,4 +1,7 @@
 @extends('frontEnd.master');
+@section('title')
+MediCareOPS-Profile
+@endsection
 @section('content')
 <style>
      label{
@@ -14,9 +17,10 @@
     }
 </style>
 <div class="content">
-    <div class="row">
+<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#003366; font-weight: 900;">My Profile</h4>
+    <div class="row mt-5">
         <div class="col-sm-12">
-            <h4 class="page-title">Edit Profile</h4>
+            <h4 class="focus-label text-primary font-bold">Edit Profile</h4>
         </div>
     </div>
     <form id="updateUserForm" enctype="multipart/form-data">
@@ -28,9 +32,10 @@
                 <div class="col-md-12">
                     <div class="profile-img-wrap">
                         @if(!$editProfile->profile_image)
-                        <a href="#"><img class="avatar" src="{{asset('superAdmin')}}/assets/img/doctor-03.jpg" alt="{{$editProfile->name}}"></a>
+                        <!-- <a href="#"><img class="avatar border border-primary" src="{{asset('superAdmin')}}/assets/img/doctor-03.jpg" alt="{{$editProfile->name}}"></a> -->
+                        <img class="inline-block  border border-primary" id="output" src="{{asset('superAdmin')}}/assets/img/doctor-03.jpg" alt="{{$editProfile->name}}">
                         @else
-                        <img class="inline-block" id="output" src="{{asset('storage/images/'.$editProfile->profile_image)}}" alt="{{$editProfile->name}}">
+                        <img class="inline-block  border border-primary" id="output" src="{{asset('storage/images/'.$editProfile->profile_image)}}" alt="{{$editProfile->name}}">
                         @endif
                         <div class="fileupload btn">
                             <span class="btn-text"><i class="fa fa-camera" aria-hidden="true"></i></span>

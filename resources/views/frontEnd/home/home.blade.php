@@ -1,6 +1,6 @@
 @extends('frontEnd.master');
 @section('title')
-Medilab-Home
+MediCareOPS-Home
 @endsection
 @section('content')
 <style>
@@ -77,20 +77,22 @@ Medilab-Home
         @endif
         @endforeach
     </div>
-    <div class="container pt-5 ">
+    <!-- <div class="container pt-5 "> -->
+    <div class="text-center px-5 pt-5 ">
         <h1>Welcome to MediCareOPS</h1>
         <h2>We are a team of talented doctors dedicated to providing the best service.</h2>
     </div>
     <div id="main ">
         <div id="why-us" class="why-us pt-5">
-            <div class="container">
+            <!-- <div class="container"> -->
+            <div class="p-5">
 
                 <div class="row">
                     <div class="col-lg-4 d-flex align-items-stretch">
                         <div class="content text-center">
                             <h3>Why Choose MediCareOPS?</h3>
-                            <p>
-                                Choose MediCareOPS for its comprehensive lab management, customizable workflows, robust quality control, seamless integration with systems, and advanced data security. These ensure efficient, reliable, and secure laboratory operations.
+                            <p class="text-justify">
+                                Choose MediCareOPS for its comprehensive lab management, customizable workflows, robust quality control, seamless integration with systems and advanced data security. They ensure efficient, reliable and safe laboratory operations.
                             </p>
                             <!-- <div class="text-center">
                                 Medilab
@@ -104,22 +106,22 @@ Medilab-Home
                                 <div class="col-xl-4 d-flex align-items-stretch">
                                     <div class="icon-box mt-4 mt-xl-0 text-center">
                                         <i class="bx bx-receipt"></i>
-                                        <h4>All in One Lab Management</h4>
-                                        <p>MediCareOPS helps manage all parts of running a lab, from when a patient arrives to when their test results are ready.</p>
+                                        <h4 class="border-bottom border-4 border-primary pb-2">All in One Lab Management</h4>
+                                        <p class="text-justify">MediCareOPS helps manage all parts of running a lab, from when a patient arrives to when their test results are ready.</p>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 d-flex align-items-stretch">
                                     <div class="icon-box mt-4 mt-xl-0 text-center">
                                         <i class="bx bx-cube-alt"></i>
-                                        <h4>Flexible Workflow Tools</h4>
-                                        <p>MediCareOPS offers tools that can be set up to handle different lab tasks, such as ordering tests, collecting samples, and managing test results.</p>
+                                        <h4 class="border-bottom border-4 border-primary pb-2">Flexible Workflow Tools</h4>
+                                        <p class="text-justify">MediCareOPS offers tools that can be set up to handle different lab tasks, such as ordering tests, collecting samples, and managing test results.</p>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 d-flex align-items-stretch">
                                     <div class="icon-box mt-4 mt-xl-0 text-center">
                                         <i class="bx bx-images"></i>
-                                        <h4>Comprehensive Reporting</h4>
-                                        <p>MediCareOPS can generate detailed reports on all data within the system.</p>
+                                        <h4 class="border-bottom border-4 border-primary pb-2">Comprehensive Reporting</h4>
+                                        <p class="text-justify">MediCareOPS can generate detailed reports on all data within the system.</p>
                                     </div>
                                 </div>
                             </div>

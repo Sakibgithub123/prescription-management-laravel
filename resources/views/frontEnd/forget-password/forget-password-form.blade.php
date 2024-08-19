@@ -88,9 +88,10 @@
                 data:formData,
                 success: function(data){
                     if(data.response_code = '200'){
-                        alert('email sent')
+                        // alert('email sent')
+                        toastr.success('Check your email.We sent password reset link!', 'Email!');
                     }else{
-                        alert('wrong')
+                        toastr.error('Something wrong!','Try agaim!')
                     }
                 },
                 error: function(response) {

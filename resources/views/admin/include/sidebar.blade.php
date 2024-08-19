@@ -30,6 +30,7 @@
 								<li><a class="{{ Route::is('Complaints.Form') ? 'active' : '' }}" href="{{route('Complaints.Form')}}"><i class="fa fa-building-o" aria-hidden="true"></i><span>Add Complaints</span> </a></li>
                                 <li><a class="{{ Route::is('Investigations.Form') ? 'active' : '' }}" href="{{route('Investigations.Form')}}"><i class="fa fa-bug" aria-hidden="true"></i><span>Add Investigations</span> </a></li>
                                 <li><a class="{{ Route::is('test.Form') ? 'active' : '' }}" href="{{route('test.Form')}}"><i class="fa fa-hand-o-right" aria-hidden="true"></i><span>Add Test</span> </a></li>
+                                <li><a class="{{ Route::is('diagnose.Form') ? 'active' : '' }}" href="{{route('diagnose.Form')}}"><i class="fa fa-heartbeat" aria-hidden="true"></i><span>Add Diagnose</span> </a></li>
 							</ul>
 						</li>
 						<li class="{{ Route::is('doctor.list') ? 'active' : '' }}">

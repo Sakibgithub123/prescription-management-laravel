@@ -1,6 +1,6 @@
 @extends('frontEnd.master');
 @section('title')
-Medilab-Statistics
+MediCareOPS-Statistics
 @endsection
 @section('content')
 <style>
@@ -66,8 +66,9 @@ Medilab-Statistics
                                         <h2><a>{{$patient->patient_name}} <span>Age : {{$patient->patient_age}}</span></a></h2>
                                     </td>
                                     <td>
-                                        <h5 class="time-title p-0">Appointment With</h5>
-                                        <p>{{$patient->name}}</p>
+                                        <!-- <h5 class="time-title p-0">Appointment With</h5> -->
+                                        <h5 class="time-title p-0">Gender</h5>
+                                        <p>{{$patient->patient_gender? $patient->patient_gender: 'No data'}}</p>
                                     </td>
                                     <td>
                                         <h5 class="time-title p-0">Timing</h5>
@@ -75,19 +76,19 @@ Medilab-Statistics
                                     </td>
                                     <td>
                                         <!-- <a href="appointments.html" class="btn btn-outline-primary">Take up</a> -->
-                                        <h5 class="time-title p-0">Investigation</h5>
+                                        <h5 class="time-title p-0">Diagnose</h5>
                                         <p>
 
 
                                             @php
-                                            $investigations = json_decode($patient->investigations, true);
+                                            $diagnose = json_decode($patient->diagnose, true);
                                             @endphp
 
-                                            @if(is_null($investigations) || empty($investigations))
-                                            <span class="font">no investigation</span>
+                                            @if(is_null($diagnose) || empty($diagnose))
+                                            <span class="font">No diagnose found</span>
                                             @else
-                                            @foreach($investigations as $investigation)
-                                            <span class="font">{{ $investigation }},</span>
+                                            @foreach($diagnose as $diagnosis)
+                                            <span class="font">{{ $diagnosis }},</span>
                                             @endforeach
                                             @endif
 
@@ -308,7 +309,7 @@ Medilab-Statistics
 					 </div>
 				</div> -->
 </div>
-<div class="notification-box">
+<!-- <div class="notification-box">
     <div class="msg-sidebar notifications msg-noti">
         <div class="topnav-dropdown-header">
             <span>Messages</span>
@@ -516,7 +517,7 @@ Medilab-Statistics
             <a href="chat.html">See all messages</a>
         </div>
     </div>
-</div>
+</div> -->
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

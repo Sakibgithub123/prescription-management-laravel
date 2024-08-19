@@ -1,6 +1,6 @@
 @extends('frontEnd.master');
 @section('title')
-Medilab-Settings
+MediCareOps-Settings
 @endsection
 <style>
     label{
@@ -18,7 +18,8 @@ Medilab-Settings
 @section('content')
 <div class="content">
     <h4 class="page-title text-center py-2" style="background-color:#007bff; color:#003366; font-weight: 900;">Password Change </h4>
-    <div class="row mt-5">
+    <div class="row  mt-5">
+        <div class="col-md-6 offset-md-3"><img src="{{asset('superAdmin')}}/assets/img/key.png" width="50" height="50" alt="keyimage"></div>
         <div class="col-md-6 offset-md-3 shadow p-5 bg-primary ">
             <h4 class="page-title text-center my-2 font-bold" style="color:#003366; font-weight: bold;">Change Your Password</h4>
             <form id="changePassForm">

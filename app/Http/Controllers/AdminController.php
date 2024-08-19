@@ -12,12 +12,15 @@ use App\Models\Notice;
 use App\Models\Prescription;
 use App\Models\Test;
 use App\Models\User;
+use App\Notifications\MedicineAdded;
+use App\Notifications\NoticeEnabled;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 
 class AdminController extends Controller
 {
@@ -390,6 +393,7 @@ class AdminController extends Controller
                 ]);
             }
         }
+        Notification::send(User::all(), new MedicineAdded($medicines));
         return view('admin.manage-prescription.add-medicine', ['medicines' => $medicines]);
     }
     public function saveMedicineForm(Request $request)
@@ -889,6 +893,10 @@ class AdminController extends Controller
         $status = Notice::find($request->id)->update([
             'status' => $request->status
         ]);
+        if($request->status==='Active'){
+            Notification::send(User::all(), new NoticeEnabled($status));
+
+        }
 
         // $statueSave = new Notice();
         // $statueSave->status=$request->status;

@@ -198,7 +198,7 @@
 
         }
     </style> -->
-    <style>
+    <!-- <style>
         * {
             padding: 0;
             margin: 0;
@@ -284,6 +284,23 @@
         /* table td{
             font-size: 4px;
         } */
+
+        @media screen and (max-width: 480px) {
+            .row1{
+                display: flex;
+                
+                gap: 6px;
+            }
+            .doctor-details h2 {
+                font-size: 10px;
+            }
+            .doctor-details h3 {
+                font-size: 11px;
+            }
+            .doctor-details p{
+                font-size: 8px;
+            }
+        }
 
 
 
@@ -381,6 +398,226 @@
         header{
             width: 100%;
         }
+    </style> -->
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+            /* font-family: 'Nunito', sans-serif;
+            font-family: 'Open Sans', sans-serif;
+            font-family: 'Work Sans', sans-serif; */
+            font-style: italic;
+        }
+
+        .doctor-details h2 {
+            font-size: 25px;
+            font-weight: 600;
+            /* color: #4CAF50; */
+            color: #4b4745;
+        }
+
+        .doctor-details .Education {
+            font-size: 20px;
+            font-weight: 500;
+            color: #4CAF50;
+        }
+
+
+        .doctor-details span {
+            font-size: 16px;
+            font-weight: 400;
+            color: #173518;
+        }
+
+        .cti h3 {
+            font-size: 16px;
+        }
+
+        input,
+        tbody {
+            font-size: 14px;
+        }
+
+        form {
+            color: #4b4745;
+        }
+
+        #tbody tr td {
+            margin-left: 10px;
+            padding-left: 30px;
+        }
+
+        .row1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* header{
+            background-image: url("/superAdmin/assets/img/wave\(2\).png");
+        } */
+        body {
+            background: radial-gradient(ellipse at center,
+                    #fffeea 0%,
+                    #fffeea 35%,
+                    #b7e8eb 100%);
+            /* overflow: hidden; */
+        }
+
+        /* add new */
+        .added_medicine_style {
+            /* background-color: #e9ecef; */
+            width: 100%;
+            padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+            -moz-padding-start: calc(0.75rem - 3px);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #e9ecef;
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        #medicinetag {
+            display: none;
+        }
+
+        /* table td{
+            font-size: 4px;
+        } */
+        .aftbfr-select,
+        .gender-select {
+            color: #6c757d;
+        }
+
+        @media screen and (max-width: 480px) {
+            .row1{
+                display: flex;
+                
+                gap: 6px;
+            }
+            .doctor-details h2 {
+                font-size: 10px;
+            }
+            .doctor-details .Education {
+                font-size: 11px;
+            }
+            .doctor-details span{
+                font-size: 8px;
+            }
+        }
+
+
+
+
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            button[name="bttn"] {
+                display: none;
+            }
+
+            .medicine_input {
+                display: none;
+            }
+
+            .browsers {
+                display: none;
+            }
+
+            .btn {
+                display: none;
+            }
+
+            .container a {
+                display: none;
+            }
+
+            .content {
+                background: radial-gradient(ellipse at center,
+                        #fffeea 0%,
+                        #fffeea 35%,
+                        #b7e8eb 100%);
+            }
+
+
+            /* header {
+                width: 100%;
+                background-image: url("/superAdmin/assets/img/wave.png");
+                 background: #000 !important;
+        } */
+
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+
+            }
+
+            .row1 {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 40px;
+            }
+
+            /* add new */
+            .select2-selection__clear {
+                display: none;
+            }
+
+            .select2-selection__choice__remove {
+                display: none;
+
+            }
+
+            .added_medicine_style {
+                border: none;
+                outline: none;
+            }
+
+            .select2-container--default .select2-selection--multiple {
+                border: none;
+                outline: none;
+                background-color: transparent;
+            }
+
+            table {
+                margin-top: -20px;
+            }
+
+            .cti {
+                margin-bottom: 0px;
+            }
+
+            #medicinetag {
+                display: block;
+            }
+
+            #backArrow {
+                display: none;
+            }
+
+            /* header {page-break-after: always;} */
+
+        }
+
+       
     </style>
 
 
@@ -388,30 +625,33 @@
 <!-- antiquewhite -->
 
 <body>
-    <div>
+<button style="outline: none; border:none; background: none;" id="backArrow" onclick="history.back()"><i class="fa fa-arrow-left px-2" aria-hidden="true"></i>Back</button>
+    <div >
     <header style="width: 100%;">
-            <div>
-            <div class="row1 shadow  p-3">
-                    <div class="doctor-details">
-                        <h2 class="name">{{$prescriptions->name}} </h2>
-                        <p class="qualification Degree">{{$prescriptions->qualification}}</p>
-                        <h3 class="Education Informations">{{$prescriptions->education_informations}}</h3>
-                        <p class="specialist text-danger">{{$prescriptions->specialist}}</p>
+            <div class="">
+            <div class="row1   shadow  p-2 ">
+                    <div class="doctor-details d-flex flex-column" >
+                        <h2 class="name text-info">{{$prescriptions->name}} </h2>
+                        <span class="qualification Degree">{{$prescriptions->qualification}}</span>
+                        <span class="Education Informations">{{$prescriptions->education_informations}}</span>
+                        <span class="institute">{{$prescriptions->friday_seating_time}}</span>
+                        <span class="specialist text-danger">{{$prescriptions->specialist}}</span>
                     </div>
-                    <div class="doctor-details text-center flex-grow-1">
-                        <h2>রোগী দেখার সময়</h2>
-                        <div class="text-center">
-                            <p class="seating-day">প্রতিদিন : {{$prescriptions->seating_day}}</p>
-                            <p class="seating-time">সময় : {{$prescriptions->whenyouseat}}</p>
+                    <div class="doctor-details   "  >
+                        <h2 class="text-center">রোগী দেখার সময়</h2>
+                        <div class="text-center d-flex flex-column">
+                            <span class="seating-day">প্রতিদিন : {{$prescriptions->seating_day}}</span>
+                            <span class="seating-time">সময় : {{$prescriptions->whenyouseat}}</span>
                         </div>
                     </div>
-                    <div class="doctor-details text-align-right" id="chember-details">
+                    <div class="doctor-details  d-flex flex-column"  id="chember-details" >
                         <h2 class="clinic-name">{{$clinicDetails->clinic_name}} </h2>
-                        <p class="location">Address: {{$clinicDetails->location}}</p>
+                        <span class="location">Address: {{$clinicDetails->location}}</span>
                         <!-- <h3>location_details</h3> -->
-                        <p class="phone no">{{$prescriptions->phone}}</p>
-                        <p>RegNo: <span class="ml-2">{{$prescriptions->reg_no}}</span></p>
+                        <span class="phone no">Phone: {{$prescriptions->phone}}</span>
+                        <span>RegNo: <span class="ml-2">{{$prescriptions->reg_no}}</span></span>
                     </div>
+                   
                 </div>
             </div>
         </header>
@@ -448,7 +688,7 @@
 
                 <div class="container-fluid my-4">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             <div class="input-group">
                                 <span class="input-group-text">Patient name</span>
                                 <input type="text" name="patient_name" value="{{$prescriptions->patient_name}}" aria-label="name" class="form-control input">
@@ -467,7 +707,7 @@
                                 <input type="text" name="patient_age" value="{{$prescriptions->patient_age}}" aria-label="name" class="form-control input">
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="input-group">
                                 <span class="input-group-text">Date</span>
                                 <input type="text" name="date" value="{{date('F jS, Y g:i A', strtotime($prescriptions->date))}}" aria-label="date" class="form-control input">
@@ -475,7 +715,7 @@
                         </div>
                     </div>
                     <div class="row cti my-3 ">
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 col-md-3">
                             <h3 class="text-center">Chief Complaints</h3>
                             <div class="input-group ">
                                 <select class="form-select input  tag1" name="complaints[]" multiple="multiple" aria-label="Default select example">
@@ -488,15 +728,16 @@
                                     <option value="6">six</option>
                                     <option value="7">seven</option> -->
                                    
-                                   
+                                    @if($prescriptions->complaints)
                                     @foreach(json_decode($prescriptions->complaints) as $member)
                                     <option value="{{$member}}" selected>{{$member}}</option>
                                     @endforeach
+                                    @endif
                                     
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 col-md-3">
                             <h3 class="text-center">Test</h3>
                             <div class="input-group ">
                                 <select class="form-select input  tag2" name="tests[]" multiple="multiple" aria-label="Default select example">
@@ -504,13 +745,15 @@
                                     <!-- <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option> -->
+                                    @if($prescriptions->tests)
                                     @foreach(json_decode($prescriptions->tests) as $member)
                                     <option value="{{$member}}" selected>{{$member}}</option>
                                     @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 col-md-3">
                             <h3 class="text-center">Investigations</h3>
                             <div class="input-group text-center">
                                 <select class="form-select input  tag3" name="investigations[]" multiple="multiple" aria-label="Default select example">
@@ -518,23 +761,27 @@
                                     <!-- <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option> -->
+                                    @if($prescriptions->investigations)
                                     @foreach(json_decode($prescriptions->investigations) as $member)
                                     <option value="{{$member}}" selected>{{$member}}</option>
                                     @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 col-md-3">
                             <h3 class="text-center">Diagnose</h3>
                             <div class="input-group text-center">
-                                <select class="form-select input  tag3" name="diagnose[]" multiple="multiple" aria-label="Default select example">
+                                <select class="form-select input  tag3" name="diagnoses[]" multiple="multiple" aria-label="Default select example">
                                     <!-- <option selected>Investigation</option> -->
                                     <!-- <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option> -->
-                                    @foreach(json_decode($prescriptions->diagnose) as $member)
+                                    @if($prescriptions->diagnoses)
+                                    @foreach(json_decode($prescriptions->diagnoses) as $member)
                                     <option value="{{$member}}" selected>{{$member}}</option>
                                     @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -602,25 +849,34 @@
                                     <tbody id="tbody">
                                         <tr>
                                             <td>
+                                                @if($prescriptions->medicine)
                                                 @foreach(json_decode($prescriptions->medicine) as $members)
                                                 <input class="added_medicine_style" name="medicine[]" type="text" value="{{$members}}">
                                                 @endforeach
+                                                @endif
                                             </td>
                                             <td>
+                                            @if($prescriptions->howmanytimes)
                                                 @foreach(json_decode($prescriptions->howmanytimes) as $members)
                                                 <input class="added_medicine_style" name="howmanytimes[]" type="text" value="{{$members}}">
                                                 @endforeach
+                                                @endif
                                             </td>
                                             <td>
+                                            @if($prescriptions->afterbefore)
                                                 @foreach(json_decode($prescriptions->afterbefore) as $members)
-                                                <input class="added_medicine_style" name="afterbefore[]" type="text" value="{{$members==='after'?'খাবার পরে' :'খাবার আগে'}}">
+                                                <input class="added_medicine_style" name="afterbefore[]" type="text" value="{{$members}}">
+                                                <!-- <input class="added_medicine_style" name="afterbefore[]" type="text" value="{{$members==='after'?'খাবার পরে' :'খাবার আগে'}}"> -->
                                                 @endforeach
+                                                @endif
                                             </td>
                                             <td>
                                                 <!-- class="form-select" -->
+                                                @if($prescriptions->nextdate)
                                                 @foreach(json_decode($prescriptions->nextdate) as $members)
                                                 <input class="added_medicine_style" name="nextdate[]" type="text" value="{{$members}}">
                                                 @endforeach
+                                                @endif
                                             </td>
                                         </tr>
                                     </tbody>
@@ -755,6 +1011,7 @@
 
             $('.input').prop('readonly', true);
             $('.form-select').prop('disabled', true);
+            $('.added_medicine_style').prop('disabled', true);
         });
     </script>
 

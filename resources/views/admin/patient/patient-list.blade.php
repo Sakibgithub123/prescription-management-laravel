@@ -1,10 +1,10 @@
 @extends('admin.master')
 @section('content')
 <div class="content">
-<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#fff; font-weight: 900;">All Patients Prescription</h4>
+<h4 class="page-title text-center py-2" style="background-color:#007bff; color:#fff; font-weight: 900;">All Patient's Prescription</h4>
     <div class="row mt-5">
-        <div class="col-sm-4 col-3">
-            <h4 class="page-title">Patients</h4>
+        <div class="col-sm-4 col-3 pb-4">
+            <h4 class="focus-label text-primary">Patient's Prescription List</h4>  
         </div>
         <!-- <div class="col-sm-8 col-9 text-right m-b-20">
 			<a href="add-patient.html" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Patient</a>

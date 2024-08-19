@@ -39,7 +39,7 @@ class FrontEndController extends Controller
             'password' => 'required',
         ]));
         // Auth::login($user);
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password,'role'=>'user'])) {
             return response()->json([
                 'status' => true,
                 'redirect' => url("/get-home")
@@ -113,7 +113,7 @@ class FrontEndController extends Controller
 
     //------------- Patient Credentials---------------
 
-    public function getPatient()
+    public function getMyAllPatient()
     {
         $patient = Prescription::where('dr_id', Auth::user()->id)->get();
 
@@ -133,6 +133,7 @@ class FrontEndController extends Controller
                 ]);
             }
         }
+        // return $patient;
         return view('frontEnd.patient.patient', ['patients' => $patient]);
     }
 
@@ -228,9 +229,9 @@ class FrontEndController extends Controller
             'reg_no' => $request->reg_no,
             'date' => $request->date,
             'complaints' => json_encode($request->complaints),
-            'diagnoses' => json_encode($request->diagnoses),
             'tests' => json_encode($request->tests),
             'investigations' => json_encode($request->investigations),
+            'diagnoses' => json_encode($request->diagnoses),
             'medicine' => implode(",", $m),
             'howmanytimes' => implode(",", $h),
             'afterbefore' => implode(",", $a),
@@ -285,9 +286,9 @@ class FrontEndController extends Controller
             'patient_age' => 'required',
         ]));
         $complaint = json_encode($request->complaints ?? []);
-        $diagnose = json_encode($request->diagnoses ?? []);
         $test = json_encode($request->tests ?? []);
         $investigation = json_encode($request->investigations ?? []);
+        $diagnose = json_encode($request->diagnoses ?? []);
         $medicine = json_encode($request->medicine);
 
         $m = [];
@@ -314,9 +315,9 @@ class FrontEndController extends Controller
         $prescription->reg_no = $request->reg_no;
         $prescription->date = $request->date;
         $prescription->complaints = $complaint;
-        $prescription->diagnoses = $diagnose;
         $prescription->tests = $test;
         $prescription->investigations = $investigation;
+        $prescription->diagnoses = $diagnose;
         $prescription->medicine = implode(",", $m);
         $prescription->howmanytimes = implode(",", $h);
         $prescription->afterbefore = implode(",", $a);
@@ -452,7 +453,7 @@ class FrontEndController extends Controller
         
         // $authenticatedDoctorId = Auth::id();
         $appointments = Prescription::where('dr_id', $authenticatedDoctorId)->get();
-        $patients = Prescription::select('patient_name', 'patient_age', 'complaints', 'investigations', 'prescriptions.created_at as date', 'users.name as name')
+        $patients = Prescription::select('patient_name', 'patient_age','patient_gender', 'complaints', 'investigations', 'prescriptions.created_at as date', 'users.name as name')
             ->join('users', 'users.id', 'prescriptions.dr_id')->where('dr_id', Auth::user()->id)->latest('prescriptions.created_at')->get();
 
 

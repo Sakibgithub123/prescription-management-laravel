@@ -28,7 +28,8 @@
 
     <div class="row mt-5">
         <div class="col-sm-4 col-3">
-            <h4 class="page-title">Doctors</h4>
+            <!-- <h4 class="page-title">Doctors</h4> -->
+            <h4 class="focus-label text-primary">Doctors List</h4>
         </div>
         <div class="col-sm-8 col-9 text-right m-b-20">
             <button class="btn btn-primary btn-rounded float-right font-weight-bold" data-bs-toggle="modal" data-bs-target="#addDoctorModal"><i class="fa fa-plus"></i> Add Doctor</button>
@@ -39,12 +40,12 @@
     @forelse($doctors as $doctor)
         <div class="col-md-4 col-sm-4  col-lg-3 doctor-list  ">
             <div class="profile-widget my-4 border border-primary ">
-                <div class="doctor-img ">
+                <div class="doctor-img text-center ">
                     <a class="avatar border border-primary" href="{{route('doctor.details',['id'=>$doctor->id])}}">
                         @if(!$doctor->profile_image)
-                        <img alt="{{ substr($doctor->name, 0, 1) }}" src="{{asset('superAdmin')}}/assets/img/doctor-thumb-03.jpg">
+                        <img alt="{{substr($doctor->name,0,1)}}" src="{{asset('superAdmin')}}/assets/img/doctor-thumb-03.jpg">
                         @else
-                        <img alt="{{$doctor->name}}" src="{{asset('storage/images/'.$doctor->profile_image)}}">
+                        <img alt="{{substr($doctor->name,0,2)}}" src="{{asset('storage/images/'.$doctor->profile_image)}}">
                         @endif
 
                     </a>
@@ -67,7 +68,7 @@
 
                     <span class="{{$doctor->status==1 ? 'text-primary': 'text-danger'}} d-flex justify-content-center align-items-center  gap-1  p-2">
                         <span class="h6"><input data-statusId="{{$doctor->id}}" id="statusBtn" class="toggle-class {{$doctor->status==1 ? 'text-primary': 'text-danger'}}" type="checkbox" data-onstyle="success" data-offstyle="danger" {{ $doctor->status ? 'checked' : '' }}></span>
-                        <span class="h6 fw-bold">{{$doctor->status==1 ? "Active": "Deactive"}}</span>
+                        <span class="h6 fw-bold">{{$doctor->status==1 ? "Enable": "Disable"}}</span>
                     </span>
                 </div>
                 <div class="user-country">
@@ -158,7 +159,7 @@
                             <div class="col-sm-6">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>if (Friday Seat)</label>
+                                        <label>Institute</label>
                                         <input type="text" id="friday_seating_time" name="friday_seating_time" aria-label="date" class="form-control">
                                         <span class="text-danger" id="error_friday_seating_time"></span>
                                     </div>
@@ -194,7 +195,12 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Gender</label>
-                                        <input type="text" id="gender" name="gender" aria-label="date" class="form-control">
+                                        <!-- <input type="text" id="gender" name="gender" aria-label="date" class="form-control"> -->
+                                        <select name="gender" id="updateGender" class="form-control">
+                                            <option selected>Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
                                         <span class="text-danger" id="error_gender"></span>
                                     </div>
                                 </div>
@@ -279,7 +285,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>if (Friday Seat)</label>
+                                        <label>Institute</label>
                                         <input type="text" id="friday_seating_time" name="friday_seating_time" aria-label="date" class="form-control">
                                         <span class="text-danger" id="error_addfriday_seating_time"></span>
                                     </div>
@@ -318,6 +324,7 @@
                                     <div class="form-group">
                                         <label>Gender</label>
                                         <select name="gender" id="gender" class="form-control">
+                                            <option selected>Select Gender</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select>
@@ -433,7 +440,10 @@
                 $('#phone').val(result.phone)
                 $('#birthday').val(result.birthday)
                 $('#address').val(result.address)
-                $('#gender').val(result.gender)
+                // $('#gender').val(result.gender)
+                // $('#gender').find(result.gender).trigger('change');
+                $('#updateGender option[value="' + result.gender + '"]').prop('selected', true).trigger("change");
+
 
             }
 
@@ -524,7 +534,7 @@
 
         let id = $(this).attr('data-statusId');
         let status = $(this).prop('checked') == true ? 1 : 0;
-        let showStatus = status === 1 ? "Active" : "Deactive";
+        let showStatus = status === 1 ? "Enable" : "Disable";
         Swal.fire({
             title: 'Are you sure?',
             // text: "You won't be able to revert this!",

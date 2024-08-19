@@ -160,7 +160,16 @@
             },
             {
                 data: 'status',
-                class:'text-danger'
+                //  class:'text-danger'
+                 render:function(data){
+                    if(data==='Active'){
+                       return '<span class="text-success">'+data+'</span>'
+                    }else{
+                        return '<span class="text-danger">'+data+'</span>'
+                    }
+                 }
+                
+                
             },
             {
                 // data: 'id',
@@ -246,7 +255,7 @@
         e.preventDefault();
         let id = $(this).attr('data-statusId');
         var status = $(this).attr('data-status') === 'Deactive' ? 'Active' : 'Deactive';
-        alert(status)
+        // alert(status)
         Swal.fire({
             title: 'Are you sure?',
             text: `You wan't  to `+status+` this Notice!`,

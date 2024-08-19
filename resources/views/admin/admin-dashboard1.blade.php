@@ -178,17 +178,17 @@
 									</td>
 									<td>
 										<!-- <a href="appointments.html" class="btn btn-outline-primary">Take up</a> -->
-										<h5 class="time-title p-1">Investigation</h5>
+										<h5 class="time-title p-1">Diagnose</h5>
 										<p>
 										@php
-                                            $investigations = json_decode($patient->investigations, true);
+                                            $diagnose = json_decode($patient->diagnose, true);
                                             @endphp
 
-                                            @if(is_null($investigations) || empty($investigations))
-                                            <span class="font">no investigation</span>
+                                            @if(is_null($diagnose) || empty($diagnose))
+                                            <span class="font">No diagnose found</span>
                                             @else
-                                            @foreach($investigations as $investigation)
-                                            <span class="font">{{ $investigation }},</span>
+                                            @foreach($diagnose as $diagnosis)
+                                            <span class="font">{{ $diagnosis }},</span>
                                             @endforeach
                                             @endif
 											<!-- @foreach(json_decode($patient->investigations) as $investigation )
@@ -490,32 +490,31 @@
 	});
 </script>
 <script>
-	$(document).ready(function() {
-		var postsPerPage = 10;
-		var totalPosts = $('.patientInfo').length;
-		var loadedPosts = postsPerPage;
+     $(document).ready(function() {
+        var postsPerPage = 10;
+        var totalPosts = $('.patientInfo').length;
+        var loadedPosts = postsPerPage;
 
-		$('.patientInfo').hide();
-		$('.patientInfo:lt(' + loadedPosts + ')').show();
+        $('.patientInfo').hide();
+        $('.patientInfo:lt(' + loadedPosts + ')').show();
 
-		$('#load-more').click(function() {
-			loadedPosts += postsPerPage;
-			$('.patientInfo:lt(' + loadedPosts + ')').show();
+        $('#load-more').click(function() {
+            loadedPosts += postsPerPage;
+            $('.patientInfo:lt(' + loadedPosts + ')').show();
 
-			if (loadedPosts >= totalPosts) {
-			    $(this).hide();
-			}else {
-			$(this).show();
-		}
+            if (loadedPosts >= totalPosts) {
+                $(this).hide();
+            }else {
+            $(this).show();
+        }
+        });
 
-		});
-		// if (loadedPosts >= totalPosts) {
-		// 	$('#load-more').hide();
-		// } else {
-		// 	$('#load-more').show();
-		// }
-
-	});
+        // if (loadedPosts >= totalPosts) {
+        //     $('#load-more').hide();
+        // } else {
+        //     $('#load-more').show();
+        // }
+    });
 </script>
 
 

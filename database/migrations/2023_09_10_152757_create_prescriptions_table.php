@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('reg_no')->nullable();
             $table->date('date')->nullable();
             $table->string('complaints')->nullable();
-            $table->string('diagnoses')->nullable();
             $table->string('tests')->nullable();
             $table->string('investigations')->nullable();
+            $table->string('diagnoses')->nullable();
             $table->string('medicine')->nullable();
             $table->string('howmanytimes')->nullable();
             $table->string('afterbefore')->nullable();

@@ -1,16 +1,45 @@
 @extends('admin.master')
 @section('content')
+
 <style>
     .row1 {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 40px;
-    }
-    .row1{
-        /* background-color:#003366 ; */
+       
         color: #fff;
     }
+    .doctor-details{
+        font-family: 'Lato', sans-serif;
+    }
+    
+    .doctor-details h2 {
+            font-size: 25px;
+            font-weight: 600;
+            /* color: #4CAF50; */
+            color: #4b4745;
+            font-style: italic;
+        }
+
+        .doctor-details .Education {
+            font-size: 22px;
+            font-weight: 500;
+            color: #4b4745;
+        }
+
+
+        .doctor-details span {
+            font-size: 20px;
+            font-weight: 400;
+            color: #173518;
+            font-style: italic;
+        }
+
+    /* .row1{
+        background-color:#003366 ;
+        color: #fff;
+    } */
     label{
         color: #003366;
         font-weight: bold;
@@ -47,33 +76,33 @@
         </div>
 
     </div>
-
+    <h2 class="page-title text-center pt-5" style="color:#007bff; font-weight: bold; border-bottom:1px solid #003366; font-size: 30px;font-style:italic;">Prescription Head</h2>
     <!-- table -->
     <div class="row bg-info mt-5">
         <div class="col-md-12">
             <header style="width: 100%;">
-                <div class="my-5">
-                <!-- <h4 class="page-title text-center" style="color:#003366; font-weight: bold;">Clinic Details</h4> -->
+           
+                <div class="mt-3 mb-5">
                     <div class="row1 shadow  p-3">
-                        <div class="doctor-details">
-                            <h2 class="name">Md Sahidul haque </h2>
-                            <p class="qualification Degree">MBBS Dhaka</p>
-                            <h3 class="Education Informations">AFC,BCS,Dhaka </h3>
-                            <p class="specialist text-white">Child specialist</p>
+                        <div class="doctor-details d-flex flex-column" style="font-family: 'Lato', sans-serif;">
+                            <h2 class="name">Dr. Md Sahidul haque </h2>
+                            <span class="qualification Degree">MBBS, Dhaka.</span>
+                            <span class="Education Informations">AFC, BCS(Health), Dhaka. </span>
+                            <span class="specialist text-white">Child specialist.</span>
                         </div>
                         <div class=" doctor-details text-center">
                             <h2>Time to see the patient </h1>
-                                <div class="text-center">
-                                    <p class="seating-day">Sun To Thurs</p>
-                                    <p class="seating-time">9am To 8pm</p>
+                                <div class="text-center d-flex flex-column">
+                                    <span class="seating-day">Day: Sun To Thurs</span>
+                                    <span class="seating-time">Time: 9am To 8pm</span>
                                 </div>
                         </div>
-                        <div class="doctor-details" id="chember-details">
+                        <div class="doctor-details p-4 d-flex flex-column" style=" border:1px dotted #003366; " id="chember-details">
                             <h2 class="clinic-name">{{$clinics->clinic_name}} </h1>
-                                <p class="location">Address: {{$clinics->location}}</p>
+                                <span class="location">Address: {{$clinics->location}}.</span>
                                 <!-- <h3>location_details</h3> -->
-                                <p class="phone no">Phone: 0172345678</p>
-                                <p>RegNo: <span class="ml-2 text-white">RG####</span></p>
+                                <span class="phone no">Phone: 0172345678</span>
+                                <span>RegNo: <span class="ml-2 text-white">RG####</span></span>
                         </div>
                     </div>
 

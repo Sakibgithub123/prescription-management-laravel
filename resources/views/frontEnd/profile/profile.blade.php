@@ -1,21 +1,27 @@
 @extends('frontEnd.master');
 @section('title')
-Medilab-Profile
+MediCareOPS-Profile
 @endsection
 @section('content')
+<style>
+    .text-muted{
+        font-size: 16px;
+    }
+</style>
 
 <div class="content">
     <h4 class="page-title text-center py-2" style="background-color:#007bff; color:#003366; font-weight: 900;">My Profile</h4>
     <div class="row mt-5">
         <div class="col-sm-7 col-6">
-            <h4 class="page-title">My Details</h4>
+            <!-- <h4 class="page-title">My Details</h4> -->
+            <h4 class="focus-label text-primary">My Details</h4>
         </div>
 
         <div class="col-sm-5 col-6 text-right m-b-30">
-            <a href="{{route('profile-edit')}}" class="btn btn-primary btn-rounded font-weight-bold text-white"><i class="fa fa-plus"></i> Edit Profile</a>
+            <a href="{{route('profile-edit')}}" class="btn btn-primary btn-rounded font-weight-bold text-white"><i class="fa fa-plus text-white"></i> Edit Profile</a>
         </div>
     </div>
-    <div class="card-box profile-header">
+    <div class="card-box profile-header border border-primary border-3">
         <div class="row">
             <div class="col-md-12">
                 <!-- class="profile-view -->
@@ -23,9 +29,9 @@ Medilab-Profile
                     <div class="profile-img-wrap">
                         <div class="profile-img">
                             @if(!$profile->profile_image)
-                            <a href="#"><img class="avatar" src="{{asset('superAdmin')}}/assets/img/doctor-03.jpg" alt=""></a>
+                            <a><img class="avatar border border-primary" src="{{asset('superAdmin')}}/assets/img/doctor-03.jpg" alt=""></a>
                             @else
-                            <a href="#"><img class="avatar" src="{{asset('storage/images/'.$profile->profile_image)}}" alt=""></a>
+                            <a><img class="avatar border border-primary" src="{{asset('storage/images/'.$profile->profile_image)}}" alt=""></a>
                             @endif
                         </div>
                     </div>
@@ -43,24 +49,24 @@ Medilab-Profile
                             <div class="col-md-7">
                                 <ul class="personal-info">
                                     <li>
-                                        <span class="title">Phone:</span>
-                                        <span class="text">{{$profile->phone}}</span>
+                                        <span class="title font-weight-bold">Phone:</span>
+                                        <span class="text text-muted">{{$profile->phone}}</span>
                                     </li>
                                     <li>
-                                        <span class="title">Email:</span>
-                                        <span class="text">{{$profile->email}}</span>
+                                        <span class="title font-weight-bold">Email:</span>
+                                        <span class="text text-muted">{{$profile->email}}</span>
+                                    </li>
+                                    <!-- <li>
+                                        <span class="title font-weight-bold">Birthday:</span>
+                                        <span class="text text-muted">{{$profile->birthday}}</span>
+                                    </li> -->
+                                    <li>
+                                        <span class="title font-weight-bold">Address:</span>
+                                        <span class="text text-muted">{{$profile->address}}</span>
                                     </li>
                                     <li>
-                                        <span class="title">Birthday:</span>
-                                        <span class="text">{{$profile->birthday}}</span>
-                                    </li>
-                                    <li>
-                                        <span class="title">Address:</span>
-                                        <span class="text">{{$profile->address}}</span>
-                                    </li>
-                                    <li>
-                                        <span class="title">Gender:</span>
-                                        <span class="text ">{{$profile->gender}}</span>
+                                        <span class="title font-weight-bold">Gender:</span>
+                                        <span class="text text-muted">{{$profile->gender}}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -90,8 +96,8 @@ Medilab-Profile
                                         </div>
                                         <div class="experience-content">
                                             <div class="timeline-content">
-                                                <a href="#/" class="name">Experienced In</a>
-                                                <span class="time">{{$profile->specialist}}</span>
+                                                <a  class="name">Experienced In</a>
+                                                <span class="time text-muted" style="font-size: 16px;">{{$profile->specialist}}</span>
                                             </div>
                                         </div>
                                     </li>
@@ -101,9 +107,9 @@ Medilab-Profile
                                         </div>
                                         <div class="experience-content">
                                             <div class="timeline-content">
-                                                <a href="#/" class="name">Seating Day</a>
-                                                <span class="time">{{$profile->seating_day}}</span>
-                                                <span class="time">{{$profile->whenyouseat}}</span>
+                                                <a  class="name">Seating Day</a>
+                                                <span class="time text-muted" style="font-size: 16px;">{{$profile->seating_day}}</span>
+                                                <span class="time text-muted" style="font-size: 16px;">{{$profile->whenyouseat}}</span>
                                             </div>
                                         </div>
                                     </li>
@@ -111,12 +117,12 @@ Medilab-Profile
                                         <div class="experience-user">
                                             <div class="before-circle"></div>
                                         </div>
-                                        <div class="experience-content">
+                                        <!-- <div class="experience-content">
                                             <div class="timeline-content">
-                                                <a href="#/" class="name">Friday Seating Time</a>
-                                                <span class="time">{{$profile->friday_seating_time}}</span>
+                                                <a  class="name">Friday Seating Time</a>
+                                                <span class="time text-muted" style="font-size: 16px;">{{$profile->friday_seating_time}}</span>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </li>
                                     <li>
                                         <div class="experience-user">
@@ -124,8 +130,8 @@ Medilab-Profile
                                         </div>
                                         <div class="experience-content">
                                             <div class="timeline-content">
-                                                <a href="#/" class="name">Visit Fee</a>
-                                                <span class="time">{{$profile->visit_fee}}</span>
+                                                <a  class="name">Visit Fee</a>
+                                                <span class="time text-muted" style="font-size: 16px;">{{$profile->visit_fee}} Tk</span>
                                             </div>
                                         </div>
                                     </li>
@@ -148,9 +154,20 @@ Medilab-Profile
                                         </div>
                                         <div class="experience-content">
                                             <div class="timeline-content">
-                                                <a href="#/" class="name">{{$profile->education_informations}}</a>
-                                                <div>{{$profile->qualification}}</div>
-                                                <span class="time">2001 - 2003</span>
+                                                <a  class="name">{{$profile->education_informations}}</a>
+                                                <span class="time text-muted" style="font-size: 16px;">{{$profile->qualification}}</span>
+                                                <!-- <span class="time">2001 - 2003</span> -->
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a  class="name">Institute</a>
+                                                <span class="time text-muted" style="font-size: 16px;">{{$profile->friday_seating_time}}</span>
                                             </div>
                                         </div>
                                     </li>
@@ -161,13 +178,13 @@ Medilab-Profile
                 </div>
 
             </div>
-            <div class="tab-pane" id="bottom-tab3">
+            <!-- <div class="tab-pane" id="bottom-tab3">
                 Tab content 3
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
-<div class="notification-box">
+<!-- <div class="notification-box">
     <div class="msg-sidebar notifications msg-noti">
         <div class="topnav-dropdown-header">
             <span>Messages</span>
@@ -175,7 +192,7 @@ Medilab-Profile
         <div class="drop-scroll msg-list-scroll" id="msg_list">
             <ul class="list-box">
                 <li>
-                    <a href="chat.html">
+                    <a>
                         <div class="list-item">
                             <div class="list-left">
                                 <span class="avatar">R</span>
@@ -375,7 +392,7 @@ Medilab-Profile
             <a href="chat.html">See all messages</a>
         </div>
     </div>
-</div>
+</div> -->
 
 
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ use App\Http\Controllers\ForgetPasswordController;
 
 Route::get('/admin/login', [AdminController::class, 'adminLoginPage'])->name('admin.login');
 Route::post('/admin-login-save', [AdminController::class, 'adminLogin'])->name('adminlogin');
+
+//notification
+// Route::post('notifications/markAsRead',[NotificationController::class,'markAsRead'])->name('notifications.markAsRead');
 
 
 Route::group(['middleware' => 'admin'], function () {
@@ -91,6 +95,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/change-password', [AdminController::class, 'savechangePassword'])->name('admin.save.change.password');
     //-------------logout admin-----------------
     Route::get('/admin/logout', [AdminController::class, 'Logout'])->name('admin.logout');
+    Route::post('notifications/markAsRead',[NotificationController::class,'markAsRead'])->name('notifications.markAsRead');
+
 });
 
 
@@ -102,6 +108,7 @@ Route::post('/doctor-login-save', [FrontEndController::class, 'doctorLogin'])->n
 Route::get('/forget-password',[ForgetPasswordController::class,'showForgetPasswordForm'])->name('show.ForgetPassword.Form');
 Route::post('/forget-password', [ForgetPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
 Route::get('reset-password/{token}', [ForgetPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
 Route::middleware('auth')->group(function () {
@@ -122,7 +129,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/prescription', [FrontEndController::class, 'getPrescription'])->name('prescription');
     Route::post('/save-prescription', [FrontEndController::class, 'savePrescription'])->name('save.prescription');
     //----------patient-------------
-    Route::get('/patient-details', [FrontEndController::class, 'getPatient'])->name('patientdetails');
+    Route::get('/patient-details', [FrontEndController::class, 'getMyAllPatient'])->name('patientdetails');
     Route::get('/show-prescription/{id}', [FrontEndController::class, 'showPrescription'])->name('show.prescription');
     Route::post('/delete-Patient', [FrontEndController::class, 'deletePatient'])->name('delete.patient');
     Route::get('/update/Patient', [FrontEndController::class, 'getUpdatePatient'])->name('update.patient');
@@ -140,6 +147,7 @@ Route::middleware('auth')->group(function () {
     
     // Route::get('/patientt-details',[FrontEndController::class,'gettPatient'])->name('patientdetails1');
     // Route::get('/dashboard', [FrontEndController::class, 'adminDashboard']);
+    Route::post('notifications/markAsRead',[NotificationController::class,'markAsRead'])->name('notifications.markAsRead');
 
     //------------logout----------------
     Route::get('/logout', [FrontEndController::class, 'Logout'])->name('logout');

@@ -11,6 +11,7 @@ class Prescription extends Model
     protected $fillable = [
         'dr_id',
         'patient_name',
+        'patient_gender',
         'patient_age',
         'visit_fee',
         'reg_no',
@@ -18,6 +19,7 @@ class Prescription extends Model
         'complaints',
         'tests',
         'investigations',
+        'diagnoses',
         'medicine',
         'howmanytimes',
         'afterbefore',
