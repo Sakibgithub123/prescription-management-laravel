@@ -45,21 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- @foreach($medicines as $medicine)
-                        <tr>
-                            <td>{{$medicine->id}}</td>
-                            <td>{{$medicine->medicine}}</td>
-                            <td class="text-right">
-                                <div class="dropdown dropdown-action">
-                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <button class="dropdown-item" id="editBtn" data-bs-toggle="modal" data-bs-target="#myModal" data-editId="{{$medicine->id}}"><i class="fa fa-pencil m-r-5"></i> Edit</button>
-                                        <button class="dropdown-item" id="deleteBtn" data-deleteId="{{$medicine->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach -->
+                       
 
                     </tbody>
                 </table>
@@ -103,9 +89,6 @@
         ]
     });
 
-
-
-
     $('#medicineForm').on('submit', function(e) {
         e.preventDefault();
         let formData = $(this).serialize();
@@ -115,17 +98,16 @@
             data: formData,
             success: function(data) {
                 if (data.status === "exit") {
-
                     $('#medicineErrorMsg').text(data.massage + " " + 'already exists.');
                     return;
                 }
 
                 if (data.status === true) {
-                    toastr.success( data.massage +" "+'Medicine Added Success', 'Add Medicine');
+                    toastr.success( data.massage +" "+'Medicine Added Success.', 'Add Medicine!');
+                    $('#medicineErrorMsg').text('');
                     table.ajax.reload();
                 } else {
-                    toastr.error('Something wrong!', 'Try again!');
-
+                    toastr.error('Something wrong.', 'Try again!');
                 }
             },
             error: function(response) {
@@ -154,7 +136,6 @@
                         '_token': '{{ csrf_token() }}'
                     },
                     success: function(data) {
-
                         if (data.status === true) {
                             Swal.fire(
                                 'Deleted!',
@@ -163,16 +144,11 @@
                             )
                             table.ajax.reload();
                         }
-
                     }
                 })
-
             }
         })
-
-    })
+    });
 </script>
-
 @endpush
-
 @endsection

@@ -23,12 +23,6 @@ use App\Http\Controllers\NotificationController;
 //     return view('welcome');
 // });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-// Route::get('/admin-dashboard', [FrontEndController::class, 'adminDashboard'])->name('admin.dashboard');
-
-
 
 Route::get('/admin/login', [AdminController::class, 'adminLoginPage'])->name('admin.login');
 Route::post('/admin-login-save', [AdminController::class, 'adminLogin'])->name('adminlogin');
@@ -92,7 +86,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     //-------------change password admin---------
     Route::get('/change-password', [AdminController::class, 'getchangePassword'])->name('admin.change.password');
-    Route::post('/change-password', [AdminController::class, 'savechangePassword'])->name('admin.save.change.password');
+    Route::post('/change-password/save', [AdminController::class, 'savechangePassword'])->name('admin.save.change.password');
     //-------------logout admin-----------------
     Route::get('/admin/logout', [AdminController::class, 'Logout'])->name('admin.logout');
     Route::post('notifications/markAsRead',[NotificationController::class,'markAsRead'])->name('notifications.markAsRead');
@@ -112,22 +106,19 @@ Route::post('reset-password', [ForgetPasswordController::class, 'submitResetPass
 
 
 Route::middleware('auth')->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // Route::get('/dashboard',[DoctorController::class,'index']); 
-    // Route::get('/', [FrontEndController::class, 'getLoginPage'])->name('login-page');
-    
     Route::get('/registration-page', [FrontEndController::class, 'getRegistrationPage'])->name('registration-page');
     Route::get('/get-home', [FrontEndController::class, 'getHome'])->name('get.home');
     // Route::get('/index', [FrontEndController::class, 'getIndex'])->name('index-page')->name('dashboard');
+   
     //---------------profile----------------
     Route::get('/profile', [FrontEndController::class, 'getProfile'])->name('profile');
     Route::get('/edit-profile', [FrontEndController::class, 'getEditProfile'])->name('profile-edit');
     Route::post('/save-editprofile', [FrontEndController::class, 'saveEditProfile'])->name('save.profile.edit');
+    
     //--------prescription
     Route::get('/prescription', [FrontEndController::class, 'getPrescription'])->name('prescription');
     Route::post('/save-prescription', [FrontEndController::class, 'savePrescription'])->name('save.prescription');
+    
     //----------patient-------------
     Route::get('/patient-details', [FrontEndController::class, 'getMyAllPatient'])->name('patientdetails');
     Route::get('/show-prescription/{id}', [FrontEndController::class, 'showPrescription'])->name('show.prescription');
@@ -136,6 +127,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/save-patient-update', [FrontEndController::class, 'saveUpdatePatient'])->name('userUpdate.Patient');
     Route::get('/show/prescription/{id}', [FrontEndController::class, 'showPrescriptionDetails'])->name('showDetailsprescription');
     Route::post('/edit-prescription', [FrontEndController::class, 'editPrescription'])->name('edit.prescription');
+
+    //print page
+    Route::get('/show/print/{id}', [FrontEndController::class, 'printPageUpdate'])->name('printPage');
 
     //------statistics-------------
     Route::get('/doctor/statistics', [FrontEndController::class, 'doctorStatistics'])->name('doctor.statistics');
@@ -151,12 +145,6 @@ Route::middleware('auth')->group(function () {
 
     //------------logout----------------
     Route::get('/logout', [FrontEndController::class, 'Logout'])->name('logout');
-
-
-
-    //admin side
-
-
 
 });
 

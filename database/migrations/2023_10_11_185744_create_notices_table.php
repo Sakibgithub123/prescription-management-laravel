@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('notices', function (Blueprint $table) {
             $table->id();
             $table->string('notice');
-            $table->string('status')->default('deactive')->comment('deactive for deactive,active for active');
+            $table->string('status')->default('Deactive')->comment('Deactive for Deactive,Active for Active');
             $table->timestamps();
         });
     }

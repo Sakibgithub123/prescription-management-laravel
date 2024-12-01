@@ -6,10 +6,8 @@
         color: #003366;
         font-weight: bold;
     }
-
     ::placeholder {
         color: #003366;
-
     }
 </style>
 <div class="content">
@@ -57,7 +55,7 @@
                         <button class="dropdown-item" id="deleteBtn" data-deleteId="{{$doctor->id}}" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
                         <button class="dropdown-item"><i class="fa fa-eye"></i> <a class="text-black" href="{{route('doctor.details',['id'=>$doctor->id])}}">More</a></button> -->
                         <button class="btn-sm btn-block btn btn-primary" id="editBtn" data-editId="{{$doctor->id}}" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-pencil m-r-5"></i> Edit</button>
-                        <button class="btn-sm btn-block btn btn-danger" id="deleteBtn" data-deleteId="{{$doctor->id}}" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
+                        <button class="btn-sm btn-block btn btn-danger" id="deleteBtn" data-deleteId="{{$doctor->id}}" data-name="{{$doctor->name}}" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
                         <button class="btn-sm btn-block btn btn-info"><i class="fa fa-eye"></i> <a class="text-white" href="{{route('doctor.details',['id'=>$doctor->id])}}">More</a></button>
                     </div>
                 </div>
@@ -216,12 +214,6 @@
             </form>
         </div>
     </div>
-
-
-    <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div> -->
-
 </div>
 </div>
 <!-- add doctor Modal -->
@@ -236,7 +228,6 @@
                 <div class="row">
                     <form id="addDoctorForm">
                         @csrf
-
                         <div class="d-flex flex-row gap-1">
                             <div class="col-sm-6">
                                 <div class="col-md-12">
@@ -246,7 +237,6 @@
                                         <span class="text-danger" id="error_addname"></span>
                                     </div>
                                 </div>
-
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Education Informations</label>
@@ -261,7 +251,6 @@
                                         <span class="text-danger" id="error_addqualification"></span>
                                     </div>
                                 </div>
-
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Department/Specialist</label>
@@ -309,7 +298,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Birthday</label>
-                                        <input type="text" id="birthday" name="birthday" aria-label="date" class="form-control">
+                                        <input type="date" id="birthday" name="birthday" aria-label="date" class="form-control">
                                         <span class="text-danger" id="error_addbirthday"></span>
                                     </div>
                                 </div>
@@ -356,14 +345,7 @@
             </form>
         </div>
     </div>
-
 </div>
-
-
-
-
-
-
 </div>
 
 @push('scripts')
@@ -384,12 +366,10 @@
                 if (result.status === true) {
                     toastr.success('Add Doctor Success!', 'Add Doctor');
                     $('#myModal').modal('hide');
-                    window.location.href = "/doctor-list";
+                    // window.location.href = "/doctor-list";
                 } else {
                     toastr.success('Add Doctor Failed!', 'Adding Failed');
-
                 }
-
             },
             error: function(response) {
                 $('#error_addname').text(response.responseJSON.errors.name);
@@ -406,25 +386,20 @@
                 $('#error_addgender').text(response.responseJSON.errors.gender);
                 $('#error_email').text(response.responseJSON.errors.email);
                 $('#error_password').text(response.responseJSON.errors.password);
-
-
             }
         })
     })
 
     $(document).on('click', '#editBtn', function() {
         // e.preventDefault();
-
         let id = $(this).attr('data-editId');
         // alert(id)
         $.ajax({
-
             url: "{{route('doctor.list.data')}}",
             data: {
                 id: id
             },
             success: function(result) {
-                $
                 console.log(result.name)
                 $('#dept').text(result.name)
                 $('#drId').val(result.id)
@@ -443,8 +418,6 @@
                 // $('#gender').val(result.gender)
                 // $('#gender').find(result.gender).trigger('change');
                 $('#updateGender option[value="' + result.gender + '"]').prop('selected', true).trigger("change");
-
-
             }
 
         })
@@ -464,12 +437,8 @@
                     window.location.href = "/doctor-list";
                 } else {
                     // return redirect('/doctor-list/data'); 
-
-
                     toastr.success('Something Went Wrong!', 'Try Again');
-
                 }
-
             },
             error: function(response) {
                 $('#error_name').text(response.responseJSON.errors.name);
@@ -484,23 +453,22 @@
                 $('#error_birthday').text(response.responseJSON.errors.birthday);
                 $('#error_address').text(response.responseJSON.errors.address);
                 $('#error_gender').text(response.responseJSON.errors.gender);
-
-
             }
         })
-    })
+    });
     // ---------------------------
     $(document).on('click', '#deleteBtn', function(e) {
         e.preventDefault();
         let id = $(this).attr('data-deleteId')
+        let name = $(this).attr('data-name')
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "You want to delete "+name+"!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, delete!'
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
@@ -514,24 +482,20 @@
                         if (data.status === true) {
                             Swal.fire(
                                 'Deleted!',
-                                'Your file has been deleted.',
+                                name+ 'has been deleted.',
                                 'success'
                             )
-                            window.reload();
+                            location.reload();
                         }
-
+                       
                     }
                 })
-
             }
         })
-
     })
     // --------------
     $(document).on('click', '#statusBtn', function(e) {
-
         e.preventDefault();
-
         let id = $(this).attr('data-statusId');
         let status = $(this).prop('checked') == true ? 1 : 0;
         let showStatus = status === 1 ? "Enable" : "Disable";
@@ -560,52 +524,14 @@
                             'success'
                         )
                         window.location.href = "/doctor-list";
-
                     }
                 })
-
             }
         })
-
-
     })
 
-    //     $(function() {
-    //     $('#statusBtn').change(function() {
-    //         var status = $(this).prop('checked') == true ? 1 : 0; 
-    //         var id = $(this).data('id'); 
-
-    //         $.ajax({
-    //             type: "GET",
-    //             dataType: "json",
-    //             url: '{{route("doctor.status")}}',
-    //             data: {'id': id, 'status': status,},
-    //             success: function(data){
-    //               console.log(data.success)
-    //             }
-    //         });
-
-    //     })
-    //   })
-
-    // $('dr-list').slice(0, 9).show();
-    // $('#loadMore').on('click', function(e) {
-    //     e.preventDefault();
-    //     $('.dr-list:hidden').slice(0, 9).slideDown();
-
-    //     if ($('.dr-list:hidden').length == 0) {
-    //         $('#loadMore').fadeOut('slow')
-    //     }
-    //     if ($('.dr-list').length <= 9) {
-    //         $('#loadMore').hide();
-    //     }
-    //     if ($('.dr-list:hidden').length) {
-    //         $(this).hide();
-    //     }
-    // })
 
     // load more
-
     $(document).ready(function() {
         var postsPerPage = 12;
         var totalPosts = $('.doctor-list').length;

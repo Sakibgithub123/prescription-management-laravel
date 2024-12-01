@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <!-- login23:11-->
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
@@ -32,17 +29,14 @@
             border-color: #28a745;
 
         }
-
         .form-control:focus {
             border-color: #28a745;
             box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
         }
     </style>
-
 </head>
-
 <body>
-    <div class="main-wrapper account-wrapper">
+    <div class="main-wrapper account-wrapper" style="background-color: #3399FF;">
         <div class="account-page">
             <div class="account-center">
                 <div class="account-box">
@@ -104,11 +98,6 @@
                 e.preventDefault();
                 // alert('ok')
                 let formData = $(this).serialize();
-                // $.ajaxSetup({
-                //     headers: {
-                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                //     }
-                // });
                 $.ajax({
                     method: 'post',
                     url: "{{route('doctorlogin')}}",
@@ -143,11 +132,6 @@
         //     }
         // }
     </script>
-
-
 </body>
-
-
 <!-- login23:12-->
-
 </html>

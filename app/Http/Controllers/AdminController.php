@@ -20,6 +20,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Notification;
 
 class AdminController extends Controller
@@ -89,29 +90,16 @@ class AdminController extends Controller
                 'backgroundColor' => $colurs
             ]
         ];
-        $patients = Prescription::select('patient_name', 'patient_age', 'complaints', 'prescriptions.created_at as date', 'users.name as name','investigations')
-            ->join('users', 'users.id', 'prescriptions.dr_id')->latest('prescriptions.created_at')->get();
+        // $patients = Prescription::select('patient_name', 'patient_age', 'complaints', 'prescriptions.created_at as date', 'users.name as name','investigations')
+        //     ->join('users', 'users.id', 'prescriptions.dr_id')->latest('prescriptions.created_at')->get();
 
         // total income
 
         $appointments = Prescription::all();
-        $patients = Prescription::select('patient_name', 'patient_age', 'complaints', 'prescriptions.created_at as date', 'users.name as name','investigations')
+        $patients = Prescription::select('patient_name', 'patient_age', 'diagnoses', 'prescriptions.created_at as date', 'users.name as name','investigations')
             ->join('users', 'users.id', 'prescriptions.dr_id')->latest('prescriptions.created_at')->get();
 
-
-        // $authenticatedDoctorId = Auth::id();
         $appointments = Prescription::all();
-
-        $monthlyFees = $appointments->groupBy(function ($appointment) {
-            return $appointment->created_at->format('Y');
-        })->map(function ($monthlyAppointments) {
-            return $monthlyAppointments->sum('visit_fee');
-        });
-
-        //     $monthlyFees = Prescription::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, SUM(visit_fee) as total')
-        // ->groupBy('month')
-        // ->orderBy('month')
-        // ->get();
 
         $userCharts1 = Prescription::selectRaw('MONTH(created_at) as month , SUM(visit_fee) as sum')
             ->whereYear('created_at', date('Y-m'))
@@ -142,7 +130,6 @@ class AdminController extends Controller
                 'backgroundColor' => $colurs
             ]
         ];
-        // $doctors = User::where('role', 'user')->latest()->get();
         $doctors = User::select('users.id as id', 'users.name as name', 'users.profile_image as profile_image', 'users.qualification as qualification', DB::raw('COUNT(users.id) as totalDoctor'), DB::raw('COUNT(prescriptions.dr_id) as totalPrescription'))
             ->join('prescriptions', 'prescriptions.dr_id', 'users.id')
             ->where('role', 'user')
@@ -150,11 +137,9 @@ class AdminController extends Controller
             // ->latest()
             ->get();
         // dd($datasets1);
-        return view('admin.admin-dashboard1', compact('doctorCount', 'patientCount', 'toDaysPatient', 'patients', 'doctors', 'datasets', 'labels', 'datasets1', 'labels1', 'monthlyFees'));
-        //    }
-
-        //    return view('admin.login.admin-login');
+        return view('admin.admin-dashboard1', compact('doctorCount', 'patientCount', 'toDaysPatient', 'patients', 'doctors', 'datasets', 'labels', 'datasets1', 'labels1'));
     }
+    
     public function adminDashboardStatisticsByYearPatient(Request $request)
     {
         $userCharts = Prescription::selectRaw('MONTH(created_at) as month , COUNT(*) as count')
@@ -205,15 +190,6 @@ class AdminController extends Controller
     }
     public function adminDashboardStatisticsByYearIncome(Request $request)
     {
-        // $appointments = Prescription::all();
-
-        // $monthlyFees = $appointments->groupBy(function ($appointment) {
-        //     return $appointment->created_at->format('Y');
-        // })->map(function ($monthlyAppointments) {
-        //     return $monthlyAppointments->sum('visit_fee');
-        // });
-
-
         $userCharts1 = Prescription::selectRaw('MONTH(created_at) as month , SUM(visit_fee) as sum')
             // ->whereYear('created_at', date('Y-m'))
             ->whereYear('created_at', $request->year)
@@ -393,7 +369,7 @@ class AdminController extends Controller
                 ]);
             }
         }
-        Notification::send(User::all(), new MedicineAdded($medicines));
+        
         return view('admin.manage-prescription.add-medicine', ['medicines' => $medicines]);
     }
     public function saveMedicineForm(Request $request)
@@ -410,6 +386,7 @@ class AdminController extends Controller
 
             $create = Medicine::create($request->only('medicine'));
             if ($create) {
+                Notification::send(User::all(), new MedicineAdded($request->medicine));
                 return response()->json([
                     'status' => true,
                     'massage' => $request->medicine,
@@ -420,6 +397,7 @@ class AdminController extends Controller
                 ]);
             }
         }
+        
     }
     public function deleteMedicine(Request $request)
     {
@@ -557,6 +535,7 @@ class AdminController extends Controller
              ]);
          }
      }
+
                     //---------admin diagnose credentials-----------
 
      public function addDiagnoseForm()
@@ -634,20 +613,21 @@ class AdminController extends Controller
     public function addDoctor(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
             'education_informations' => 'required',
             'qualification' => 'required',
             'specialist' => 'required',
             'whenyouseat' => 'required',
             'seating_day' => 'required',
             'friday_seating_time' => 'required',
-            'visit_fee' => 'required',
-            'phone' => 'required',
+            'visit_fee' => 'required|numeric',
+            // 'phone' => 'required|regex:/^(\+01)[0-9]{11}$ /',
+            'phone' => 'required|numeric|digits:11',
             'birthday' => 'required',
             'address' => 'required',
             'gender' => 'required',
-            'email' => 'required',
-            'password' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required',Rules\Password::defaults()],
         ]);
         $drid = User::create([
             'name' => $request->name,
@@ -788,11 +768,11 @@ class AdminController extends Controller
             ->first();
         // return $prescriptions;
         $clinicDetails = Clinic::find(1);
-        return view('admin.patient.prescription', compact(['prescriptions', 'clinicDetails']));
+        return view('admin.patient.prescription-admin', compact(['prescriptions', 'clinicDetails']));
     }
     public function getPatientDetailsData(Request $request)
     {
-        $result = Prescription::select('patient_name', 'patient_age')
+        $result = Prescription::select('id','patient_name', 'patient_age','visit_fee')
             ->where('id', $request->id)
             ->first();
         return $result;
@@ -802,10 +782,10 @@ class AdminController extends Controller
         $request->validate([
             'patient_name' => 'required',
             'patient_age' => 'required',
-            'visit_fee' => 'required',
+            'visit_fee' => 'required|numeric',
 
         ]);
-        $drid = User::find($request->patientId)->update([
+        $drid = Prescription::find($request->patientId)->update([
             'patient_name' => $request->patient_name,
             'patient_age' => $request->patient_age,
             'visit_fee' => $request->visit_fee,
@@ -877,7 +857,7 @@ class AdminController extends Controller
     }
     public function deleteNotice(Request $request)
     {
-        $noticeDlt = Complaints::find($request->id)->delete();
+        $noticeDlt = Notice::find($request->id)->delete();
         if ($noticeDlt) {
             return response()->json([
                 'status' => true,
@@ -897,13 +877,6 @@ class AdminController extends Controller
             Notification::send(User::all(), new NoticeEnabled($status));
 
         }
-
-        // $statueSave = new Notice();
-        // $statueSave->status=$request->status;
-        // $statueSave = Notice::update($request->only($request->status));
-        // $statueSave=$status->status = $request->status;
-
-        // $statueSave->save();
         if ($status) {
             return response()->json([
                 'status' => true,
@@ -922,29 +895,35 @@ class AdminController extends Controller
     {
         return view('admin.settings.password-change');
     }
+   
+
     public function savechangePassword(Request $request)
     {
-
         $request->validate([
-            'old_password'          => 'required',
-            // 'email'         => 'required|email',
-            // 'mobile'        => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'new_password'       => 'required',
-            'confirm_password'       => 'required',
+            'old_password' => ['required','string','min:8'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
-        $currentPassword = Auth::guard('admin')->password;
-        $user = Admin::where('id', $request->UserId);
-        if (Hash::check($request->old_password, $currentPassword)) {
 
-            $user->password = Hash::make($request->password);
-            $passwordChange = $user->save();
-            if ($passwordChange) {
-                return response()->json(['status' => 'success']);
-            } else {
-                return response()->json(['status' => 'error']);
-            }
+        $currentPasswordStatus = Hash::check($request->old_password, Auth::guard('admin')->user()->password);
+        if($currentPasswordStatus){
+
+            Admin::findOrFail(Auth::guard('admin')->user()->id)->update([
+                'password' => Hash::make($request->password),
+            ]);
+
+            return response()->json(['status' => 'success']);
+
+        }else{
+
+            return response()->json(['status' => 'error']);
         }
     }
+
+
+
+
+    
+
                 //---------admin logout credentials-----------
 
     public function Logout(Request $request)

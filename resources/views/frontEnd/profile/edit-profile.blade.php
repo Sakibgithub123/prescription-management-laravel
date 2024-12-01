@@ -50,12 +50,6 @@ MediCareOPS-Profile
                                     <input type="text" name="name" class="form-control floating" value="{{$editProfile->name}}">
                                 </div>
                             </div>
-                            <!-- <div class="col-md-6">
-                                            <div class="form-group form-focus">
-                                                <label class="focus-label">Last Name</label>
-                                                <input type="text" class="form-control floating" value="Doe">
-                                            </div>
-                                        </div> -->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="focus-label">Birth Date</label>
@@ -121,20 +115,15 @@ MediCareOPS-Profile
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="focus-label">Specialist/Department</label>
-
                         <input type="text" name="specialist" class="form-control floating datetimepicker" value="{{$editProfile->specialist}}">
-
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="focus-label">When You Seat</label>
-
                         <input type="text" name="whenyouseat" class="form-control floating datetimepicker" value="{{$editProfile->whenyouseat}}">
-
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="text-center m-t-20">
@@ -144,14 +133,10 @@ MediCareOPS-Profile
 </div>
 
 @push('scripts')
-
-
-
 <script type="text/javascript">
     $(document).ready(function() {
         $('#updateUserForm').on('submit', function(e) {
             e.preventDefault();
-
             var formData = $(this).serialize();
             $.ajax({
                 url: "{{route('save.profile.edit')}}",
@@ -165,10 +150,10 @@ MediCareOPS-Profile
                 success: function(data) {
                     if (data.status == 'success') {
                         // alert('ok');
-                        toastr.success('Profile Update!', 'Profile updated successfully!')
+                        toastr.success('Profile Update.', 'Profile updated successfully!')
                         $('.profile_image').attr('src', data.profile_image).show();
                     } else {
-                        toastr.error('Something wrong!', 'Try again!');
+                        toastr.error('Something wrong.', 'Try again!');
                     }
                 }
             })
@@ -183,8 +168,5 @@ MediCareOPS-Profile
         reader.readAsDataURL(event.target.files[0]);
     };
 </script>
-
-
 @endpush
-
 @endsection

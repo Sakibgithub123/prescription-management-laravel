@@ -7,7 +7,6 @@
         justify-content: space-between;
         align-items: center;
         padding: 40px;
-       
         color: #fff;
     }
     .doctor-details{
@@ -21,13 +20,11 @@
             color: #4b4745;
             font-style: italic;
         }
-
         .doctor-details .Education {
             font-size: 22px;
             font-weight: 500;
             color: #4b4745;
         }
-
 
         .doctor-details span {
             font-size: 20px;
@@ -36,10 +33,6 @@
             font-style: italic;
         }
 
-    /* .row1{
-        background-color:#003366 ;
-        color: #fff;
-    } */
     label{
         color: #003366;
         font-weight: bold;
@@ -81,7 +74,6 @@
     <div class="row bg-info mt-5">
         <div class="col-md-12">
             <header style="width: 100%;">
-           
                 <div class="mt-3 mb-5">
                     <div class="row1 shadow  p-3">
                         <div class="doctor-details d-flex flex-column" style="font-family: 'Lato', sans-serif;">
@@ -91,44 +83,24 @@
                             <span class="specialist text-white">Child specialist.</span>
                         </div>
                         <div class=" doctor-details text-center">
-                            <h2>Time to see the patient </h1>
+                            <h2>রোগী দেখার সময়</h2>
                                 <div class="text-center d-flex flex-column">
                                     <span class="seating-day">Day: Sun To Thurs</span>
                                     <span class="seating-time">Time: 9am To 8pm</span>
                                 </div>
                         </div>
                         <div class="doctor-details p-4 d-flex flex-column" style=" border:1px dotted #003366; " id="chember-details">
-                            <h2 class="clinic-name">{{$clinics->clinic_name}} </h1>
+                            <h2 class="clinic-name">{{$clinics->clinic_name}} </h2>
                                 <span class="location">Address: {{$clinics->location}}.</span>
                                 <!-- <h3>location_details</h3> -->
                                 <span class="phone no">Phone: 0172345678</span>
                                 <span>RegNo: <span class="ml-2 text-white">RG####</span></span>
                         </div>
                     </div>
-
-
                 </div>
-
-
             </header>
-            <!-- <div class="table-responsive">
-                <table id="addClinicTable" class="table table-border table-striped custom-table datatable mb-0">
-                    <thead>
-                        <tr>
-                            <th>Clinic Name</th>
-                            <th>Location</th>
-                            <th class="text-right">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-
-                    </tbody>
-                </table>
-            </div> -->
         </div>
     </div>
-
 </div>
 
 
@@ -172,11 +144,11 @@
             data: formData,
             success: function(data) {
                 if (data.status === true) {
-                    toastr.success('Clinic Added Successfully!', 'Add Clinic');
+                    toastr.success('Clinic Added Successfully.', 'Add Clinic!');
                     window.location.href="/add/clinic";
 
                 } else {
-                    toastr.error('Something wrong!', 'Try again!');
+                    toastr.error('Something wrong.', 'Try again!');
                 }
             },
             error: function(response) {
@@ -185,44 +157,7 @@
             }
         })
     })
-    // $(document).on('click', '#deleteBtn', function(e) {
-    //     e.preventDefault();
-    //     let id = $(this).attr('delete-id')
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "You won't be able to revert this!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, delete it!'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             $.ajax({
-    //                 method: 'post',
-    //                 url: '{{route("delete.clinic")}}',
-    //                 data: {
-    //                     'id': id,
-    //                     '_token': '{{ csrf_token() }}'
-    //                 },
-    //                 success: function(data) {
-
-    //                     if (data.status === true) {
-    //                         Swal.fire(
-    //                             'Deleted!',
-    //                             'Your file has been deleted.',
-    //                             'success'
-    //                         )
-    //                         table.ajax.reload();
-    //                     }
-
-    //                 }
-    //             })
-
-    //         }
-    //     })
-
-    // })
+    
 </script>
 
 @endpush

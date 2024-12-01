@@ -34,50 +34,6 @@
                             </a>
                         </li>
                         @endforeach
-                        <!-- <li class="notification-message">
-                            <a href="activities.html">
-                                <div class="media">
-                                    <span class="avatar">V</span>
-                                    <div class="media-body">
-                                        <p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
-                                        <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="notification-message">
-                            <a href="activities.html">
-                                <div class="media">
-                                    <span class="avatar">L</span>
-                                    <div class="media-body">
-                                        <p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span></p>
-                                        <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="notification-message">
-                            <a href="activities.html">
-                                <div class="media">
-                                    <span class="avatar">G</span>
-                                    <div class="media-body">
-                                        <p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
-                                        <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="notification-message">
-                            <a href="activities.html">
-                                <div class="media">
-                                    <span class="avatar">V</span>
-                                    <div class="media-body">
-                                        <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
-                                        <p class="noti-time"><span class="notification-time">2 days ago</span></p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li> -->
                     </ul>
                     @else
                     <p class="text-center">No notification found.</p>
@@ -88,19 +44,16 @@
                 </div>
             </div>
         </li>
-        <!-- <li class="nav-item dropdown d-none d-sm-block">
-            <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
-        </li> -->
         <li class="nav-item dropdown has-arrow">
             <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                 <span class="user-img">
                     <!-- <img class="rounded-circle" src="{{asset('superAdmin')}}/assets/img/user.jpg" width="24" alt="Doctor">
                     <span class="status online"></span> -->
                     @if(!Auth::user()->profile_image)
-                    <img class="rounded-circle" src="{{asset('superAdmin')}}/assets/img/user.jpg" width="24" alt="Doctor">
+                    <img class="rounded-circle" src="{{asset('superAdmin')}}/assets/img/user.jpg" width="24" alt="img">
                     <span class="status offline"></span>
                     @else
-                    <img class="rounded-circle" src="{{asset('storage/images/'.Auth::user()->profile_image)}}" width="24" alt="Doctor">
+                    <img class="rounded-circle" src="{{asset('storage/images/'.Auth::user()->profile_image)}}" width="24" alt="img">
                     <span class="status online"></span>
                     @endif
                 </span>

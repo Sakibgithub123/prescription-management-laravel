@@ -39,7 +39,11 @@ class RegisteredUserController extends Controller
             'qualification' => ['required'],
             'specialist' => ['required'],
             'whenyouseat' => ['required' ],
-            'phone' => ['required'],
+            'seating_day' => ['required' ],
+            'friday_seating_time' => ['required' ],
+            'visit_fee' => ['required|numeric' ],
+            // 'phone' => ['required','regex:/(01)[0-9]{11}/'],
+            'phone' => 'required|numeric|digits:11',
             'birthday' => ['required'],
             'address' => ['required'],
             'gender' => ['required'],
@@ -79,7 +83,7 @@ class RegisteredUserController extends Controller
         //     }
         // }
 
-        Notification::send(Admin::all(), new UserRegistered($user));
+        Notification::send(Admin::all(), new UserRegistered($request->name));
 
         // Auth::login($user);
         $notification = array(

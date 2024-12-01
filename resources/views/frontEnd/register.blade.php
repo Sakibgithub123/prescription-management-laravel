@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div class="main-wrapper  account-wrapper">
+    <div class="main-wrapper  account-wrapper" style="background-color: #3399FF;">
         <div class="account-page">
             <div class="account-center">
                 <div class="account-box shadow">
@@ -86,7 +86,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Institute</label>
-                                <input type="text" name="friday_seating_time" value="{{old('friday_seating_time')}}" class=" border border-primary rounded">
+                                <input type="text" name="friday_seating_time" value="{{old('friday_seating_time')}}" class="form-control  border border-primary rounded">
                             </div>
                             <div class="form-group">
                                 <label>Visit Fee</label>
@@ -246,8 +246,5 @@
         }
     </script>
 </body>
-
-
 <!-- register24:03-->
-
 </html>

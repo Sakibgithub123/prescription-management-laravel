@@ -26,9 +26,7 @@
                     <button type="submit" class="btn btn-primary" style="background-color:#003366; color:#fff; font-weight: bold;">Add</button>
                 </div>
             </form>
-
         </div>
-
     </div>
     <!-- table -->
     <!-- table -->
@@ -101,17 +99,16 @@
             data: formData,
             success: function(data) {
                 if (data.status === "exit") {
-
-                    $('diagnoseErrorMsg').text(data.massage + " " + 'already exists.');
+                    $('#diagnoseErrorMsg').text(data.massage + " " + 'already exists.');
                     return;
                 }
 
                 if (data.status === true) {
                     toastr.success( data.massage +" "+'Diagnose Added Success.', 'Add Diagnose!');
+                    $('#diagnoseErrorMsg').text('');
                     table.ajax.reload();
                 } else {
                     toastr.error('Something wrong!', 'Try again!');
-
                 }
             },
             error: function(response) {
@@ -119,7 +116,8 @@
             }
         })
     })
-})
+});
+
     $(document).on('click', '#deleteBtn', function(e) {
         e.preventDefault();
         let id = $(this).attr('delete-id')
@@ -141,7 +139,6 @@
                         '_token': '{{ csrf_token() }}'
                     },
                     success: function(data) {
-
                         if (data.status === true) {
                             Swal.fire(
                                 'Deleted!',
@@ -150,16 +147,11 @@
                             )
                             table.ajax.reload();
                         }
-
                     }
                 })
-
             }
         })
-
     })
 </script>
-
 @endpush
-
 @endsection

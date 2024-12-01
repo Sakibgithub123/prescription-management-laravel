@@ -22,15 +22,12 @@
                     <input type="text" name="complaints" placeholder="write complaints" class="form-control">
                     <span class="text-danger" id="complaintsErrorMsg"></span>
                 </div>
-
                 <div class="text-right">
                     <input type="submit" class="btn btn-primary" style="background-color:#003366; color:#fff; font-weight: bold;" value="Add">
-                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                 </div>
             </form>
             <!-- </div> -->
         </div>
-
     </div>
     <!-- table -->
     <h4 class="page-title text-center py-2 border-bottom border-primary" style="color:#007bff; font-weight: 900;">All Complaints</h4>
@@ -42,26 +39,11 @@
                         <tr>
                             <th>Serial</th>
                             <th>Complaints Name</th>
-
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- @foreach($complaints as $complaint)
-                        <tr>
-                        <td>{{$complaint->id}}</td>
-                            <td>{{$complaint->complaints}}</td>
-                            <td class="text-right">
-                                <div class="dropdown dropdown-action">
-                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <button class="dropdown-item" id="editBtn" data-bs-toggle="modal" data-bs-target="#myModal" data-editId="{{$complaint->id}}"><i class="fa fa-pencil m-r-5"></i> Edit</button>
-                                        <button class="dropdown-item" id="deleteBtn" data-deleteId="{{$complaint->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach -->
+                       
 
                     </tbody>
                 </table>
@@ -99,7 +81,7 @@
 
             },
         ]
-    })
+    });
 
 
 
@@ -117,10 +99,11 @@
                         return;
                     }
                     if (data.status === true) {
-                        toastr.success(data.massage +" "+' Added Success', 'Add Complaints');
+                        toastr.success(data.massage +" "+' Added Success.', 'Add Complaints!');
+                        $('#complaintsErrorMsg').text('');
                         table.ajax.reload();
                     } else {
-                        toastr.error('Something wrong!', 'Try again!');
+                        toastr.error('Something wrong.', 'Try again!');
                     }
                 },
                 error: function(response) {
@@ -136,7 +119,7 @@
         let id = $(this).attr('delete-id')
         Swal.fire({
             title: 'Are you sure?',
-            text: "You wan't  to delete this complaints!",
+            text: "You want  to delete this complaints!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -152,26 +135,19 @@
                         '_token': '{{ csrf_token() }}'
                     },
                     success: function(data) {
-
                         if (data.status === true) {
                             Swal.fire(
                                 'Deleted!',
-                                'Your file has been deleted.',
+                                'Complaint has been deleted.',
                                 'success'
                             )
                             table.ajax.reload();
                         }
-
                     }
                 })
-
             }
         })
-
     })
 </script>
-
 @endpush
-
-
 @endsection

@@ -1,50 +1,5 @@
 @extends('admin.master')
-<!-- <style>
-	.animation {
- height: 50px;	
- overflow: hidden;
- position: relative;
-}
-.animation .p {
- font-size: 3em;
- color: limegreen;
- position: absolute;
- width: 700%;
- height: 100%;
- margin: 0;
- line-height: 50px;
- text-align: center;
- /* Starting position */
- -moz-transform:translateX(100%);
- -webkit-transform:translateX(100%);	
- transform:translateX(100%);
- /* Apply animation to this element */	
- -moz-animation: animation 35s linear infinite;
- -webkit-animation: animation 35s linear infinite;
- animation: animation 35s linear infinite;
-}
-/* Move it (define the animation) */
-@-moz-keyframes animation {
- 0%   { -moz-transform: translateX(100%); }
- 100% { -moz-transform: translateX(-100%); }
-}
-@-webkit-keyframes animation {
- 0%   { -webkit-transform: translateX(100%); }
- 100% { -webkit-transform: translateX(-100%); }
-}
-@keyframes animation {
- 0%   { 
- -moz-transform: translateX(100%); /* Firefox bug fix */
- -webkit-transform: translateX(100%); /* Firefox bug fix */
- transform: translateX(100%); 		
- }
- 100% { 
- -moz-transform: translateX(-100%); /* Firefox bug fix */
- -webkit-transform: translateX(-100%); /* Firefox bug fix */
- transform: translateX(-100%); 
- }
-}
-</style> -->
+
 <style>
 	.font {
 		font-size: 12px;
@@ -84,15 +39,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                        <div class="dash-widget">
-                            <span class="dash-widget-bg4"><i class="fa fa-heartbeat" aria-hidden="true"></i></span>
-                            <div class="dash-widget-info text-right">
-                                <h3>618</h3>
-                                <span class="widget-title4">Pending <i class="fa fa-check" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                    </div> -->
 	</div>
 	<div class="row">
 		<div class="col-12 col-md-6 col-lg-6 col-xl-6">
@@ -131,8 +77,6 @@
 										@for ($year = $currentYear; $year <= $futureYear; $year++) <option value="{{ $year }}">{{ $year }}</option>
 											@endfor
 									</select>
-
-
 								</li>
 								<!-- <li><i class="fa fa-circle old-users" aria-hidden="true"></i> OPD</li> -->
 							</ul>
@@ -178,10 +122,10 @@
 									</td>
 									<td>
 										<!-- <a href="appointments.html" class="btn btn-outline-primary">Take up</a> -->
-										<h5 class="time-title p-1">Diagnose</h5>
+										<h5 class="time-title p-0">Diagnose</h5>
 										<p>
 										@php
-                                            $diagnose = json_decode($patient->diagnose, true);
+                                            $diagnose = json_decode($patient->diagnoses, true);
                                             @endphp
 
                                             @if(is_null($diagnose) || empty($diagnose))
@@ -191,9 +135,6 @@
                                             <span class="font">{{ $diagnosis }},</span>
                                             @endforeach
                                             @endif
-											<!-- @foreach(json_decode($patient->investigations) as $investigation )
-											<span class="font">{{$investigation}},</span>
-											@endforeach -->
 										</p>
 									</td>
 								</tr>
@@ -207,85 +148,25 @@
 			<button id="load-more" class="btn btn-primary font-weight-bold">View all</button>
 		</div>
 		</div>
-		<!-- <div class="col-12 col-md-6 col-lg-4 col-xl-4">
-			<div class="card member-panel">
-				<div class="card-header bg-white">
-					<h4 class="card-title mb-0">Doctors ({{$doctorCount}})</h4>
-				</div>
-				<div class="card-body">
-					<ul class="contact-list">
-						<li>
-							@foreach($doctors as $doctor)
-							<div class="contact-cont">
-								<div class="float-left user-img m-r-10">
-									<a href="{{route('doctor.details',['id'=>$doctor->id])}}" title="{{$doctor->name}}">
-										@if(!$doctor->profile_image)
-										<img src="{{asset('superAdmin')}}/assets/img/user.jpg" alt="{{$doctor->name}}" class="w-40 rounded-circle">
-										@else
-										<img src="{{asset('storage/images/'.$doctor->profile_image)}}" alt="{{$doctor->name}}" class="w-40 rounded-circle">
-										@endif
-										<span class="{{$doctor->status===1 ? 'status online' : 'status offline'}}"></span></a>
-								</div>
-								<div class="contact-info">
-									<span class="contact-name text-ellipsis">{{$doctor->name}}</span>
-									<span class="contact-date">{{$doctor->qualification}}</span>
-									<span class="contact-date text-ellipsis">Total Patient: {{$doctor->totalPrescription}}</span>
-								</div>
-							</div>
-							@endforeach
-
-					</ul>
-				</div>
-				<div class="card-footer text-center bg-white">
-					<a href="doctors.html" class="text-muted">View all Doctors</a>
-				</div>
-			</div>
-		</div> -->
 	</div>
 </div>
-
-
 @push('scripts')
-<!-- <script>
-	var ctx = document.getElementById('barChart').getContext('2d');
-	var userChart = new Chart(ctx, {
-		type: 'bar',
-		data: {
-			labels: {
-				!!json_encode($labels) !!
-			},
-			datasets: {
-				!!json_encode($datasets) !!
-			},
-		},
-	});
-</script>
 <script>
 	var ctx = document.getElementById('linegraph').getContext('2d');
 	var userChart = new Chart(ctx, {
 		type: 'line',
+		// data: {
+		// 	labels: {
+		// 		!!json_encode($labels1) !!
+		// 	},
+		// 	datasets: {
+		// 		!!json_encode($datasets1) !!
+		// 	},
+		// },
 		data: {
-			labels: {
-				!!json_encode($labels1) !!
-			},
-			datasets: {
-				!!json_encode($datasets1) !!
-			},
-		},
-	});
-</script> -->
-<script>
-	var ctx = document.getElementById('linegraph').getContext('2d');
-	var userChart = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: {
-				!!json_encode($labels1) !!
-			},
-			datasets: {
-				!!json_encode($datasets1) !!
-			},
-		},
+                labels: <?php echo json_encode($labels1); ?>,
+                datasets: <?php echo json_encode($datasets1); ?>
+            },
 	});
 </script>
 
@@ -293,111 +174,20 @@
 	var ctx = document.getElementById('barChart').getContext('2d');
 	var userChart = new Chart(ctx, {
 		type: 'bar',
+		// data: {
+		// 	labels: {
+		// 		!!json_encode($labels) !!
+		// 	},
+		// 	datasets: {
+		// 		!!json_encode($datasets) !!
+		// 	},
+		// },
 		data: {
-			labels: {
-				!!json_encode($labels) !!
-			},
-			datasets: {
-				!!json_encode($datasets) !!
-			},
-		},
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: <?php echo json_encode($datasets); ?>
+            },
 	});
 </script>
-
-
-<!-- // get data by year patient -->
-<!-- <script>
-	//get data by year
-	$(document).ready(function() {
-		$('select[name="patientYear"]').change(function() {
-			var year = $(this).val();
-			$.ajax({
-				url: "{{ route('admin.dashboard.statistics.patient') }}",
-				type: "GET",
-				success: function(response) {
-					// // Handle the response here
-					// console.log(response.datasets);
-
-					// // Get canvas element
-					// var ctx = document.getElementById('barChart').getContext('2d');
-
-					// // Create bar chart
-					// var myChart = new Chart(ctx, {
-					// 	type: 'bar',
-					// 	data: {
-					// 		labels: response.labels,
-					// 		datasets: response.datasets
-					// 	}
-					// });
-					// Check if response contains data
-                    if (response && response.labels && response.datasets) {
-                        // Create a bar chart
-                        new Chart(document.getElementById('barChart'), {
-                            type: 'bar',
-                            data: {
-                                labels: response.labels,
-                                datasets: response.datasets
-                            }
-                        });
-                    } else {
-                        // If no data available, show a message
-                        $('#barChart').replaceWith('<p>No data available</p>');
-                    }
-				},
-				error: function(xhr, status, error) {
-					// Handle errors
-					console.error(xhr.responseText);
-				}
-			});
-		});
-	});
-</script> -->
-<!-- // get data by year income -->
-<!-- <script>
-	//get data by year
-	$(document).ready(function() {
-		$('select[name="incomeYear"]').change(function() {
-			var year = $(this).val();
-			$.ajax({
-				url: "{{ route('admin.dashboard.statistics.income') }}",
-				type: "GET",
-				success: function(response) {
-					// // Handle the response here
-					// console.log(response.datasets1);
-
-					// // Get canvas element
-					// var ctx = document.getElementById('linegraph').getContext('2d');
-
-					// // Create bar chart
-					// var myChart = new Chart(ctx, {
-					// 	type: 'line',
-					// 	data: {
-					// 		labels1: response.labels1,
-					// 		datasets1: response.datasets1
-					// 	}
-					// });
-					if (response && response.labels && response.datasets) {
-                        // Create a bar chart
-                        new Chart(document.getElementById('linegraph'), {
-                            type: 'line',
-                            data: {
-                                labels: response.labels,
-                                datasets: response.datasets
-                            }
-                        });
-                    } else {
-                        // If no data available, show a message
-                        $('#linegraph').replaceWith('<p>No data available</p>');
-                    }
-                },
-				error: function(xhr, status, error) {
-					// Handle errors
-					console.error(xhr.responseText);
-				}
-			});
-		});
-	});
-</script> -->
 
 <script>
 	$(document).ready(function() {
@@ -516,8 +306,5 @@
         // }
     });
 </script>
-
-
 @endpush
-
 @endsection

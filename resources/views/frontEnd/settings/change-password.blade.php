@@ -3,16 +3,16 @@
 MediCareOps-Settings
 @endsection
 <style>
-    label{
+    label {
         color: #003366;
         font-weight: bold;
     }
-    .showpass{
+
+    .showpass {
         color: #003366;
         font-size: 12px;
 
     }
-   
 </style>
 
 @section('content')
@@ -31,7 +31,7 @@ MediCareOps-Settings
                             <label>Old password</label>
                             <input type="password" name="old_password" id="old_password" class="form-control ">
                             <input type="checkbox" onclick="showPass1()"> <span class="showpass">Show Password</span>
-                            <span class="text-danger" id="old_passwordErrorMsg"></span>
+                          <p>  <span class="text-danger" id="old_passwordErrorMsg"></span></p>
                         </div>
                     </div>
                 </div>
@@ -39,17 +39,17 @@ MediCareOps-Settings
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>New password</label>
-                            <input type="password" name="new_password" id="new_password" class="form-control">
+                            <input type="password" name="password" id="new_password" class="form-control">
                             <input type="checkbox" onclick="showPass2()"> <span class="showpass">Show Password</span>
-                            <span class="text-danger" id="new_passwordErrorMsg"></span>
+                            <p><span class="text-danger" id="new_passwordErrorMsg"></span></p>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Confirm password</label>
-                            <input type="password" name="confirm_password" id="confirm_password" class="form-control">
+                            <input type="password" name="password_confirmation" id="confirm_password" class="form-control">
                             <input type="checkbox" onclick="showPass3()"> <span class="showpass">Show Password</span>
-                            <span class="text-danger" id="confirm_passwordErrorMsg"></span>
+                            <p><span class="text-danger" id="confirm_passwordErrorMsg"></span></p>
                         </div>
                     </div>
                 </div>
@@ -82,14 +82,16 @@ MediCareOps-Settings
                 success: function(data) {
                     if (data.status = 'success') {
                         toastr.success("Update Password Successfully!", "Update Password!");
+                        $('#old_passwordErrorMsg').text('');
+                        $('#new_passwordErrorMsg').text('');
                     } else {
-                        toastr.error("Something wrong!", "Try again");
+                        toastr.error("Something wrong!", "Try again!");
                     }
                 },
                 error: function(response) {
                     $('#old_passwordErrorMsg').text(response.responseJSON.errors.old_password);
-                    $('#new_passwordErrorMsg').text(response.responseJSON.errors.new_password);
-                    $('#confirm_passwordErrorMsg').text(response.responseJSON.errors.confirm_password);
+                    $('#new_passwordErrorMsg').text(response.responseJSON.errors.password);
+                    $('#confirm_passwordErrorMsg').text(response.responseJSON.errors.error);
                 },
 
             });
@@ -99,31 +101,31 @@ MediCareOps-Settings
 
     //show Password
     function showPass1() {
-  var x = document.getElementById('old_password');
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
+        var x = document.getElementById('old_password');
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
     function showPass2() {
-  var x = document.getElementById('new_password');
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
+        var x = document.getElementById('new_password');
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
     function showPass3() {
-  var x = document.getElementById('confirm_password');
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
-
-
+        var x = document.getElementById('confirm_password');
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
 </script>
 @endpush
 

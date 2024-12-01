@@ -52,9 +52,9 @@ class UserRegistered extends Notification
     {
         return [
             //
-            'user_id'=>$this->user->id,
-            'user_name'=>$this->user->name,
-            'user_email'=>$this->user->email,
+            // 'user_id'=>$this->user->id,
+            // 'user_name'=>$this->user->name,
+            // 'user_email'=>$this->user->email,
             'message'=>$this->user->name .' is now registered',
         ];
     }

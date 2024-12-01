@@ -116,23 +116,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- @foreach($notices as $notice)
-                        <tr>
-                            <td>{{$notice->id}}</td>
-                            <td>{{$notice->notice}}</td>
-                            <td>{{$notice->status==0?'Deactive' :'Active' }}</td>
-                            <td class="text-right">
-                                <div class="dropdown dropdown-action">
-                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <button class="dropdown-item" id="deleteBtn" data-deleteId="{{$notice->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
-                                        <button class="dropdown-item" id="statusBtn" data-statusId="{{$notice->id}}" data-status="{{$notice->status}}"><i class="fa fa-trash-o m-r-5"></i> {{$notice->status==0?'Active' :'Deactive' }}</button>
-                                    </div>
-                                </div>
-
-                            </td>
-                        </tr>
-                        @endforeach -->
+                       
 
                     </tbody>
                 </table>
@@ -140,7 +124,6 @@
         </div>
     </div>
 </div>
-
 @push('scripts')
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -168,8 +151,6 @@
                         return '<span class="text-danger">'+data+'</span>'
                     }
                  }
-                
-                
             },
             {
                 // data: 'id',
@@ -201,10 +182,10 @@
             success: function(data) {
 
                 if (data.status === true) {
-                    toastr.success('Add Notice Success', 'Add Notice');
+                    toastr.success('Add Notice Success.', 'Add Notice!');
                     table.ajax.reload();
                 } else {
-                    toastr.error('Something wrong!', 'Try again!');
+                    toastr.error('Something wrong.', 'Try again!');
 
                 }
             },
@@ -215,10 +196,10 @@
     })
     $(document).on('click', '#deleteBtn', function(e) {
         e.preventDefault();
-        let id = $(this).attr('delete-id')
+        let id = $(this).attr('data-statusId')
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "You want to delete this notice!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -234,23 +215,19 @@
                         '_token': '{{ csrf_token() }}'
                     },
                     success: function(data) {
-
                         if (data.status === true) {
                             Swal.fire(
                                 'Deleted!',
-                                'Your file has been deleted.',
+                                'Notice has been deleted.',
                                 'success'
                             )
                             table.ajax.reload();
                         }
-
                     }
                 })
-
             }
         })
-
-    })
+    });
     $(document).on('click', '#statusBtn', function(e) {
         e.preventDefault();
         let id = $(this).attr('data-statusId');
@@ -281,17 +258,11 @@
                             'success'
                         )
                         table.ajax.reload();
-
                     }
                 })
-
             }
         })
-
-
-    })
+    });
 </script>
-
 @endpush
-
 @endsection

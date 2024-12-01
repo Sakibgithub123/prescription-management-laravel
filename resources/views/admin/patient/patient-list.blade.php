@@ -27,45 +27,22 @@
                     </thead>
                     <tbody>
 
-                        <!-- @foreach($patients as $patient)
-                        <tr>
-                            <td><img width="28" height="28" src="{{asset('superAdmin')}}/assets/img/user.jpg" class="rounded-circle m-r-5" alt=""> {{$patient->patient_name}}</td>
-                            <td>{{$patient->patient_age}}</td>
-                            <td>{{$patient->name}}</td>
-                            <td>{{date('F jS, Y g:i A', strtotime($patient->created_at))}}</td>
-                            <td>{{$patient->reg_no}}</td>
-                            <td class="text-right">
-                                <div class="dropdown dropdown-action">
-                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="{{route('patient.precription',['id'=>$patient->drid])}}"><i class="fa fa-note-sticky"></i>Prescription</a>
-                                        <button class="dropdown-item" id="editBtn" data-bs-toggle="modal" data-bs-target="#myModal" data-editId="{{$patient->id}}"><i class="fa fa-pencil m-r-5"></i> Edit</button>
-                                        <button class="dropdown-item" id="deleteBtn" data-deleteId="{{$patient->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach -->
+                      
 
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="modal" id="myModal">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
-
-
             <div class="modal-header" style="background-color:#007bff; color:#fff; font-weight: 900;">
                 <h4 class="modal-title">Update Patient</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
-
             <div class="modal-body">
                 <div class="row">
                     <form id="PatientUpdate">
@@ -85,14 +62,13 @@
                                 <span class="text-danger" id="error_age"></span>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-12">
+                        <div class="col-sm-12">
                             <div class="form-group w-full">
                                 <label>Visit Fee</label>
                                 <input type="text" id="visitFee" name="visit_fee" aria-label="name" class="form-control i">
                                 <span class="text-danger" id="error_fee"></span>
                             </div>
-                        </div> -->
-
+                        </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -102,8 +78,6 @@
             </form>
         </div>
     </div>
-
-
 </div>
 
 
@@ -168,8 +142,6 @@
         ]
     });
     $(document).on('click', '#editBtn', function() {
-
-
         let id = $(this).attr('data-editId');
         // alert(id)
         $.ajax({
@@ -178,19 +150,14 @@
                 id: id
             },
             success: function(result) {
-
                 console.log(result.patient_name)
-
                 $('#patientId').val(result.id)
                 $('#patientName').val(result.patient_name)
                 $('#patientAge').val(result.patient_age)
-
-
-
+                $('#visitFee').val(result.visit_fee)
             }
-
         })
-    })
+    });
 
     $('#PatientUpdate').on('submit', function(e) {
         e.preventDefault();
@@ -201,32 +168,27 @@
             data: formData,
             success: function(result) {
                 if (result.status === true) {
-                    toastr.success('Update Doctor Success', 'Update Doctor');
+                    toastr.success('Update patient info Success.', 'Update Patient Info!');
                     $('#myModal').modal('hide');
                     table.ajax.reload();
                 } else {
-                    toastr.success('something wrong', 'Try Again');
-
+                    toastr.success('Something wrong.', 'Try Again!');
                 }
-
             },
             error: function(response) {
                 $('#error_name').text(response.responseJSON.errors.patient_name);
                 $('#error_age').text(response.responseJSON.errors.patient_age);
                 $('#error_fee').text(response.responseJSON.errors.visit_fee);
-
-
-
             }
         })
-    })
+    });
 
     $(document).on('click', '#deleteBtn', function(e) {
         e.preventDefault();
         let id = $(this).attr('delete-id')
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "You want to delete this patient!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -242,7 +204,6 @@
                         '_token': '{{ csrf_token() }}'
                     },
                     success: function(data) {
-
                         if (data.status === true) {
                             Swal.fire(
                                 'Deleted!',
@@ -251,19 +212,11 @@
                             )
                             table.ajax.reload();
                         }
-
                     }
                 })
-
             }
         })
-
-    })
+    });
 </script>
-
 @endpush
-
-
-
-
 @endsection

@@ -48,21 +48,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- @foreach($investigations as $investigation)
-                        <tr>
-                        <td>{{$investigation->id}}</td>
-                            <td>{{$investigation->investigation}}</td>
-                            <td class="text-right">
-                                <div class="dropdown dropdown-action">
-                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <button class="dropdown-item" id="editBtn" data-bs-toggle="modal" data-bs-target="#myModal" data-editId="{{$investigation->id}}"><i class="fa fa-pencil m-r-5"></i> Edit</button>
-                                        <button class="dropdown-item" id="deleteBtn" data-deleteId="{{$investigation->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete</button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach -->
+                        
 
                     </tbody>
                 </table>
@@ -114,29 +100,26 @@
                         return;
                     }
                     if (data.status == true) {
-                        toastr.success('Add Investigation Success', 'Add Investigation');
+                        toastr.success('Add Investigation Success.', 'Add Investigation!');
+                        $('#investigationErrorMsg').text('');
                         table.ajax.reload()
                     } else {
                         toastr.error('Something wrong!', 'Try again!');
-
                     }
-
                 },
                 error: function(response) {
                     $('#investigationErrorMsg').text(response.responseJSON.errors.investigation);
                 },
             })
-
         });
-
-    })
+    });
     $(document).on('click', '#deleteBtn', function(e) {
         e.preventDefault();
         let id = $(this).attr('delete-id');
         // alert(id);
         Swal.fire({
             title: 'Are you sure?',
-            text: "You wan't  to delete this investigation!",
+            text: "You want to delete this investigation!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -156,23 +139,16 @@
                         if (data.status === true) {
                             Swal.fire(
                                 'Deleted!',
-                                'Your file has been deleted.',
+                                'Investigation shas been deleted.',
                                 'success'
                             )
                             table.ajax.reload();
                         }
-
                     }
                 })
-
             }
         })
-
-    })
+    });
 </script>
-
 @endpush
-
-
-
 @endsection

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('superAdmin')}}/assets/img/favicon.ico">
     <title>MediCareOPS Prescription</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -23,65 +24,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,700&family=Nunito:wght@200;300;600&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700;1,800&family=Work+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            font-family: 'Lato', sans-serif;
-            font-family: 'Nunito', sans-serif;
-            font-family: 'Open Sans', sans-serif;
-            font-family: 'Work Sans', sans-serif;
-        }
-
-        .dr-details h2 {
-            font-size: 22px;
-            font-weight: 600;
-
-        }
-
-        .dr-details h4 {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .dr-details p {
-            font-size: 15px;
-            font-weight: 400;
-        }
-
-        #tbody tr td {
-            margin-left: 10px;
-            padding-left: 30px;
-        }
-
-        @media print {
-            @page {
-                size: A4;
-                margin: 0;
-            }
-
-            button[name="bttn"] {
-                display: none;
-            }
-
-            .medicine_input {
-                display: none;
-            }
-
-            .browsers {
-                display: none;
-            }
-
-            .btn {
-                display: none;
-            }
-
-            .container a {
-                display: none;
-            }
-        }
-    </style> -->
     <style>
         * {
             padding: 0;
@@ -106,7 +48,6 @@
             font-weight: 500;
             color: #4CAF50;
         }
-
 
         .doctor-details span {
             font-size: 16px;
@@ -175,32 +116,29 @@
             display: none;
         }
 
-        /* table td{
-            font-size: 4px;
-        } */
         .aftbfr-select,
         .gender-select {
             color: #6c757d;
         }
 
         @media screen and (max-width: 480px) {
-            .row1{
+            .row1 {
                 display: flex;
-                
                 gap: 6px;
             }
+
             .doctor-details h2 {
                 font-size: 10px;
             }
+
             .doctor-details .Education {
                 font-size: 11px;
             }
-            .doctor-details span{
+
+            .doctor-details span {
                 font-size: 8px;
             }
         }
-
-
 
 
         @media print {
@@ -239,13 +177,6 @@
                         #b7e8eb 100%);
             }
 
-
-            /* header {
-                width: 100%;
-                background-image: url("/superAdmin/assets/img/wave.png");
-                 background: #000 !important;
-        } */
-
             body {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
@@ -266,7 +197,6 @@
 
             .select2-selection__choice__remove {
                 display: none;
-
             }
 
             .added_medicine_style {
@@ -299,11 +229,7 @@
             /* header {page-break-after: always;} */
 
         }
-
-       
     </style>
-
-
 </head>
 
 <body>
@@ -331,7 +257,7 @@
                         <span class="location">Address: {{$clinicDetails->location}}</span>
                         <!-- <h3>location_details</h3> -->
                         <span class="phone no">Phone: {{$drId->phone}}</span>
-                        <span>RegNo: <span class="ml-2">{{$reg_no}}</span></span>
+                        <span>RegNo: <span class="ml-2"  id="regId">{{$reg_no}}</span></span>
                     </div>
                 </div>
             </div>
@@ -343,16 +269,13 @@
                 @csrf
                 <input type="hidden" name="dr_id" value="{{Auth::user()->id}}">
                 <input type="hidden" name="visit_fee" value="{{Auth::user()->visit_fee}}">
-                <input type="hidden" name="reg_no" value="{{$reg_no}}" id="">
-                <div class="container-fluid my-4">
+                <input type="hidden" name="reg_no" class="reg" value="{{$reg_no}}" id="">
+                <div class="container-fluid my-4" style="display: hidden;">
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="input-group">
                                 <span class="input-group-text">Patient name</span>
                                 <input type="text" name="patient_name" aria-label="name" placeholder="Enter patient name" class="form-control">
-                                <!-- @error('patient_name')
-                                <div class="alert alert-danger" >{{ $message }}</div>
-                                @enderror -->
                             </div>
                             <p class="text-danger" id="patient_nameErrorMsg"></p>
                         </div>
@@ -365,9 +288,6 @@
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
-                                <!-- @error('patient_gender')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror -->
                             </div>
                             <p class="text-danger" id="patient_genderErrorMsg"></p>
                         </div>
@@ -375,9 +295,6 @@
                             <div class="input-group">
                                 <span class="input-group-text">Age</span>
                                 <input type="text" name="patient_age" aria-label="name" placeholder="Enter patient age" class="form-control">
-                                <!-- @error('patient_age')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror -->
                             </div>
                             <p class="text-danger" id="patient_ageErrorMsg"></p>
                         </div>
@@ -391,19 +308,15 @@
                     <div class="row cti my-3 ">
                         <div class="col-sm-3">
                             <h3 class="text-center">Chief Complaints</h3>
-                            <div class="input-group">
+                            <!-- <div class="input-group">
                                 <select class="form-select  tag1" name="complaints[]" multiple="multiple" aria-label="Default select example">
-                                    <!-- <option selected>Chief Complaints</option> -->
                                     @foreach($complaints as $complaint)
                                     <option value="{{$complaint->complaints}}">{{$complaint->complaints}}</option>
                                     @endforeach
-                                    <!-- <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="4">Four</option>
-                                    <option value="5">Five</option>
-                                    <option value="6">six</option>
-                                    <option value="7">seven</option> -->
                                 </select>
+                            </div> -->
+                            <div class="input-group">
+                                <input type="text" name="complaints" aria-label="name" placeholder="Enter patient chief complaints" class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -414,9 +327,6 @@
                                     @foreach($tests as $test)
                                     <option value="{{$test->test}}">{{$test->test}}</option>
                                     @endforeach
-                                    <!-- <option value="RBC">RBC</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
                                 </select>
                             </div>
                         </div>
@@ -428,61 +338,26 @@
                                     @foreach($investigations as $investigation)
                                     <option value="{{$investigation->investigation}}">{{$investigation->investigation}}</option>
                                     @endforeach
-                                    <!-- <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <h3 class="text-center">Diagnose</h3>
-                            <div class="input-group text-center">
+                            <!-- <div class="input-group text-center">
                                 <select class="form-select  tag4" name="diagnoses[]" multiple="multiple" aria-label="Default select example">
-                                    <!-- <option selected>Investigation</option> -->
+                                 
                                     @foreach($diagnoses as $diagnose)
                                     <option value="{{$diagnose->diagnose}}">{{$diagnose->diagnose}}</option>
                                     @endforeach
-                                    <!-- <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
                                 </select>
+                            </div> -->
+                            <div class="input-group">
+                                <input type="text" name="diagnoses" aria-label="name" placeholder="Enter patient diagnose" class="form-control">
                             </div>
                         </div>
                     </div>
                     <!-- ------------------------ -->
                     <div class="bd-highlight">
-                        <!-- <div class="d-flex justify-content-between p-2  bd-highlight my-4">
-                            <div class="complaints ">
-                                <h5>Chief Complaints</h5>
-                                <select class="form-select  tag1" name="complaints[]" multiple="multiple" aria-label="Default select example">
-                                    <option selected>Chief Complaints</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="4">Four</option>
-                                    <option value="5">Five</option>
-                                    <option value="6">six</option>
-                                    <option value="7">seven</option>
-                                </select>
-                            </div> 
-                            <div class="examinations">
-                                <h5>On Examinations</h5>
-                                <select class="form-select  tag2" name="examinations[]" multiple="multiple" aria-label="Default select example">
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                             <div class="investigations flex-1">
-                                <h5>Investigations</h5>
-                                <select class="form-select  tag3" name="investigations[]" multiple="multiple" aria-label="Default select example">
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-
-                        </div> -->
                         <div class="flex-fill bd-highlight flex-grow-1">
                             <div class="row cti my-1">
                                 <p id="medicinetag">Medicine:</p>
@@ -519,13 +394,6 @@
                         @foreach($medicines as $medicine)
                         <option value="{{$medicine->medicine}}">
                             @endforeach
-                            <!-- <option value="tab. methox 2.5mg">
-                        <option value="tab. methotrax 2.5mg">
-                        <option value="tab. folita 5mg">
-                        <option value="cap soritac 10mg">
-                        <option value="cap soritac 25mg">
-                        <option value="tab. xalcort 6mg">
-                        <option value="tab. deflacort 6mg"> -->
                     </datalist>
                     <datalist id="when">
                         <option value="1+0+0">
@@ -553,41 +421,17 @@
                         <option value="14d">
                         <option value="15d">
                     </datalist>
-                    <!-- <datalist id="food">
-                        <option value="before">খাবার আগে </option>
-                        <option value="after"> খাবার পরে </option>
-                    </datalist> -->
-                    <!-- rules -->
-                    <!-- <div class="rules" style="font-size: 12px;">
-                        <dl>
-                            <dt>উপদেশঃ</dt>
-                            <dd>* কানে তুলা দিয়ে গোসল করবেন / করাবেন।</dd>
-                            <dd>* কটন বার দিয়ে দৈনিক ৩বার কান / নাক পরিস্কার করবেন।</dd>
-                            <dd>* অপরিস্কার কোন জিনিস দিয়ে কান চুল্কাবেন না।</dd>
-                            <br>
-
-                            <dt>নিষেধঃ</dt>
-                            <dd>* খাদ্যঃ গরুর মাংস, ডিম, চিংড়ি মাছ, ইলিশ মাছ, বেগুন, কচু, হাসের মাংস, পুঁই শাক, আনারস।</dd>
-                            <dd>* কাপড়ঃ টেট্রন,পলেস্টার, উলেন, লিলেন ও সিল্কের কাপড়। পারফিউম কাপড় কাঁচা সাবান। </dd>
-                            <dd>* ঔষধঃ কোট্রইমক্সাজল, ডিসপিরিন, ইনডোমেথাসিন, ডক্সিসাইক্লিন, সিপ্রোফক্সাসিন, ডাইক্লোফেনাক, সোডিয়াম, <br> ইটোরিকক্সিব, ন্যাপ্রোক্সেম সোডিয়াম, টেট্রসাইক্লিন, আইবুপ্রফেন জাতীয় ঔষধ খাবেন না।</dd>
-                        </dl>
-                        <p>**রেজিস্ট্রার ডাক্তারের পরামর্শ অনুযায়ী ঔষধ খাবেন।</p>
-                    </div> -->
                 </div>
                 <!-- </div> -->
                 <div class="d-grid gap-2 d-md-block mx-2">
                     <button class="btn btn-primary" type="submit" id="print">Print</button>
                     <input class="btn btn-success" id="resetForm" type="reset" value="Reset">
-                    <!-- <input type="submit" class="btn btn-danger" value="Save"> -->
-                    <!-- <button onclick="window.print()"  class="btn btn-primary" type="submit" id="print">Print</button> -->
                 </div>
-
             </form>
             @else
             <h1 class="text-center mt-5 mb-1 text-danger">Access Not Available</h1>
             <h2 class="text-center my-2">You have not yet received permission to make a prescription. Please wait for permission...!</h2>
             @endif
-
         </main>
         <p id="footer" class="text-center my-2">ধন্যবাদ! স্বাস্থ্যই সম্পদ। নিরাময় প্রতিরোধের চেয়ে ভাল।</p>
     </div>
@@ -658,6 +502,10 @@
                 placeholder: 'Select Diagnose',
                 allowClear: true,
             });
+            function generateUniqueCode() {
+            return Math.floor(1000 + Math.random() * 9000); // Generates a number between 1000 and 9999
+        }
+        const regNo=generateUniqueCode()
 
             $('#medicineSubmitForm').on('submit', function(e) {
                 e.preventDefault();
@@ -670,30 +518,37 @@
                     dataType: 'json',
                     success: function(data) {
                         if (data.status == 'success') {
-                            window.print();
+                            // window.print();
+                            $('#regId').text(`REG${regNo}`); // Correct method to set text
+                            $('.reg').val(`REG${regNo}`); // Set regNo to any input with class 'reg'
                             toastr.success('Prescription Save!', 'Prescription save successfully!')
+                            let id = data.id; // Ensure reg_no is available here
+                            // alert(id)
+                            location.href = `/show/print/${id}`;
+                            
                         } else {
                             toastr.error('Something wrong!', 'Try again!');
                         }
-
                     },
                     error: function(response, xhr, error) {
                         console.error(xhr.responseText);
-                        toastr.error('An error occurred while save the prescription.', 'Alert!');
+                        console.error('An error occurred while save the prescription.', 'Alert!');
+                        toastr.error('Please fill up requireds while save the prescription.', 'Alert!');
                         $('#patient_nameErrorMsg').text(response.responseJSON.errors.patient_name);
                         $('#patient_genderErrorMsg').text(response.responseJSON.errors.patient_gender);
                         $('#patient_ageErrorMsg').text(response.responseJSON.errors.patient_age);
-
                     }
                 })
-            })
+            });
 
             $('#resetForm').on('click', function() {
+                location.reload()
                 // Reset form fields
                 $('#medicineSubmitForm')[0].reset();
 
                 // Reset Select2 fields
                 $('.form-select').val(null).trigger('change');
+              
 
                 $('#table tbody tr td').each(function() {
                     // Set the content of each td element to an empty string
@@ -703,17 +558,19 @@
 
 
         });
-        // let today = new Date().toLocaleDateString();
+        // let today = new Date().toLocaleDateString(); date('F jS, Y g:i A',
         let today = new Date().toISOString().split('T')[0];
-        let time = document.getElementById('todayDate');
-        time.value = today;
 
+        let time = document.getElementById('todayDate');
+        time.value = today
         // function goBack(){
         //     history.back(-1);
         // }
+       
+
+
+        // console.log(generateUniqueCode());
     </script>
-
-
 </body>
 
 </html>

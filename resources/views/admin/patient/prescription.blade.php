@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prescription</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('superAdmin')}}/assets/img/favicon.ico">
+    <title>Patient Prescription</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
@@ -24,381 +24,7 @@
     <!-- fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            font-family: 'Lato', sans-serif;
-            /* font-family: 'Nunito', sans-serif;
-            font-family: 'Open Sans', sans-serif;
-            font-family: 'Work Sans', sans-serif; */
-            font-style: italic;
-        }
 
-        .doctor-details h2 {
-            font-size: 25px;
-            font-weight: 600;
-            /* color: #4CAF50; */
-            color: #4b4745;
-        }
-
-        .doctor-details h3 {
-            font-size: 22px;
-            font-weight: 500;
-            color: #4CAF50;
-        }
-
-        .doctor-details p {
-            font-size: 16px;
-            font-weight: 400;
-            color: #173518;
-        }
-
-        form {
-            color: #4b4745;
-        }
-
-        #tbody tr td {
-            margin-left: 10px;
-            padding-left: 30px;
-        }
-
-        .row1 {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* header{
-            background-image: url("/superAdmin/assets/img/wave\(2\).png");
-        } */
-        body {
-            background: radial-gradient(ellipse at center,
-                    #fffeea 0%,
-                    #fffeea 35%,
-                    #b7e8eb 100%);
-            /* overflow: hidden; */
-        }
-
-        /* add new */
-        .added_medicine_style {
-            /* background-color: #e9ecef; */
-            width: 100%;
-            padding: 0.375rem 2.25rem 0.375rem 0.75rem;
-            -moz-padding-start: calc(0.75rem - 3px);
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #212529;
-            background-color: #e9ecef;
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 16px 12px;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-
-        #medicinetag {
-            display: none;
-        }
-
-        /* table td{
-            font-size: 4px;
-        } */
-
-
-
-
-        @media print {
-            @page {
-                size: A4;
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                text-align: center;
-            }
-
-            button[name="bttn"] {
-                display: none;
-            }
-
-            .medicine_input {
-                display: none;
-            }
-
-            .browsers {
-                display: none;
-            }
-
-            .btn {
-                display: none;
-            }
-
-            .container a {
-                display: none;
-            }
-
-            .content {
-                background: radial-gradient(ellipse at center,
-                        #fffeea 0%,
-                        #fffeea 35%,
-                        #b7e8eb 100%);
-            }
-
-            body {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-
-            }
-
-            .row1 {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 40px;
-            }
-
-            /* add new */
-            .select2-selection__clear {
-                display: none;
-            }
-
-            .select2-selection__choice__remove {
-                display: none;
-
-            }
-
-            .added_medicine_style {
-                border: none;
-                outline: none;
-            }
-
-            .select2-container--default .select2-selection--multiple {
-                border: none;
-                outline: none;
-                background-color: transparent;
-            }
-
-            table {
-                margin-top: -20px;
-            }
-
-            .cti {
-                margin-bottom: 0px;
-            }
-
-            #medicinetag {
-                display: block;
-            }
-
-        }
-    </style> -->
-    <!-- <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            font-family: 'Lato', sans-serif;
-            /* font-family: 'Nunito', sans-serif;
-            font-family: 'Open Sans', sans-serif;
-            font-family: 'Work Sans', sans-serif; */
-            font-style: italic;
-        }
-
-        .doctor-details h2 {
-            font-size: 25px;
-            font-weight: 600;
-            /* color: #4CAF50; */
-            color: #4b4745;
-        }
-
-        .doctor-details h3 {
-            font-size: 22px;
-            font-weight: 500;
-            color: #4CAF50;
-        }
-
-        .doctor-details p {
-            font-size: 16px;
-            font-weight: 400;
-            color: #173518;
-        }
-
-        form {
-            color: #4b4745;
-        }
-
-        #tbody tr td {
-            margin-left: 10px;
-            padding-left: 30px;
-        }
-
-        .row1 {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* header{
-            background-image: url("/superAdmin/assets/img/wave\(2\).png");
-        } */
-        body {
-            background: radial-gradient(ellipse at center,
-                    #fffeea 0%,
-                    #fffeea 35%,
-                    #b7e8eb 100%);
-            /* overflow: hidden; */
-        }
-
-        /* add new */
-        .added_medicine_style {
-            /* background-color: #e9ecef; */
-            width: 100%;
-            padding: 0.375rem 2.25rem 0.375rem 0.75rem;
-            -moz-padding-start: calc(0.75rem - 3px);
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #212529;
-            background-color: #e9ecef;
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 16px 12px;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-
-        #medicinetag {
-            display: none;
-        }
-
-        /* table td{
-            font-size: 4px;
-        } */
-
-        @media screen and (max-width: 480px) {
-            .row1{
-                display: flex;
-                
-                gap: 6px;
-            }
-            .doctor-details h2 {
-                font-size: 10px;
-            }
-            .doctor-details h3 {
-                font-size: 11px;
-            }
-            .doctor-details p{
-                font-size: 8px;
-            }
-        }
-
-
-
-
-        @media print {
-            @page {
-                size: A4 landscape;
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                text-align: center;
-            }
-
-            button[name="bttn"] {
-                display: none;
-            }
-
-            .medicine_input {
-                display: none;
-            }
-
-            .browsers {
-                display: none;
-            }
-
-            .btn {
-                display: none;
-            }
-
-            .container a {
-                display: none;
-            }
-
-            .content {
-                background: radial-gradient(ellipse at center,
-                        #fffeea 0%,
-                        #fffeea 35%,
-                        #b7e8eb 100%);
-            }
-
-
-            /* header {
-                width: 100%;
-                background-image: url("/superAdmin/assets/img/wave.png");
-                 background: #000 !important;
-        } */
-
-            body {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-
-            }
-
-            .row1 {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 40px;
-            }
-
-            /* add new */
-            .select2-selection__clear {
-                display: none;
-            }
-
-            .select2-selection__choice__remove {
-                display: none;
-
-            }
-
-            .added_medicine_style {
-                border: none;
-                outline: none;
-            }
-
-            .select2-container--default .select2-selection--multiple {
-                border: none;
-                outline: none;
-                background-color: transparent;
-            }
-
-            table {
-                margin-top: -20px;
-            }
-
-            .cti {
-                margin-bottom: 0px;
-            }
-
-            #medicinetag {
-                display: block;
-            }
-
-        }
-        header{
-            width: 100%;
-        }
-    </style> -->
     <style>
         * {
             padding: 0;
@@ -454,10 +80,6 @@
             justify-content: space-between;
             align-items: center;
         }
-
-        /* header{
-            background-image: url("/superAdmin/assets/img/wave\(2\).png");
-        } */
         body {
             background: radial-gradient(ellipse at center,
                     #fffeea 0%,
@@ -556,17 +178,9 @@
                         #b7e8eb 100%);
             }
 
-
-            /* header {
-                width: 100%;
-                background-image: url("/superAdmin/assets/img/wave.png");
-                 background: #000 !important;
-        } */
-
             body {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
-
             }
 
             .row1 {
@@ -583,9 +197,7 @@
 
             .select2-selection__choice__remove {
                 display: none;
-
             }
-
             .added_medicine_style {
                 border: none;
                 outline: none;
@@ -612,15 +224,9 @@
             #backArrow {
                 display: none;
             }
-
             /* header {page-break-after: always;} */
-
         }
-
-       
     </style>
-
-
 </head>
 <!-- antiquewhite -->
 
@@ -629,7 +235,7 @@
     <div >
     <header style="width: 100%;">
             <div class="">
-            <div class="row1   shadow  p-2 ">
+            <div class="row1 shadow  p-2 ">
                     <div class="doctor-details d-flex flex-column" >
                         <h2 class="name text-info">{{$prescriptions->name}} </h2>
                         <span class="qualification Degree">{{$prescriptions->qualification}}</span>
@@ -651,41 +257,13 @@
                         <span class="phone no">Phone: {{$prescriptions->phone}}</span>
                         <span>RegNo: <span class="ml-2">{{$prescriptions->reg_no}}</span></span>
                     </div>
-                   
                 </div>
             </div>
         </header>
-        <!-- <header style="width: 100%;">
-            <div>
-                <div class="row1 shadow  p-3">
-                    <div class="doctor-details">
-                        <h2 class="name">{{$prescriptions->name}} </h2>
-                        <p class="qualification Degree">{{$prescriptions->qualification}}</p>
-                        <h3 class="Education Informations">{{$prescriptions->education_informations}}</h3>
-                        <p class="specialist text-danger">{{$prescriptions->specialist}}</p>
-                    </div>
-                    <div class="doctor-details text-center">
-                        <h2>রোগী দেখার সময়</h2>
-                            <div class="text-center">
-                                <p class="seating-day">প্রতিদিন : {{$prescriptions->seating_day}}</p>
-                                <p class="seating-time">সময় : {{$prescriptions->whenyouseat}}</p>
-                            </div>
-                    </div>
-                    <div class="doctor-details" id="chember-details">
-                        <h2 class="clinic-name">{{$clinicDetails->clinic_name}} </h2>
-                            <p class="location">Address: {{$clinicDetails->location}}</p>
-                            <p class="phone no">Phone: {{$prescriptions->phone}}</p>
-                            <p>RegNo: <span class="ml-2">{{$prescriptions->reg_no}}</span></p>
-                    </div>
-                </div>
-            </div>
-        </header> -->
-
         <main>
             <!-- ------------------- -->
             <form id="medicineSubmitForm">
                 @csrf
-
                 <div class="container-fluid my-4">
                     <div class="row">
                         <div class="col-sm-5">
@@ -710,41 +288,31 @@
                         <div class="col-sm-3">
                             <div class="input-group">
                                 <span class="input-group-text">Date</span>
-                                <input type="text" name="date" value="{{date('F jS, Y g:i A', strtotime($prescriptions->date))}}" aria-label="date" class="form-control input">
+                                <!-- <input type="text" name="date" value="{{date('F jS, Y g:i A', strtotime($prescriptions->date))}}" aria-label="date" class="form-control input"> -->
+                                <input type="text" name="date" value="{{date('d-m-y g:i:s a',strtotime($prescriptions->date))}}" aria-label="date" class="form-control input">
                             </div>
                         </div>
                     </div>
                     <div class="row cti my-3 ">
                         <div class="col-sm-3 col-md-3">
                             <h3 class="text-center">Chief Complaints</h3>
-                            <div class="input-group ">
+                            <!-- <div class="input-group ">
                                 <select class="form-select input  tag1" name="complaints[]" multiple="multiple" aria-label="Default select example">
-                                    <!-- <option selected>Chief Complaints</option> -->
-                                    <!-- <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="4">Four</option>
-                                    <option value="5">Five</option>
-                                    <option value="6">six</option>
-                                    <option value="7">seven</option> -->
-                                   
                                     @if($prescriptions->complaints)
                                     @foreach(json_decode($prescriptions->complaints) as $member)
                                     <option value="{{$member}}" selected>{{$member}}</option>
                                     @endforeach
                                     @endif
-                                    
                                 </select>
+                            </div> -->
+                            <div class="input-group">
+                                <input type="text" name="complaints" aria-label="name" value="{{$prescriptions->complaints}}" placeholder="Enter patient complaints" class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-3 col-md-3">
                             <h3 class="text-center">Test</h3>
                             <div class="input-group ">
                                 <select class="form-select input  tag2" name="tests[]" multiple="multiple" aria-label="Default select example">
-                                    <!-- <option selected>On Examinations</option> -->
-                                    <!-- <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
                                     @if($prescriptions->tests)
                                     @foreach(json_decode($prescriptions->tests) as $member)
                                     <option value="{{$member}}" selected>{{$member}}</option>
@@ -757,10 +325,6 @@
                             <h3 class="text-center">Investigations</h3>
                             <div class="input-group text-center">
                                 <select class="form-select input  tag3" name="investigations[]" multiple="multiple" aria-label="Default select example">
-                                    <!-- <option selected>Investigation</option> -->
-                                    <!-- <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
                                     @if($prescriptions->investigations)
                                     @foreach(json_decode($prescriptions->investigations) as $member)
                                     <option value="{{$member}}" selected>{{$member}}</option>
@@ -771,56 +335,23 @@
                         </div>
                         <div class="col-sm-3 col-md-3">
                             <h3 class="text-center">Diagnose</h3>
-                            <div class="input-group text-center">
+                            <!-- <div class="input-group text-center">
                                 <select class="form-select input  tag3" name="diagnoses[]" multiple="multiple" aria-label="Default select example">
-                                    <!-- <option selected>Investigation</option> -->
-                                    <!-- <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option> -->
                                     @if($prescriptions->diagnoses)
                                     @foreach(json_decode($prescriptions->diagnoses) as $member)
                                     <option value="{{$member}}" selected>{{$member}}</option>
                                     @endforeach
                                     @endif
                                 </select>
+                            </div> -->
+                            <div class="input-group">
+                                <input type="text" name="diagnoses" aria-label="name" value="{{$prescriptions->diagnoses}}" placeholder="Enter patient diagnoses" class="form-control">
                             </div>
                         </div>
                         
                     </div>
                     <!-- ------------------------ -->
                     <div class="bd-highlight">
-                        <!-- <div class="d-flex justify-content-between p-2  bd-highlight my-4">
-                            <div class="complaints ">
-                                <h5>Chief Complaints</h5>
-                                <select class="form-select  tag1" name="complaints[]" multiple="multiple" aria-label="Default select example">
-                                    <option selected>Chief Complaints</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                    <option value="4">Four</option>
-                                    <option value="5">Five</option>
-                                    <option value="6">six</option>
-                                    <option value="7">seven</option>
-                                </select>
-                            </div> 
-                            <div class="examinations">
-                                <h5>On Examinations</h5>
-                                <select class="form-select  tag2" name="examinations[]" multiple="multiple" aria-label="Default select example">
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                             <div class="investigations flex-1">
-                                <h5>Investigations</h5>
-                                <select class="form-select  tag3" name="investigations[]" multiple="multiple" aria-label="Default select example">
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-
-                        </div> -->
                         <div class="flex-fill bd-highlight flex-grow-1">
                             <div class="row cti my-1">
                                 <p id="medicinetag">Medicine:</p>
@@ -831,11 +362,6 @@
                                     <input class="form-select input medicine_input" type="text" list="when" id="medi2" name="whenTake" onfocus="this.value=''" placeholder="Select when take Medicine">
                                 </div>
                                 <div class="col-sm">
-                                    <!-- <select class="form-select input medicine_input" id="medi3" name="aftBfrEat" aria-label="Default select example">
-                                            <option selected>Select After or Before Eating Food</option>
-                                            <option value="before eat">খাবারের আগে </option>
-                                            <option value="after eat">খাবারের পরে</option>
-                                        </select> -->
                                     <input class="form-select medicine_input" type="text" id="medi3" name="aftBfrEat" list="food" onfocus="this.value=''" placeholder="Select After or Before Eat Food">
                                 </div>
                                 <div class="col-sm">
@@ -885,44 +411,6 @@
                         </div>
                     </div>
                     <!-- ---------- -->
-                    <!-- <datalist id="medicine">
-                            <option value="tab. methox 2.5mg">
-                            <option value="tab. methotrax 2.5mg">
-                            <option value="tab. folita 5mg">
-                            <option value="cap soritac 10mg">
-                            <option value="cap soritac 25mg">
-                            <option value="tab. xalcort 6mg">
-                            <option value="tab. deflacort 6mg">
-                        </datalist> -->
-                    <!-- <datalist id="when">
-                            <option value="1+0+0">
-                            <option value="0+1+0">
-                            <option value="10+0+1">
-                            <option value="1+0+1">
-                            <option value="1+1+0">
-                            <option value="0+1+1">
-                            <option value="1+1+1">
-                        </datalist> -->
-                    <!-- <datalist id="food">
-                            <option value="khabar age">খাবারের আগে </option>
-                            <option value="khabar"> খাবারের পরে </option>
-                        </datalist> -->
-                    <!-- rules -->
-                    <!-- <div class="rules" style="font-size: 12px;">
-                            <dl>
-                                <dt>উপদেশঃ</dt>
-                                <dd>* কানে তুলা দিয়ে গোসল করবেন / করাবেন।</dd>
-                                <dd>* কটন বার দিয়ে দৈনিক ৩বার কান / নাক পরিস্কার করবেন।</dd>
-                                <dd>* অপরিস্কার কোন জিনিস দিয়ে কান চুল্কাবেন না।</dd>
-                                <br>
-
-                                <dt>নিষেধঃ</dt>
-                                <dd>* খাদ্যঃ গরুর মাংস, ডিম, চিংড়ি মাছ, ইলিশ মাছ, বেগুন, কচু, হাসের মাংস, পুঁই শাক, আনারস।</dd>
-                                <dd>* কাপড়ঃ টেট্রন,পলেস্টার, উলেন, লিলেন ও সিল্কের কাপড়। পারফিউম কাপড় কাঁচা সাবান। </dd>
-                                <dd>* ঔষধঃ কোট্রইমক্সাজল, ডিসপিরিন, ইনডোমেথাসিন, ডক্সিসাইক্লিন, সিপ্রোফক্সাসিন, ডাইক্লোফেনাক, সোডিয়াম, <br> ইটোরিকক্সিব, ন্যাপ্রোক্সেম সোডিয়াম, টেট্রসাইক্লিন, আইবুপ্রফেন জাতীয় ঔষধ খাবেন না।</dd>
-                            </dl>
-                            <p>**রেজিস্ট্রার ডাক্তারের পরামর্শ অনুযায়ী ঔষধ খাবেন।</p>
-                        </div> -->
                 </div>
                 <div class="d-grid gap-2 m-2 d-md-block">
                     <button onclick="window.print()" class="btn btn-primary" type="button" id="print">Print</button>
@@ -1014,9 +502,6 @@
             $('.added_medicine_style').prop('disabled', true);
         });
     </script>
-
-
 </body>
-
 </html>
 

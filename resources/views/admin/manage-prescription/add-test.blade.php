@@ -26,9 +26,7 @@
                     <button type="submit" class="btn btn-primary" style="background-color:#003366; color:#fff; font-weight: bold;">Add</button>
                 </div>
             </form>
-
         </div>
-
     </div>
     <!-- table -->
     <!-- table -->
@@ -100,17 +98,17 @@
             url: "{{route('save.test.form')}}",
             data: formData,
             success: function(data) {
-                if (data.status === "exit") {
-
-                    $('testErrorMsg').text(data.massage + " " + 'already exists.');
+                if (data.status == 'exit') {
+                    $('#testErrorMsg').text(data.massage + " " + 'already exists.');
                     return;
                 }
 
                 if (data.status === true) {
-                    toastr.success( data.massage +" "+'Test Added Success', 'Add Test');
+                    toastr.success( data.massage +" "+'Test Added Success.', 'Add Test!');
+                    $('#testErrorMsg').text('');
                     table.ajax.reload();
                 } else {
-                    toastr.error('Something wrong!', 'Try again!');
+                    toastr.error('Something wrong.', 'Try again!');
 
                 }
             },
@@ -156,10 +154,7 @@
 
             }
         })
-
-    })
+    });
 </script>
-
 @endpush
-
 @endsection

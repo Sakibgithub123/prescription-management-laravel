@@ -52,7 +52,7 @@ class MedicineAdded extends Notification
     {
         return [
             //
-            'medicine'=>$this->medicine,
+            // 'medicine'=>$this->medicine,
             'message'=> $this->medicine.' a new medicine has been added',
         ];
     }

@@ -10,7 +10,6 @@ MediCareOPS-Home
         position: absolute;
         width: 100%;
     }
-
     .animation .p {
         font-size: 3em;
         /* color: limegreen; */
@@ -29,13 +28,11 @@ MediCareOPS-Home
         -webkit-animation: animation 35s linear infinite;
         animation: animation 35s linear infinite;
     }
-
     /* Move it (define the animation) */
     @-moz-keyframes animation {
         0% {
             -moz-transform: translateX(100%);
         }
-
         100% {
             -moz-transform: translateX(-100%);
         }
@@ -45,12 +42,10 @@ MediCareOPS-Home
         0% {
             -webkit-transform: translateX(100%);
         }
-
         100% {
             -webkit-transform: translateX(-100%);
         }
     }
-
     @keyframes animation {
         0% {
             -moz-transform: translateX(100%);
@@ -59,7 +54,6 @@ MediCareOPS-Home
             /* Firefox bug fix */
             transform: translateX(100%);
         }
-
         100% {
             -moz-transform: translateX(-100%);
             /* Firefox bug fix */
@@ -86,7 +80,6 @@ MediCareOPS-Home
         <div id="why-us" class="why-us pt-5">
             <!-- <div class="container"> -->
             <div class="p-5">
-
                 <div class="row">
                     <div class="col-lg-4 d-flex align-items-stretch">
                         <div class="content text-center">
@@ -94,10 +87,6 @@ MediCareOPS-Home
                             <p class="text-justify">
                                 Choose MediCareOPS for its comprehensive lab management, customizable workflows, robust quality control, seamless integration with systems and advanced data security. They ensure efficient, reliable and safe laboratory operations.
                             </p>
-                            <!-- <div class="text-center">
-                                Medilab
-                                <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
-                            </div> -->
                         </div>
                     </div>
                     <div class="col-lg-8 d-flex align-items-stretch">
