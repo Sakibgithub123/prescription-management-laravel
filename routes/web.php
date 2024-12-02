@@ -129,6 +129,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/edit-prescription', [FrontEndController::class, 'editPrescription'])->name('edit.prescription');
 
     //print page
+    Route::get('/review/print/{id}', [FrontEndController::class, 'printPageReview'])->name('printPageReview');
+    Route::post('/delete/print', [FrontEndController::class, 'deletePrintPrescription'])->name('delete.prescription');
     Route::get('/show/print/{id}', [FrontEndController::class, 'printPageUpdate'])->name('printPage');
 
     //------statistics-------------

@@ -52,14 +52,14 @@
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" autofocus="" name="email" class="form-control">
+                            <input type="email" autofocus="" name="email" class="form-control" placeholder="user@gmail.com">
                         </div>
                         <div class="form-group">
                             <p id="emailError"></p>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="12345678">
                             <!-- <input type="checkbox" onclick="showPass()"> <span class="showpass">Show Password</span> -->
                         </div>
                         <div class="form-group">

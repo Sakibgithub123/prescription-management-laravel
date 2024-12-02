@@ -131,6 +131,10 @@
             font-size: 0.8rem;
         }
 
+        th {
+            font-size: 14px;
+        }
+
         /* table td{
             font-size: 4px;
         } */
@@ -249,31 +253,32 @@
 </head>
 
 <body>
-    <button style="outline: none; border:none; background: none;" id="backArrow" onclick="history.back()"><i
+
+    <button style="outline: none; border:none; background: none;" id="backArrow" data-id="{{$prescriptions->id}}" onclick="history.back()"><i
             class="fa fa-arrow-left px-2" aria-hidden="true"></i>Back</button>
     <div>
         <header id="header" style="width: 100%;">
             <div>
                 <div class="row1 shadow  p-2">
                     <div class="doctor-details d-flex flex-column">
-                        <h2 class="name text-info">{{$prescriptions->name}} </h2>
-                        <span class="qualification Degree">{{$prescriptions->qualification}}</span>
-                        <span class="Education Informations">{{$prescriptions->education_informations}}</span>
-                        <span class="institute">{{$prescriptions->friday_seating_time}}</span>
-                        <span class="specialist text-danger">{{$prescriptions->specialist}}</span>
+                        <h2 class="name text-info">{{$doctorDetails->name}} </h2>
+                        <span class="qualification Degree">{{$doctorDetails->qualification}}</span>
+                        <span class="Education Informations">{{$doctorDetails->education_informations}}</span>
+                        <span class="institute">{{$doctorDetails->friday_seating_time}}</span>
+                        <span class="specialist text-danger">{{$doctorDetails->specialist}}</span>
                     </div>
                     <div class=" doctor-details text-center">
                         <h2>রোগী দেখার সময়</h1>
                             <div class="text-center d-flex flex-column">
-                                <span class="seating-day">প্রতিদিন : {{$prescriptions->seating_day}}</span>
-                                <span class="seating-time">সময় : {{$prescriptions->whenyouseat}}</span>
+                                <span class="seating-day">প্রতিদিন : {{$doctorDetails->seating_day}}</span>
+                                <span class="seating-time">সময় : {{$doctorDetails->whenyouseat}}</span>
                             </div>
                     </div>
                     <div class=" doctor-details d-flex flex-column" id="chember-details">
                         <h2 class="clinic-name">{{$clinicDetails->clinic_name}} </h1>
                             <span class="location">Address: {{$clinicDetails->location}}</span>
                             <!-- <h3>location_details</h3> -->
-                            <span class="phone no">Phone: {{$prescriptions->phone}}</span>
+                            <span class="phone no">Phone: {{$doctorDetails->phone}}</span>
                             <span>RegNo: <span class="ml-2">{{$prescriptions->reg_no}}</span></span>
                     </div>
                 </div>
@@ -285,6 +290,10 @@
 
             <form id="medicineSubmitForm">
                 @csrf
+                <input type="hidden" name="prescription_id" value="{{$prescriptions->id}}">
+                <input type="hidden" name="dr_id" value="{{Auth::user()->id}}">
+                <input type="hidden" name="visit_fee" value="{{Auth::user()->visit_fee}}">
+                <!-- <input type="hidden" name="reg_no" value="{{$prescriptions->reg_no}}" id=""> -->
                 <div class="container-fluid my-4">
                     <div class="row conacani1">
                         <div class="col-sm-5">
@@ -448,12 +457,15 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- ---------- -->
                     </div>
                 </div>
                 <!-- </div> -->
                 <div class="d-grid gap-2 d-md-block m-4">
                     <button onclick="window.print()" class="btn btn-primary" type="button" id="print">Print</button>
+                    <button class="btn btn-info text-white" id="review" data-id="{{$prescriptions->id}}">
+                    Review Update</button>
                 </div>
             </form>
 
@@ -467,6 +479,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#review', function() {
+                let pId = $(this).attr('data-id');
+                // alert(patientId);
+                $.ajax({
+                    url: "{{route('delete.prescription')}}",
+                    method: 'post',
+                    data: {
+                        'pId': pId,
+                        '_token': '{{ csrf_token() }}'
+                    },
+                    success: function(res) {
+                        if (res.status == 'success') {
+
+                            history.back()
+                            toastr.info('Back!', 'Back To Review Prescription!')
+                        }
+
+                    }
+                })
+
+            });
+        })
+    </script>
 </body>
 
 </html>

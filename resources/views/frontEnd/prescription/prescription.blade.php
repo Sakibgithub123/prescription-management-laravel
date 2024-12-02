@@ -257,7 +257,7 @@
                         <span class="location">Address: {{$clinicDetails->location}}</span>
                         <!-- <h3>location_details</h3> -->
                         <span class="phone no">Phone: {{$drId->phone}}</span>
-                        <span>RegNo: <span class="ml-2"  id="regId">{{$reg_no}}</span></span>
+                        <span>RegNo: <span class="ml-2" id="regId">{{$reg_no}}</span></span>
                     </div>
                 </div>
             </div>
@@ -424,7 +424,9 @@
                 </div>
                 <!-- </div> -->
                 <div class="d-grid gap-2 d-md-block mx-2">
-                    <button class="btn btn-primary" type="submit" id="print">Print</button>
+                    <button class="btn btn-primary" type="submit" id="print">
+                        Print
+                    </button>
                     <input class="btn btn-success" id="resetForm" type="reset" value="Reset">
                 </div>
             </form>
@@ -502,10 +504,11 @@
                 placeholder: 'Select Diagnose',
                 allowClear: true,
             });
+
             function generateUniqueCode() {
-            return Math.floor(1000 + Math.random() * 9000); // Generates a number between 1000 and 9999
-        }
-        const regNo=generateUniqueCode()
+                return Math.floor(1000 + Math.random() * 9000); // Generates a number between 1000 and 9999
+            }
+            const regNo = generateUniqueCode()
 
             $('#medicineSubmitForm').on('submit', function(e) {
                 e.preventDefault();
@@ -521,11 +524,12 @@
                             // window.print();
                             $('#regId').text(`REG${regNo}`); // Correct method to set text
                             $('.reg').val(`REG${regNo}`); // Set regNo to any input with class 'reg'
-                            toastr.success('Prescription Save!', 'Prescription save successfully!')
+                            
                             let id = data.id; // Ensure reg_no is available here
                             // alert(id)
-                            location.href = `/show/print/${id}`;
-                            
+                            location.href = `/review/print/${id}`;
+                            toastr.success('Prescription Save!', 'Prescription save successfully!')
+
                         } else {
                             toastr.error('Something wrong!', 'Try again!');
                         }
@@ -548,7 +552,7 @@
 
                 // Reset Select2 fields
                 $('.form-select').val(null).trigger('change');
-              
+
 
                 $('#table tbody tr td').each(function() {
                     // Set the content of each td element to an empty string
@@ -566,7 +570,7 @@
         // function goBack(){
         //     history.back(-1);
         // }
-       
+
 
 
         // console.log(generateUniqueCode());

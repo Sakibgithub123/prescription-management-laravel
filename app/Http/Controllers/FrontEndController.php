@@ -190,6 +190,32 @@ class FrontEndController extends Controller
         // ['prescriptions' => $prescription, 'doctorDetails' => $doctorDetails]
         return view('frontEnd.patient.show-prescription', compact('prescriptions', 'doctorDetails', 'clinicDetails', 'complaints', 'diagnoses', 'tests', 'investigations', 'medicines'));
     }
+    public function printPageReview($id)
+    {
+        $drId = Auth::user()->id;
+        $doctorDetails = Prescription::select('*', 'users.name as name')
+            ->join('users', 'prescriptions.dr_id', 'users.id')
+            ->where('users.id', $drId)
+            ->first();
+        $prescriptions = Prescription::find($id);
+        $clinicDetails = Clinic::find(1);
+        $complaints = Complaints::all();
+        $diagnoses = Diagnose::all();
+        $tests = Test::all();
+        $investigations = Investigation::all();
+        $medicines = Medicine::all();
+        // ['prescriptions' => $prescription, 'doctorDetails' => $doctorDetails]
+        return view('frontEnd.print-page.print-page-review', compact('prescriptions', 'doctorDetails', 'clinicDetails', 'complaints', 'diagnoses', 'tests', 'investigations', 'medicines'));
+    }
+    public function deletePrintPrescription(Request $request)
+    {
+        $patientId = Prescription::where('id', $request->pId)->delete();
+        if ($patientId) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }
+    }
     public function printPageUpdate($id)
     {
         $drId = Auth::user()->id;
@@ -382,9 +408,10 @@ class FrontEndController extends Controller
         ];
 
         // Use updateOrCreate to update or insert the prescription by reg_no
-        $prescription = Prescription::updateOrCreate(
-            ['reg_no' => $request->reg_no],  // Condition to find the record by reg_no
-            $data  // Fields to update or create
+        $prescription = Prescription::create(
+            $data
+            // ['reg_no' => $request->reg_no],  // Condition to find the record by reg_no
+            // $data  // Fields to update or create
         );
 
         // Check if the prescription was saved or updated

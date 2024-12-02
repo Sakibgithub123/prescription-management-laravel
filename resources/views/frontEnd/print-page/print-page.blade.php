@@ -330,8 +330,9 @@
                         <div class="col-sm-3">
                             <div class="input-group">
                                 <span class="input-group-text">Date</span>
-                                <input type="text" name="date" aria-label="date" value="{{$prescriptions->date}}"
-                                    class="form-control">
+                                <span  class="form-control">{{$prescriptions->date}}</span>
+                                <!-- <input type="text" name="date" aria-label="date" value="{{$prescriptions->date}}"
+                                    class="form-control"> -->
                             </div>
                         </div>
                     </div>
